@@ -143,3 +143,5 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 [] execVM "addons\SARGE\SAR_AI_init.sqf";
 
 //[] execVM "admintools\Activate.sqf";
+
+[] execVM "your folder\NovyLugBase.sqf";
