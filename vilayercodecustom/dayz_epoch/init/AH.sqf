@@ -4,7 +4,7 @@ waitUntil {!isNil "BIS_fnc_init"};
 
 /* ADD LOW ADMIN HERE     */ PVDZ_LOW_AdminList = [];
 /* ADD NORMAL ADMIN HERE  */ PVDZ_NORMAL_AdminList = [];
-/* ADD SUPER ADMIN HERE   */ PVDZ_SUPER_AdminList = ["51361798","116334982","106982534","106734150","73665926","119653894","67442502"];
+/* ADD SUPER ADMIN HERE   */ PVDZ_SUPER_AdminList = ["116334982","106982534","106734150","73665926","119653894","67442502"]; //Eric ("51361798",) Removed himself from Admin - 11/17
 /* ADD BANNED PLAYER HERE */ PVDZ_BLOCKED = [];
 /* ADMIN PASSWORD         */ _AdminPassword = "54321";
 /* Enable Password        */ _EnablePassword = true;
