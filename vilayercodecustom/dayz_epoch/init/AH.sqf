@@ -9,9 +9,9 @@ waitUntil {!isNil "BIS_fnc_init"};
 /* ADMIN PASSWORD         */ _AdminPassword = "54321";
 /* Enable Password        */ _EnablePassword = true;
 /* OverWatch Yes/No       */ _Mod_OverWatch = false;
-/* TOP ESC MENU           */ _TopOfESC = 'DayZ';
-/* BOTTOM ESC MENU - 1    */ _LowerTop = 'ProPlan @';
-/* BOTTOM ESC MENU - 2    */ _LowerBottom = 'BlurGaming.com';
+/* TOP ESC MENU           */ _TopOfESC = 'DayZ Epoch';
+/* BOTTOM ESC MENU - 1    */ _LowerTop = '[AiE] Aileron in Effect';
+/* BOTTOM ESC MENU - 2    */ _LowerBottom = 'aieclan.com';
 /* ALLOWED CMDMenus       */ _cMenu =
 [
 	'','RscMainMenu','RscMoveHigh','#WATCH','#WATCH0','RscWatchDir',
