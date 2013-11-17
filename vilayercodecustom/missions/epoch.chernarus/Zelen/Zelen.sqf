@@ -1,24 +1,4 @@
-activateAddons [
-];
-
-activateAddons [];
-initAmbientLife;
-
-_this = createCenter west;
-_center_0 = _this;
-
-_group_0 = createGroup _center_0;
-
-_unit_1 = objNull;
-if (true) then
-{
-  _this = _group_0 createUnit ["FR_R", [2527.7078, 5023.5801, -0.091648057], [], 0, "CAN_COLLIDE"];
-  _unit_1 = _this;
-  _this setDir -13.432981;
-  _this setUnitAbility 0.60000002;
-  if (true) then {_group_0 selectLeader _this;};
-  if (true) then {selectPlayer _this;};
-};
+if (isServer) then {
 
 _vehicle_0 = objNull;
 if (true) then
@@ -1257,6 +1237,4 @@ if (true) then
   _this setPos [2079.843, 5205.6372, -3.0517578e-005];
 };
 
-processInitCommands;
-runInitScript;
-finishMissionInit;
+};

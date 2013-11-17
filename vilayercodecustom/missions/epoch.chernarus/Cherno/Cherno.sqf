@@ -1,23 +1,4 @@
-activateAddons [
-];
-
-activateAddons [];
-initAmbientLife;
-
-_this = createCenter west;
-_center_0 = _this;
-
-_group_0 = createGroup _center_0;
-
-_unit_0 = objNull;
-if (true) then
-{
-  _this = _group_0 createUnit ["BAF_Pilot_MTP", [6990.7046, 2838.8293], [], 0, "CAN_COLLIDE"];
-  _unit_0 = _this;
-  _this setUnitAbility 0.60000002;
-  if (true) then {_group_0 selectLeader _this;};
-  if (true) then {selectPlayer _this;};
-};
+if (isServer) then {
 
 _vehicle_8 = objNull;
 if (true) then
@@ -801,6 +782,4 @@ if (true) then
   _this setPos [7041.0034, 2795.0662, -8.5830688e-006];
 };
 
-processInitCommands;
-runInitScript;
-finishMissionInit;
+};

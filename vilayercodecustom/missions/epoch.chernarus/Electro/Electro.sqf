@@ -1,22 +1,4 @@
-activateAddons [
-];
-
-activateAddons [];
-initAmbientLife;
-
-_this = createCenter west;
-_center_0 = _this;
-
-_group_0 = createGroup _center_0;
-
-_vehicle_0 = objNull;
-if (true) then
-{
-  _this = createVehicle ["Land_HBarrier_large", [10385.272, 2074.481, -5.197525e-005], [], 0, "CAN_COLLIDE"];
-  _vehicle_0 = _this;
-  _this setDir -22.094658;
-  _this setPos [10385.272, 2074.481, -5.197525e-005];
-};
+if (isServer) then {
 
 _vehicle_2 = objNull;
 if (true) then
@@ -315,6 +297,4 @@ if (true) then
   if (true) then {setPlayable _this;};
 };
 
-processInitCommands;
-runInitScript;
-finishMissionInit;
+};

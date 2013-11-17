@@ -1,22 +1,4 @@
-activateAddons [ 
-  "map_eu"
-];
-
-activateAddons ["map_eu"];
-initAmbientLife;
-
-_this = createCenter west;
-_center_1 = _this;
-
-_group_1 = createGroup _center_1;
-
-_vehicle_317 = objNull;
-if (true) then
-{
-  _this = createVehicle ["WoodRamp_DZ", [7471.6948, 14149.207, -4.4057007], [], 0, "CAN_COLLIDE"];
-  _vehicle_317 = _this;
-  _this setPos [7471.6948, 14149.207, -4.4057007];
-};
+if (isServer) then {
 
 _vehicle_430 = objNull;
 if (true) then
@@ -3185,6 +3167,4 @@ if (true) then
   _this setPos [6444.2505, 14139.303, 20.987179];
 };
 
-processInitCommands;
-runInitScript;
-finishMissionInit;
+};

@@ -1,26 +1,4 @@
-activateAddons [ 
-  "map_eu"
-];
-
-activateAddons ["map_eu"];
-initAmbientLife;
-
-_this = createCenter west;
-_center_0 = _this;
-
-_this = createCenter west;
-_center_1 = _this;
-
-_group_0 = createGroup _center_1;
-
-_vehicle_2 = objNull;
-if (true) then
-{
-  _this = createVehicle ["Land_Mil_Barracks_i", [4597.6611, 9722.4033, 0.17241776], [], 0, "CAN_COLLIDE"];
-  _vehicle_2 = _this;
-  _this setDir 10.133855;
-  _this setPos [4597.6611, 9722.4033, 0.17241776];
-};
+if (isServer) then {
 
 _vehicle_4 = objNull;
 if (true) then
@@ -455,6 +433,4 @@ if (true) then
   _this setPos [4376.5723, 10987.485, 9.1552734e-005];
 };
 
-processInitCommands;
-runInitScript;
-finishMissionInit;
+};
