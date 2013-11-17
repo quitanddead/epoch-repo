@@ -147,6 +147,7 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 
 [] execVM "NovyLugBase\NovyLugBase.sqf";
 [] execVM "NorthernAdminBase\NorthernAdminBase.sqf";
+[] execVM "BalotaAddons\BalotaAddons.sqf";
 
 //[EPOCH-35]
 [] execvm 'AGN\agn_SafeZoneCommander.sqf';
