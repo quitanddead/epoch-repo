@@ -160,3 +160,7 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 //[EPOCH-50] Curt - Cherno
 [] execVM 'Cherno\Cherno.sqf';
 //[/EPOCH-50]
+
+//[EPOCH-50] Aaron - NWAF
+[] execVM 'NWAF\NWAF.sqf';
+//[/EPOCH-50]
