@@ -176,3 +176,7 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 //[EPOCH-50] Curt - GreenMountain
 [] execVM 'GreenMountain\GreenMountain.sqf';
 //[/EPOCH-50]
+
+//[EPOCH-50] Geno - Prison
+[] execVM 'Prison\Prison.sqf';
+//[/EPOCH-50]
