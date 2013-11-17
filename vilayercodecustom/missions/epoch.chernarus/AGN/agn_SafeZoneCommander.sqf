@@ -49,9 +49,7 @@ while {true} do {
 
 	if ( AGN_safeZoneGodmode ) then
 	{
-		//[EPOCH-49]
-		//player_zombieCheck = {};
-		//[/EPOCH-49]
+		player_zombieCheck = {};
 		fnc_usec_damageHandler = {};
 		_thePlayer removeAllEventHandlers "handleDamage";
 		_thePlayer addEventHandler ["handleDamage", {false}];
@@ -231,9 +229,7 @@ while {true} do {
 	
 	if ( AGN_safeZoneGodmode ) then
 	{
-		//[EPOCH-49]
-		//player_zombieCheck = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\player_zombieCheck.sqf";
-		//[/EPOCH-49]
+		player_zombieCheck = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\player_zombieCheck.sqf";
 		fnc_usec_damageHandler = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_damageHandler.sqf";
 		_thePlayer addEventHandler ["handleDamage", {true}];
 		_thePlayer removeAllEventHandlers "handleDamage";
