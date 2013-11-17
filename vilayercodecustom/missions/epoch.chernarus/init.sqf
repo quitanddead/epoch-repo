@@ -153,6 +153,10 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 [] execVM 'AGN\agn_SafeZoneCommander.sqf';
 //[/EPOCH-35]
 
-//Start :: Curt - Zelenogorsk - 11/17/13
+//[EPOCH-50] Curt - Zelenogorsk
 [] execVM 'Zelen\Zelen.sqf';
-//End :: Curt - Zelenogorsk - 11/17/13
+//[/EPOCH-50]
+
+//[EPOCH-50] Curt - Cherno
+[] execVM 'Cherno\Cherno.sqf';
+//[/EPOCH-50]
