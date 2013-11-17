@@ -308,6 +308,16 @@ if (!isNull _cursorTarget and !_inVehicle and (player distance _cursorTarget < 4
 		player removeAction s_player_studybody;
 		s_player_studybody = -1;
 	};
+	//CLOTHES [EPOCH-5]
+    if (_isMan and !_isAlive and !_isZombie and !_isAnimal) then {
+    if (s_clothes < 0) then {
+            s_clothes = player addAction [("<t color=""#FF0000"">" + ("Take Clothes") + "</t>"), "fixes\clothes.sqf",cursorTarget, 1, false, true, "",""];
+        };
+    } else {
+        player removeAction s_clothes;
+        s_clothes = -1;
+    };
+    //[/EPOCH-5]
 } else {
 	//Engineering
 	{dayz_myCursorTarget removeAction _x} forEach s_player_repairActions;s_player_repairActions = [];
@@ -337,6 +347,10 @@ if (!isNull _cursorTarget and !_inVehicle and (player distance _cursorTarget < 4
 	s_player_fillfuel = -1;
 	player removeAction s_player_studybody;
 	s_player_studybody = -1;
+	//[EPOCH-5]
+	player removeAction s_clothes;
+    s_clothes = -1;
+    //[/EPOCH-5]
 	/*
 	//Drag Body
 	player removeAction s_player_dragbody;
