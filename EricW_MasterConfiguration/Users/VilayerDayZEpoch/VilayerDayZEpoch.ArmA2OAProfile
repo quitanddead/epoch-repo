@@ -165,3 +165,7 @@ volumeFX=6.5;
 volumeSpeech=6.5;
 volumeVoN=6.5;
 vonRecThreshold=0.029999999;
+
+class sockets{maxPacketSize=2048;};
+MinBandwidth=12800000;
+MaxBandwidth=10737418240;
