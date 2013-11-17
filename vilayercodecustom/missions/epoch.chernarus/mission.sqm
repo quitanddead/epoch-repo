@@ -1295,6 +1295,14 @@ class Mission
 			type="mil_dot";
 			colorName="ColorBlue";
 		};
+		class Item17
+		{
+			position[]={9506.09,11315.3,0.001};
+			name="NovyLug";
+			text="Novy Lug Base";
+			type="mil_circle";
+			colorName="ColorBlue";
+		};
 	};
 	class Sensors
 	{
