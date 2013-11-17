@@ -53,6 +53,19 @@ class RscPicture
 	lineSpacing=0;
 	text="";
 };
+class CfgSounds
+{
+    sounds[] =
+    {
+    introSong
+    };
+    class introSong
+    {
+    name="introSong";
+    sound[]={introSong.ogg,0.9,1};
+    titles[] = {};
+    };
+};
 class RscLoadingText : RscText
 {
 	style = 2;
