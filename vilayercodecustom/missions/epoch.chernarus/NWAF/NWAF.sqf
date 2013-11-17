@@ -261,17 +261,6 @@ if (true) then
   _this setPos [4314.3042, 11026.199, 3.0517578e-005];
 };
 
-_unit_3 = objNull;
-if (true) then
-{
-  _this = _group_0 createUnit ["US_Soldier_AA_EP1", [4458.8906, 10992.453, -6.1035156e-005], [], 0, "CAN_COLLIDE"];
-  _unit_3 = _this;
-  _this setUnitAbility 0.60000002;
-  if (true) then {_group_0 selectLeader _this;};
-  if (true) then {selectPlayer _this;};
-  if (true) then {setPlayable _this;};
-};
-
 _vehicle_97 = objNull;
 if (true) then
 {
