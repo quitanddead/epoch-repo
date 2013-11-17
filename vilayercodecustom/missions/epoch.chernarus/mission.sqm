@@ -1172,7 +1172,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=17;
+		items=18;
 		class Item0
 		{
 			position[]={7839.6055,381.33774,8414.7324};
@@ -1297,7 +1297,7 @@ class Mission
 		};
 		class Item17
 		{
-			position[]={9506.09,11315.3,0.001};
+			position[]={9506.09,0.001,11315.3};
 			name="NovyLug";
 			text="Novy Lug Base";
 			type="mil_circle";
