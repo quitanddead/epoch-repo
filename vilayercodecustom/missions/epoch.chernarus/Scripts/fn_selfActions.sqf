@@ -311,7 +311,7 @@ if (!isNull _cursorTarget and !_inVehicle and (player distance _cursorTarget < 4
 	//CLOTHES [EPOCH-5]
     if (_isMan and !_isAlive and !_isZombie and !_isAnimal) then {
     if (s_clothes < 0) then {
-            s_clothes = player addAction [("<t color=""#FF0000"">" + ("Take Clothes") + "</t>"), "fixes\clothes.sqf",cursorTarget, 1, false, true, "",""];
+            s_clothes = player addAction [("<t color=""#FF0000"">" + ("Take Clothes") + "</t>"), "Scripts\clothes.sqf",cursorTarget, 1, false, true, "",""];
         };
     } else {
         player removeAction s_clothes;
