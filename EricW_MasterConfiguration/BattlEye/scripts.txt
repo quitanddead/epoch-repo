@@ -1,2 +1,2 @@
 5 setDamage
-1 setVehicleInit
+1 setVehicleInit !"setVehicleInit = \'STRING\';"
