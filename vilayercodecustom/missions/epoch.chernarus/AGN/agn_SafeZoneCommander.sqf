@@ -8,7 +8,7 @@ diag_log ( "[AGN] Starting Trader City Safezone Commander!" );
  
 if ( isDedicated || isServer ) exitWith {diag_log ( "Error: Attempting to start AGN products on a server where it should not be!" );}; 
 
-Private ["_EH_Fired", "_ehID", "_fix","_inVehicle","_inVehicleLast","_EH_Fired_Vehicle",
+private ["_EH_Fired", "_ehID", "_fix","_inVehicle","_inVehicleLast","_EH_Fired_Vehicle",
 		"_inVehicleDamage","_antiBackpackThread","_antiBackpackThread2"];
 		
 private ["AGN_safeZoneGodmode","AGN_safeZoneMessages","AGN_safeZone_Backpack_AllowGearFromLootPiles",
