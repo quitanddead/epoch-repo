@@ -127,8 +127,12 @@ if (!isDedicated) then {
 	//Lights
 	//[0,0,true,true,true,58,280,600,[0.698, 0.556, 0.419],"Generator_DZ",0.1] execVM "\z\addons\dayz_code\compile\local_lights_init.sqf";
 
-        //Repair/Refuel Addon
-        [] execVM "Scripts\repairactions.sqf";
+    //Repair/Refuel Addon
+    [] execVM "Scripts\repairactions.sqf";
+
+    //[EPOCH-35]
+    [] execVM 'AGN\agn_SafeZoneCommander.sqf';
+    //[/EPOCH-35]
 };
 
 //Commented out for Blurgaming AH/Admin Tool
@@ -147,10 +151,6 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 
 [] execVM "NovyLugBase\NovyLugBase.sqf";
 [] execVM "Balota\Balota.sqf";
-
-//[EPOCH-35]
-[] execVM 'AGN\agn_SafeZoneCommander.sqf';
-//[/EPOCH-35]
 
 //[EPOCH-50] Curt - Zelenogorsk
 [] execVM 'Zelen\Zelen.sqf';
