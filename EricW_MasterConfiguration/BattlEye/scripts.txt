@@ -1,2 +1,2 @@
-5 setDamage
+5 setDamage !"_vehicle setdamage 0;"
 1 setVehicleInit !"setVehicleInit = \'STRING\';"
