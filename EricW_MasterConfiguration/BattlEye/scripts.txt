@@ -1,2 +1,2 @@
-5 setDammage
+5 setDamage
 1 setVehicleInit
