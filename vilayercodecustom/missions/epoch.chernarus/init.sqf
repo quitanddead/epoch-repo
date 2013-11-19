@@ -138,23 +138,23 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 [] execVM "Balota\Balota.sqf";
 
 //[EPOCH-35]
-//[] execVM 'AGN\agn_SafeZoneCommander.sqf';
+[] execVM 'AGN\agn_SafeZoneCommander.sqf';
 //[/EPOCH-35]
 
 //[EPOCH-50] Curt - Zelenogorsk
-[] execVM 'Zelen\Zelen.sqf';
+//[] execVM 'Zelen\Zelen.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Curt - Cherno
-[] execVM 'Cherno\Cherno.sqf';
+//[] execVM 'Cherno\Cherno.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Aaron - NWAF
-[] execVM 'NWAF\NWAF.sqf';
+//[] execVM 'NWAF\NWAF.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Logan - New Admin Base
-[] execVM 'AdminBase\AdminBase.sqf';
+//[] execVM 'AdminBase\AdminBase.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Aaron - Electro
