@@ -129,10 +129,6 @@ if (!isDedicated) then {
 
     //Repair/Refuel Addon
     [] execVM "Scripts\repairactions.sqf";
-
-    //[EPOCH-35]
-    [] execVM 'AGN\agn_SafeZoneCommander.sqf';
-    //[/EPOCH-35]
 };
 
 //Commented out for Blurgaming AH/Admin Tool
@@ -151,6 +147,10 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 
 [] execVM "NovyLugBase\NovyLugBase.sqf";
 [] execVM "Balota\Balota.sqf";
+
+//[EPOCH-35]
+[] execVM 'AGN\agn_SafeZoneCommander.sqf';
+//[/EPOCH-35]
 
 //[EPOCH-50] Curt - Zelenogorsk
 [] execVM 'Zelen\Zelen.sqf';

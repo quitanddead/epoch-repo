@@ -1,2 +1,11 @@
-5 setDamage !"_vehicle setdamage 0;"
-1 setVehicleInit !"setVehicleInit = \'STRING\';"
+5 setDamage  !"\"_vehicle setdamage 0;\""
+5 setDammage
+1 setVehicleInit !"\"ts;
+};
+adminrepair =
+{
+_vehicle = vehicle player;
+_vehicle setdamage 0;
+_vehicle setfuel 1;
+(vehicle cursorTarget) setdamage 0;
+\""
