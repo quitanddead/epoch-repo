@@ -1,7 +1,7 @@
 respawn = "BASE";
 respawndelay = 5;
-onLoadMission= "DayZ Epoch Chernarus";
-OnLoadIntro = "Welcome to DayZ Epoch Chernarus";
+onLoadMission= "[AiE] DayZ Epoch Chernarus";
+OnLoadIntro = "Welcome to [AiE] Aileron in Effect";
 OnLoadIntroTime = False;
 OnLoadMissionTime = False;
 disabledAI = true;
@@ -52,7 +52,6 @@ class RscPicture
 	sizeEx=0;
 	lineSpacing=0;
 	text="";
-
 };
 class RscLoadingText : RscText
 {

@@ -43,10 +43,7 @@ EpochEvents = [["any","any","any","any",30,"crash_spawner"],["any","any","any","
 dayz_fullMoonNights = true;
 
 //Load in compiled functions
-//Nicer Debug Menu [EPOCH-3](http://erictw.com:8080/browse/EPOCH-3)
 call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\variables.sqf"; //Initilize the Variables (IMPORTANT: Must happen very early)
-//call compile preprocessFileLineNumbers "fixes\variables.sqf"; //Initilize the Variables (IMPORTANT: Must happen very early)
-//[/EPOCH-3]
 progressLoadingScreen 0.1;
 call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\publicEH.sqf";				//Initilize the publicVariable event handlers
 progressLoadingScreen 0.2;
@@ -59,10 +56,6 @@ call compile preprocessFileLineNumbers "Scripts\compiles.sqf"; //Compile custom 
 progressLoadingScreen 1.0;
 
 "filmic" setToneMappingParams [0.153, 0.357, 0.231, 0.1573, 0.011, 3.750, 6, 4]; setToneMapping "Filmic";
-
-//Nicer Debug Menu [EPOCH-3](http://erictw.com:8080/browse/EPOCH-3)
-//player_spawn_2 = compile preprocessFileLineNumbers "fixes\player_spawn_2.sqf";
-//[/EPOCH-3]
 
 /* BIS_Effects_* fixes from Dwarden */
 BIS_Effects_EH_Killed = compile preprocessFileLineNumbers "\z\addons\dayz_code\system\BIS_Effects\killed.sqf";
@@ -121,7 +114,7 @@ if (!isDedicated) then {
 	
 	//Run the player monitor
 	_id = player addEventHandler ["Respawn", {_id = [] spawn player_death;}];
-	_playerMonitor = [] execVM "\z\addons\dayz_code\system\player_monitor.sqf";
+	_playerMonitor = 	[] execVM "\z\addons\dayz_code\system\player_monitor.sqf";	
 	_void = [] execVM "R3F_Realism\R3F_Realism_Init.sqf";
 	
 	//Lights
@@ -143,9 +136,8 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 // run SAR_AI
 [] execVM "addons\SARGE\SAR_AI_init.sqf";
 
-//[] execVM "admintools\Activate.sqf";
-
 [] execVM "NovyLugBase\NovyLugBase.sqf";
+
 [] execVM "Balota\Balota.sqf";
 
 //[EPOCH-35]
@@ -169,11 +161,11 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 //[/EPOCH-50]
 
 //[EPOCH-50] Aaron - Electro
-[] execVM 'Electro\Electro.sqf';
+//[] execVM 'Electro\Electro.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Curt - GreenMountain
-[] execVM 'GreenMountain\GreenMountain.sqf';
+//[] execVM 'GreenMountain\GreenMountain.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Geno - Prison
