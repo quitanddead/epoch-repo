@@ -6,35 +6,35 @@
 
 diag_log ( "[AGN] Starting Trader City Safezone Commander!" );
  
-if ( isDedicated || isServer ) exitWith {diag_log ( "Error: Attempting to start [AGN] products on a server where it should not be!" );}; 
+if ( isDedicated || isServer ) exitWith {diag_log ( "Error: Attempting to start AGN products on a server where it should not be!" );}; 
 
-private ["_EH_Fired", "_ehID", "_fix","_inVehicle","_inVehicleLast","_EH_Fired_Vehicle",
+Private ["_EH_Fired", "_ehID", "_fix","_inVehicle","_inVehicleLast","_EH_Fired_Vehicle",
 		"_inVehicleDamage","_antiBackpackThread","_antiBackpackThread2"];
 		
-private ["_AGN_safeZoneGodmode","_AGN_safeZoneMessages","_AGN_safeZone_Backpack_AllowGearFromLootPiles",
-		"_AGN_safeZone_Backpack_AllowGearFromVehicles","_AGN_safeZone_Backpack_AllowGearFromDeadPlayers",
-		"_AGN_safeZone_Vehicles_DisableMountedGuns","_AGN_safeZone_Players_DisableWeaponFiring",
-		"_AGN_safeZone_Backpack_EnableAntiBackpack","_AGN_safeZone_Vehicles_AllowGearFromWithinVehicles"];
+private ["AGN_safeZoneGodmode","AGN_safeZoneMessages","AGN_safeZone_Backpack_AllowGearFromLootPiles",
+		"AGN_safeZone_Backpack_AllowGearFromVehicles","AGN_safeZone_Backpack_AllowGearFromDeadPlayers",
+		"AGN_safeZone_Vehicles_DisableMountedGuns","AGN_safeZone_Players_DisableWeaponFiring",
+		"AGN_safeZone_Backpack_EnableAntiBackpack","AGN_safeZone_Vehicles_AllowGearFromWithinVehicles"];
 
 
 //SCRIPT SETTINGS
-_AGN_safeZoneDebug = false; //Debug notes on screen.
-_AGN_safeZoneGodmode = true; 								//Should safezone Godmode be enabled?
-_AGN_safeZoneMessages = true;								//Should players get messages when entering and exiting the safe zone?
-_AGN_safeZone_Backpack_EnableAntiBackpack = true;			//Should players not be able to take from peoples bags?
-_AGN_safeZone_Backpack_AllowGearFromLootPiles = true;		//Should players be able to loot from loot piles?
-_AGN_safeZone_Backpack_AllowGearFromVehicles = true;		//Should players be able to loot from a vehicles gear?
-_AGN_safeZone_Backpack_AllowGearFromDeadPlayers = true;		//Should players be able to loot from a dead players corpse?
-_AGN_safeZone_Backpack_AllowFriendlyTaggedAccess = true;	//Should players who are tagged friendly be able to access eachothers bags?
-_AGN_safeZone_Vehicles_DisableMountedGuns = true;			//Should players not be able to shoot bullets/projectiles from mounted guns?
-_AGN_safeZone_Vehicles_AllowGearFromWithinVehicles = true;	//Should players be able to open the gear screen while they are inside a vehicle?
-_AGN_safeZone_Players_DisableWeaponFiring = true;			//Should players not be able to shoot bullets/projectiles from their weapon(s)?
+AGN_safeZoneDebug = false; //Debug notes on screen.
+AGN_safeZoneGodmode = true; 								//Should safezone Godmode be enabled?
+AGN_safeZoneMessages = true;								//Should players get messages when entering and exiting the safe zone?
+AGN_safeZone_Backpack_EnableAntiBackpack = true;			//Should players not be able to take from peoples bags?
+AGN_safeZone_Backpack_AllowGearFromLootPiles = true;		//Should players be able to loot from loot piles?
+AGN_safeZone_Backpack_AllowGearFromVehicles = true;		//Should players be able to loot from a vehicles gear?
+AGN_safeZone_Backpack_AllowGearFromDeadPlayers = true;		//Should players be able to loot from a dead players corpse?
+AGN_safeZone_Backpack_AllowFriendlyTaggedAccess = true;	//Should players who are tagged friendly be able to access eachothers bags?
+AGN_safeZone_Vehicles_DisableMountedGuns = true;			//Should players not be able to shoot bullets/projectiles from mounted guns?
+AGN_safeZone_Vehicles_AllowGearFromWithinVehicles = true;	//Should players be able to open the gear screen while they are inside a vehicle?
+AGN_safeZone_Players_DisableWeaponFiring = true;			//Should players not be able to shoot bullets/projectiles from their weapon(s)?
 
 //Probs not needed, but meh :)
 disableSerialization;
 
 waitUntil {!isNil "dayz_animalCheck"};
-if ( _AGN_safeZoneMessages ) then { systemChat ( "[AGN] Trader Zone Commander Loaded!" ); };
+if ( AGN_safeZoneMessages ) then { systemChat ( "[AGN] Trader Zone Commander Loaded!" ); };
 
 _inVehicle = objNull;
 _inVehicleLast = objNull;
@@ -44,10 +44,10 @@ while {true} do {
 	waitUntil { !canBuild };
 
 	_inSafezoneFinished = false;
-	if ( _AGN_safeZoneMessages ) then { systemChat ("[AGN] Entering Trader Area - God Mode Enabled"); };
+	if ( AGN_safeZoneMessages ) then { systemChat ("[AGN] Entering Trader Area - God Mode Enabled"); };
 	_thePlayer = player;
 
-	if ( _AGN_safeZoneGodmode ) then
+	if ( AGN_safeZoneGodmode ) then
 	{
 		player_zombieCheck = {};
 		fnc_usec_damageHandler = {};
@@ -56,7 +56,7 @@ while {true} do {
 		_thePlayer allowDamage false;
 	};
 	
-	if ( _AGN_safeZone_Players_DisableWeaponFiring ) then
+	if ( AGN_safeZone_Players_DisableWeaponFiring ) then
 	{
 		_EH_Fired = _thePlayer addEventHandler ["Fired", {
 			systemChat ("[AGN] You can not fire your weapon in a Trader City Area");
@@ -64,15 +64,15 @@ while {true} do {
 		}];
 	};
 	
-	if ( _AGN_safeZone_Backpack_EnableAntiBackpack ) then
+	if ( AGN_safeZone_Backpack_EnableAntiBackpack ) then
 	{
-		_AGN_LastPlayerLookedAt = objNull;
-		_AGN_LastPlayerLookedAtCountDown = 5;
+		AGN_LastPlayerLookedAt = objNull;
+		AGN_LastPlayerLookedAtCountDown = 5;
 		_antiBackpackThread = [] spawn {
 			private [ "_ct","_ip","_ia","_dis"] ;
 			while {!canBuild} do
 			{
-				if ( isNull _AGN_LastPlayerLookedAt ) then
+				if ( isNull AGN_LastPlayerLookedAt ) then
 				{
 					waitUntil {!isNull cursorTarget};
 					_ct = cursorTarget;
@@ -81,11 +81,11 @@ while {true} do {
 					
 					if ( (_ip && _ia) && (_dis < 6.5) ) then
 					{
-						_AGN_LastPlayerLookedAt = _ct;
+						AGN_LastPlayerLookedAt = _ct;
 					};
 				} else {
-					_AGN_LastPlayerLookedAtCountDown = _AGN_LastPlayerLookedAtCountDown - 1;
-					if ( _AGN_LastPlayerLookedAtCountDown < 0 ) then { _AGN_LastPlayerLookedAtCountDown = 5; _AGN_LastPlayerLookedAt = objNull; };
+					AGN_LastPlayerLookedAtCountDown = AGN_LastPlayerLookedAtCountDown - 1;
+					if ( AGN_LastPlayerLookedAtCountDown < 0 ) then { AGN_LastPlayerLookedAtCountDown = 5; AGN_LastPlayerLookedAt = objNull; };
 					sleep 1;
 				};
 			};
@@ -107,7 +107,7 @@ while {true} do {
 					
 					_lp = false;
 					{
-						if ( (_to isKindOf _x) && (_dis < 10) && _AGN_safeZone_Backpack_AllowGearFromLootPiles ) then
+						if ( (_to isKindOf _x) && (_dis < 10) && AGN_safeZone_Backpack_AllowGearFromLootPiles ) then
 						{
 							_lp = true;
 						};
@@ -123,15 +123,15 @@ while {true} do {
 						_ctOwnerID = _ct getVariable["CharacterID","0"];
 						_friendlies	= player getVariable ["friendlyTo",[]];
 						if(_ctOwnerID in _friendlies) then {	
-							if ( _AGN_safeZone_Backpack_AllowFriendlyTaggedAccess ) then
+							if ( AGN_safeZone_Backpack_AllowFriendlyTaggedAccess ) then
 							{
 								_if = true;
 							};
 						};
 					};
-					if ( _AGN_safeZoneDebug ) then {
-					hintSilent ( format["_AGN Safezone Commander\n\nCursorTarget\n%1\n\nDistance\n%2\n\nLootpile\n%3 [%9]\n\nisPlayer\n%4\n\nAlive\n%5\n\nisVehicle\n%6\n\ninVehicle\n%7\n\nisFriendly\n%8 (%12) [%10]\n\nSkip: %11\n",
-                                                _ct, _dis, _lp, _ip, _ia, _iv, _inv, _if, _AGN_safeZone_Backpack_AllowGearFromLootPiles, _AGN_safeZone_Backpack_AllowFriendlyTaggedAccess, _skip, _ctOwnerID] );
+					if ( AGN_safeZoneDebug ) then {
+					hintSilent ( format["AGN Safezone Commander\n\nCursorTarget\n%1\n\nDistance\n%2\n\nLootpile\n%3 [%9]\n\nisPlayer\n%4\n\nAlive\n%5\n\nisVehicle\n%6\n\ninVehicle\n%7\n\nisFriendly\n%8 (%12) [%10]\n\nSkip: %11\n",
+                                                _ct, _dis, _lp, _ip, _ia, _iv, _inv, _if, AGN_safeZone_Backpack_AllowGearFromLootPiles, AGN_safeZone_Backpack_AllowFriendlyTaggedAccess, _skip, _ctOwnerID] );
 };
 
 					
@@ -139,13 +139,13 @@ while {true} do {
 					if ( _lp ) then {_skip = true;};
 					
 					//Dead body check
-					if ( !(_ia) && _AGN_safeZone_Backpack_AllowGearFromDeadPlayers ) then {_skip = true;};
+					if ( !(_ia) && AGN_safeZone_Backpack_AllowGearFromDeadPlayers ) then {_skip = true;};
 					
 					//Vehicle check
-					if ( _iv && (_dis < 10) && !(_ip) && _AGN_safeZone_Backpack_AllowGearFromVehicles ) then {_skip = true;};
+					if ( _iv && (_dis < 10) && !(_ip) && AGN_safeZone_Backpack_AllowGearFromVehicles ) then {_skip = true;};
 					
 					//In a vehicle check
-					if ( _inv && _AGN_safeZone_Vehicles_AllowGearFromWithinVehicles ) then { _skip = true; };
+					if ( _inv && AGN_safeZone_Vehicles_AllowGearFromWithinVehicles ) then { _skip = true; };
 					
 					//Is player friendly?
 					if ( _if ) then { _skip = true; };
@@ -153,27 +153,27 @@ while {true} do {
 				
 				if( !isNull (FindDisplay 106) && !_skip ) then
 				{
-					if ( isNull _AGN_LastPlayerLookedAt ) then
+					if ( isNull AGN_LastPlayerLookedAt ) then
 					{
 						(findDisplay 106) closeDisplay 1;
 						waitUntil { isNull (FindDisplay 106) };
 						createGearDialog [(player), 'RscDisplayGear'];
-						if ( _AGN_safeZoneMessages ) then { systemChat ("[AGN] Anti Backpack Stealing - Redirecting you to your own gear!"); };
+						if ( AGN_safeZoneMessages ) then { systemChat ("[AGN] Anti Backpack Stealing - Redirecting you to your own gear!"); };
 						waitUntil { isNull (FindDisplay 106) };
 					} else {
-						if ( _AGN_safeZoneMessages ) then { systemChat (format["[AGN] You cannot open your gear at this time as you have looked at a player in the last 5 seconds."]); };
+						if ( AGN_safeZoneMessages ) then { systemChat (format["[AGN] You cannot open your gear at this time as you have looked at a player in the last 5 seconds."]); };
 						(findDisplay 106) closeDisplay 1;
 						waitUntil { isNull (FindDisplay 106) };
 					};
 				};
 				if ( _skip && _if ) then {
-					if ( _AGN_safeZoneMessages ) then { systemChat ("[AGN] This player is tagged friendly, you have access to this players bag") };
+					if ( AGN_safeZoneMessages ) then { systemChat ("[AGN] This player is tagged friendly, you have access to this players bag") };
 				};
 			};
 		};
 	};
 	
-	if ( _AGN_safeZone_Vehicles_DisableMountedGuns ) then
+	if ( AGN_safeZone_Vehicles_DisableMountedGuns ) then
 	{
 		while { !canBuild } do
 		{
@@ -188,7 +188,7 @@ while {true} do {
 			
 			if ( vehicle player != player && isNull _inVehicle ) then
 			{
-				if (_AGN_safeZoneMessages) then { systemChat ( "[AGN] No Firing Vehicle Guns Enabled" ); };
+				if (AGN_safeZoneMessages) then { systemChat ( "[AGN] No Firing Vehicle Guns Enabled" ); };
 				_inVehicle = vehicle player;
 				_inVehicleDamage = getDammage _inVehicle;
 				_EH_Fired_Vehicle = _inVehicle addEventHandler ["Fired", {
@@ -201,33 +201,33 @@ while {true} do {
 		waitUntil { canBuild };
 	};
 
-	_AGN_LastPlayerLookedAt = objNull;
-	_AGN_LastPlayerLookedAtCountDown = 5;
+	AGN_LastPlayerLookedAt = objNull;
+	AGN_LastPlayerLookedAtCountDown = 5;
 	terminate _antiBackpackThread;
 	terminate _antiBackpackThread2;
-	if ( _AGN_safeZoneMessages ) then { systemChat ("[AGN] Exiting Trader Area - God Mode Disabled"); };
+	if ( AGN_safeZoneMessages ) then { systemChat ("[AGN] Exiting Trader Area - God Mode Disabled"); };
 	
-	if ( _AGN_safeZone_Vehicles_DisableMountedGuns ) then
+	if ( AGN_safeZone_Vehicles_DisableMountedGuns ) then
 	{
 		if ( !(isNull _inVehicle) ) then
 		{
-			if ( _AGN_safeZoneMessages ) then { systemChat ( "[AGN] No Firing Vehicle Guns Disabled" ); };
+			if ( AGN_safeZoneMessages ) then { systemChat ( "[AGN] No Firing Vehicle Guns Disabled" ); };
 			_inVehicle removeEventHandler ["Fired", _EH_Fired_Vehicle];
 		};
 		
 		if ( !(isNull _inVehicleLast) ) then
 		{
-			if ( _AGN_safeZoneMessages ) then { systemChat ( "[AGN] No Firing Vehicle Guns Disabled" ); };
+			if ( AGN_safeZoneMessages ) then { systemChat ( "[AGN] No Firing Vehicle Guns Disabled" ); };
 			_inVehicleLast removeEventHandler ["Fired", _EH_Fired_Vehicle];
 		};
 	};
 
-	if ( _AGN_safeZone_Players_DisableWeaponFiring ) then
+	if ( AGN_safeZone_Players_DisableWeaponFiring ) then
 	{
 		_thePlayer removeEventHandler ["Fired", _EH_Fired];
 	};
 	
-	if ( _AGN_safeZoneGodmode ) then
+	if ( AGN_safeZoneGodmode ) then
 	{
 		player_zombieCheck = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\player_zombieCheck.sqf";
 		fnc_usec_damageHandler = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_damageHandler.sqf";
