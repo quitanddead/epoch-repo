@@ -1,4 +1,4 @@
-[] spawn {[] execVM "\z\addons\dayz_server\init\AH.sqf";}; // (AT THE VERY TOP OF server_functions.sqf ABOVE EVERYTHING ELSE!)
+[] execVM "\z\addons\dayz_server\init\AH.sqf"; // (AT THE VERY TOP OF server_functions.sqf ABOVE EVERYTHING ELSE!)
 
 waituntil {!isnil "bis_fnc_init"};
 

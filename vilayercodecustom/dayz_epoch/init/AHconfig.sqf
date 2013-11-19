@@ -2,7 +2,7 @@
 /* *******************Developer : infiSTAR (infiSTAR23@gmail.com)******************* */
 /* ********************Copr. ©2013 infiSTAR all rights reserved********************* */
 /* *********************************www.infiSTAR.de********************************* */
-/*  Key to open the menu  */ _OpenMenuKey = 0x3B;    /* google DIK_KeyCodes (0x3C is F2) */
+/*  Key to open the menu  */ _OpenMenuKey = 0x3C;    /* google DIK_KeyCodes (0x3C is F2) */
 /* ********************************************************************************* */
 /*  Mod EPOCH ?           */ _MEH =  true;   /* true or false */
 /* ********************************************************************************* */

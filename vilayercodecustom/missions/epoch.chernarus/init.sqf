@@ -142,15 +142,15 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 //[/EPOCH-35]
 
 //[EPOCH-50] Curt - Zelenogorsk
-//[] execVM 'Zelen\Zelen.sqf';
+[] execVM 'Zelen\Zelen.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Curt - Cherno
-//[] execVM 'Cherno\Cherno.sqf';
+[] execVM 'Cherno\Cherno.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Aaron - NWAF
-//[] execVM 'NWAF\NWAF.sqf';
+[] execVM 'NWAF\NWAF.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Logan - New Admin Base
@@ -158,17 +158,17 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 //[/EPOCH-50]
 
 //[EPOCH-50] Aaron - Electro
-//[] execVM 'Electro\Electro.sqf';
+[] execVM 'Electro\Electro.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Curt - GreenMountain
-//[] execVM 'GreenMountain\GreenMountain.sqf';
+[] execVM 'GreenMountain\GreenMountain.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Geno - Prison
-//[] execVM 'Prison\Prison.sqf';
+[] execVM 'Prison\Prison.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Curt - Berenzino
-//[] execVM 'Berenzino\Berenzino.sqf';
+[] execVM 'Berenzino\Berenzino.sqf';
 //[/EPOCH-50]
