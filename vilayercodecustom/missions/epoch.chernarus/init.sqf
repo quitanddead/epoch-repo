@@ -124,9 +124,6 @@ if (!isDedicated) then {
     [] execVM "Scripts\repairactions.sqf";
 };
 
-//Commented out for Blurgaming AH/Admin Tool
-//#include "\z\addons\dayz_code\system\REsec.sqf"
-
 // UPSMON
 call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
 
