@@ -138,7 +138,7 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 [] execVM "Balota\Balota.sqf";
 
 //[EPOCH-35]
-[] execVM 'AGN\agn_SafeZoneCommander.sqf';
+//[] execVM 'AGN\agn_SafeZoneCommander.sqf';
 //[/EPOCH-35]
 
 //[EPOCH-50] Curt - Zelenogorsk
