@@ -214,24 +214,22 @@ if !(isServer) then {
 						player allowDamage true;
 						vehicle player allowDamage true;
 						playerRespawnTime = _RespawnTime;
-						//[EPOCH-49] Don't Kick for Trader Zone God Mode
-						//if (str player_zombieCheck != str _zombieCheck) exitWith 
-						//{
-						//	"+_randx10+" = [name player, getPlayerUID player, toArray 'player_zombieCheck', toArray (str player_zombieCheck)];
-						//	publicVariable '"+_randx10+"';
-						//	for '_i' from 0 to 99 do {(findDisplay _i) closeDisplay 0;};
-						//	sleep 0.05;
-						//	endMission 'LOSER';
-						//};
-						//if (str fnc_usec_damageHandler != str _damageHandler) exitWith 
-						//{
-						//	"+_randx10+" = [name player, getPlayerUID player, toArray 'fnc_usec_damageHandler', toArray (str fnc_usec_damageHandler)];
-						//	publicVariable '"+_randx10+"';
-						//	for '_i' from 0 to 99 do {(findDisplay _i) closeDisplay 0;};
-						//	sleep 0.05;
-						//	endMission 'LOSER';
-						//};
-						//[/EPOCH-49]
+						if (str player_zombieCheck != str _zombieCheck) exitWith 
+						{
+							"+_randx10+" = [name player, getPlayerUID player, toArray 'player_zombieCheck', toArray (str player_zombieCheck)];
+							publicVariable '"+_randx10+"';
+							for '_i' from 0 to 99 do {(findDisplay _i) closeDisplay 0;};
+							sleep 0.05;
+							endMission 'LOSER';
+						};
+						if (str fnc_usec_damageHandler != str _damageHandler) exitWith 
+						{
+							"+_randx10+" = [name player, getPlayerUID player, toArray 'fnc_usec_damageHandler', toArray (str fnc_usec_damageHandler)];
+							publicVariable '"+_randx10+"';
+							for '_i' from 0 to 99 do {(findDisplay _i) closeDisplay 0;};
+							sleep 0.05;
+							endMission 'LOSER';
+						};
 						if (str fnc_usec_unconscious != str _unconsciousFunction) exitWith 
 						{
 							"+_randx10+" = [name player, getPlayerUID player, toArray 'fnc_usec_unconscious', toArray (str fnc_usec_unconscious)];
