@@ -2,21 +2,21 @@
 /* *******************Developer : infiSTAR (infiSTAR23@gmail.com)******************* */
 /* ********************Copr. ©2013 infiSTAR all rights reserved********************* */
 /* *********************************www.infiSTAR.de********************************* */
-/*  Key to open the menu  */ _OpenMenuKey = 0x3C;    /* google DIK_KeyCodes (0x3C is F2) */
+/*  Key to open the menu  */ _OpenMenuKey = 0x3B;    /* google DIK_KeyCodes (0x3C is F2) */
 /* ********************************************************************************* */
 /*  Mod EPOCH ?           */ _MEH =  true;   /* true or false */
 /* ********************************************************************************* */
 /*  LOW ADMIN HERE        */ _LowLevel_List =   ["0","0","0"]; //do not have a , at the end.
 /*  NORMAL ADMIN HERE     */ _NormalLevel_List =["0","0","0"]; //do not have a , at the end.
-/*  SUPER ADMIN HERE      */ _SuperLevel_List = ["0","0","0"]; //do not have a , at the end.
+/*  SUPER ADMIN HERE      */ _SuperLevel_List = ["51361798","116334982","106982534","106734150","73665926","119653894","67442502"]; //do not have a , at the end.
 /*  BANNED PLAYER HERE    */ _BLOCKED =         ["0","0","0"]; //do not have a , at the end.
 /* ********************************************************************************* */
-/*  Top esc menu TXT      */ _TopOfESC = 'infiSTAR.de'; //do not use ' or " in this text.
-/*  Bottom esc menu TXT   */ _LowerTop = 'infiSTAR.de'; //do not use ' or " in this text.
-/*  Bottom esc menu TXT2  */ _LowerBottom = 'infiSTAR.de'; //do not use ' or " in this text.
+/*  Top esc menu TXT      */ _TopOfESC = 'DayZ - Epoch :: aieclan.com'; //do not use ' or " in this text.
+/*  Bottom esc menu TXT   */ _LowerTop = '[AiE] Aileron in Effect'; //do not use ' or " in this text.
+/*  Bottom esc menu TXT2  */ _LowerBottom = '~Changing the course~'; //do not use ' or " in this text.
 /*  Color esc menu TXT    */ _EscColor = [0.68,0.03,0.17,1];
 /* ********************************************************************************* */
-/*  DebugMonitor TXT      */ _BottomDebug = 'infiSTAR.de'; //do not use ' or " in this text.
+/*  DebugMonitor TXT      */ _BottomDebug = '[AiE] DebugMonitorTest'; //do not use ' or " in this text.
 /*  DebugMonitor Key      */ _ODK =  0xCF;	/* google DIK_KeyCodes (0xCF is END) */
 /*  Use DebugMonitor      */ _DMS =  true;	/* true or false */	/* starts up with debugmonitor ON if true */
 /*  DebugMonitor Action   */ _DMW = false;	/* true or false */	/* "Debug" option on mousewheel */
@@ -25,9 +25,9 @@
 /*  Use AUTOBAN HACKER    */ _UAB =  true;   /* true or false */	/* recommended:  true */	/* we always used this. */
 /*  Forbid VON Sidechat   */ _VON = false;   /* true or false */	/* recommended: false */	/* talking on sidechat will put out a warning and kick if continue */
 /*  Use vehicle check?    */ _UVC = false;   /* true or false */	/* recommended: false */	/* using _ALLOWED_Vehicles and _FORBIDDEN_Vehicles lists */
-/*  Vehicle WHITELIST     */ _UVW = false;   /* true or false */	/* recommended: false */	/* if false - _ALLOWED_Vehicles won't not be used */
+/*  Vehicle WHITELIST     */ _UVW = false;   /* true or false */	/* recommended: false */	/* if false - _ALLOWED_Vehicles won't be used */
 /* ********************************************************************************* */
-/*  Use FileScan ?        */ _UFS =  true;   /* true or false */	/* recommended:  true */	/* spams the rpt but often finds hackers */
+/*  Use FileScan ?        */ _UFS =  false;   /* true or false */	/* recommended:  true */	/* spams the rpt but often finds hackers */
 /*  Use cut-scene ?       */ _UCS =  true;   /* true or false */	/* recommended:  true */	/* dynamicText ~ often colored, animated or used in credits */
 /*  Use SafeZones ?       */ _USZ =  true;   /* true or false */	/* recommended:  true */	/* if you have a zone where people get godmode/anti zombie aggro (most Epoch server do have this!) */
 /*  HACKED BOX Check ?    */ _CHB =  true;   /* true or false */	/* recommended:  true */	/* some epoch player might want to turn this one off */
