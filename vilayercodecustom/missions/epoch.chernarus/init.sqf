@@ -104,6 +104,12 @@ if (isServer) then {
 	// Add trader citys
 	_nil = [] execVM "mission.sqf";
 	_serverMonitor = 	[] execVM "\z\addons\dayz_code\system\server_monitor.sqf";
+
+	//Eric Testing Function for AH
+	diag_log format ["Eric AH call to server_functions.sqf"];
+	[] execVM "\z\addons\dayz_server\init\server_functions.sqf"
+	diag_log format ["End Eric AH call to server_functions.sqf"];
+	//End Eric Test
 };
 
 if (!isDedicated) then {
