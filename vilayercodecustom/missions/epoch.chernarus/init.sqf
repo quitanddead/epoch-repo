@@ -133,13 +133,15 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 // run SAR_AI
 [] execVM "addons\SARGE\SAR_AI_init.sqf";
 
+// ---------------Map Addons---------------START----------------------
+
+//[EPOCH-50] Curt - Novy Lug
 [] execVM "NovyLugBase\NovyLugBase.sqf";
+//[EPOCH-50]
 
+//[EPOCH-50] Curt - Balota
 [] execVM "Balota\Balota.sqf";
-
-//[EPOCH-35]
-[] execVM 'AGN\agn_SafeZoneCommander.sqf';
-//[/EPOCH-35]
+//[EPOCH-50]
 
 //[EPOCH-50] Curt - Zelenogorsk
 [] execVM 'Zelen\Zelen.sqf';
@@ -165,10 +167,12 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 [] execVM 'GreenMountain\GreenMountain.sqf';
 //[/EPOCH-50]
 
-//[EPOCH-50] Geno - Prison
-[] execVM 'Prison\Prison.sqf';
-//[/EPOCH-50]
-
 //[EPOCH-50] Curt - Berenzino
 [] execVM 'Berenzino\Berenzino.sqf';
 //[/EPOCH-50]
+
+// ------------Map Addons------------------END---------------------------
+
+//[EPOCH-35]
+[] execVM 'AGN\agn_SafeZoneCommander.sqf';
+//[/EPOCH-35]
