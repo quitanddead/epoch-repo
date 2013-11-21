@@ -12,7 +12,7 @@ briefing = 0;
 debriefing = 0;
 
 onPauseScript = "";
-loadScreen = "ServerPicture.jpg";
+loadScreen = "loadscreen.jpg";
 
 class Header
 {
