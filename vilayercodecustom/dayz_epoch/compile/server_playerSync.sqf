@@ -17,7 +17,7 @@ if (isNull _character) exitWith {
 
 _characterID =	_character getVariable ["CharacterID","0"];
 //ERIC
-_playerUID - _character getVariable ["PlayerUID","0"];
+_playerUID = _character getVariable ["PlayerUID","0"];
 //END-ERIC
 _charPos = 		getPosATL _character;
 _isInVehicle = 	vehicle _character != _character;
