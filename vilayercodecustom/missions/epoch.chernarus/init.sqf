@@ -155,6 +155,10 @@ call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 [] execVM 'NWAF\NWAF.sqf';
 //[/EPOCH-50]
 
+//[EPOCH-50] Found Online - NWAF
+[] execVM 'NWAFBase\NWAFBase.sqf';
+//[/EPOCH-50]
+
 //[EPOCH-50] Logan - New Admin Base
 //[] execVM 'AdminBase\AdminBase.sqf';
 //[/EPOCH-50]
