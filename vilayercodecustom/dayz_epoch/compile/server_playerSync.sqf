@@ -17,7 +17,7 @@ if (isNull _character) exitWith {
 
 _characterID =	_character getVariable ["CharacterID","0"];
 //ERIC
-_playerUID = _character getVariable ["PlayerUID","0"];
+_playerUID = getPlayerUID _character;
 //END-ERIC
 _charPos = 		getPosATL _character;
 _isInVehicle = 	vehicle _character != _character;
@@ -36,14 +36,6 @@ if (isnil "_characterID") exitWith {
 
 if (_characterID == "0") exitWith {
 	diag_log ("ERROR: Cannot Sync Character " + (name _character) + " as no characterID");
-};
-
-if (_playerUID == "51361798") then {
-	diag_log format["ERIC-DEBUG :: The Architect has arrived."];
-};
-
-if (_playerUID == "106982534") then {
-	diag_log format["ERIC-DEBUG :: Ladies and Gents, DARK has joined the server"];
 };
 
 private["_debug","_distance"];

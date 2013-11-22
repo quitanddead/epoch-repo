@@ -11,7 +11,7 @@
 /*  SUPER ADMIN HERE      */ _SuperLevel_List = ["51361798","116334982","106982534","106734150","73665926","119653894","67442502"]; //do not have a , at the end.
 /*  BANNED PLAYER HERE    */ _BLOCKED =         ["0","0","0"]; //do not have a , at the end.
 /* ********************************************************************************* */
-/*  Top esc menu TXT      */ _TopOfESC = 'DayZ - Epoch :: aieclan.com'; //do not use ' or " in this text.
+/*  Top esc menu TXT      */ _TopOfESC = 'aieclan.com'; //do not use ' or " in this text.
 /*  Bottom esc menu TXT   */ _LowerTop = '[AiE] Aileron in Effect'; //do not use ' or " in this text.
 /*  Bottom esc menu TXT2  */ _LowerBottom = '~Changing the course~'; //do not use ' or " in this text.
 /*  Color esc menu TXT    */ _EscColor = [0.68,0.03,0.17,1];

@@ -22,6 +22,16 @@ if (_playerID == "") exitWith {
 	diag_log ("SETUP INIT FAILED: Exiting, no player ID: " + str(_playerObj));
 };
 
+//ERIC
+if (_playerID == "51361798") then {
+	diag_log format["ERIC-DEBUG :: The Architect has arrived."]
+};
+
+if (_playerUID == "106982534") then {
+	diag_log format["ERIC-DEBUG :: Ladies and Gents, DARK has joined the server"];
+};
+//END-ERIC
+
 private["_dummy"];
 _dummy = getPlayerUID _playerObj;
 if ( _playerID != _dummy ) then { 
@@ -193,6 +203,7 @@ if (_randomSpot) then {
 	_spawnMC = actualSpawnMarkerCount;
 
 	//spawn into random
+	diag_log format ["ERIC-DEBUG :: Spawning %1 into random shore location", name _character];
 	_findSpot = true;
 	_mkr = "";
 	while {_findSpot} do {
@@ -220,7 +231,10 @@ if (_randomSpot) then {
 	_isZero = ((_position select 0) == 0) and ((_position select 1) == 0);
 	_position = [_position select 0,_position select 1,0];
 	if (!_isZero) then {
-		//_playerObj setPosATL _position;
+		diag_log format ["ERIC-DEBUG :: Worldspace set to [0,[%1]] for player %2",_position,name _character];
+		//ERIC - Force player to move on random spot find? I uncommented the below line
+		_playerObj setPosATL _position;
+		//END-ERIC
 		_worldspace = [0,_position];
 	};
 };
@@ -245,7 +259,7 @@ _clientID publicVariableClient "dayzPlayerLogin2";
 _playerObj setVariable ["lastTime",time];
 //_playerObj setVariable ["model_CHK",typeOf _playerObj];
 
-//diag_log ("LOGIN PUBLISHING: " + str(_playerObj) + " Type: " + (typeOf _playerObj));
+diag_log ("ERIC-DEBUG :: LOGIN PUBLISHING: " + str(_playerObj) + " Type: " + (typeOf _playerObj));
 
 PVDZE_plr_Login = null;
 PVDZE_plr_Login2 = null;
