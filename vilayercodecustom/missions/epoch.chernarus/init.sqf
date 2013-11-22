@@ -121,6 +121,38 @@ if (!isDedicated) then {
 	//[0,0,true,true,true,58,280,600,[0.698, 0.556, 0.419],"Generator_DZ",0.1] execVM "\z\addons\dayz_code\compile\local_lights_init.sqf";
 };
 
+// ------------Server & Player Addons------START-------------------------
+
+// UPSMON for SAR_AI
+call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
+// SHK for SAR_AI
+call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
+// run SAR_AI
+[] execVM "addons\SARGE\SAR_AI_init.sqf";
+
+// ------------Server & Player Addons------END---------------------------
+
+// ------------Server Side Addons----------START-------------------------
+
+if (isServer) then {
+	// Add server side addon calls here
+};
+
+// ------------Server Side Addons----------END---------------------------
+
+// ------------Player Side Addons----------START-------------------------
+
+if (!isDedicated) then {
+	//Repair/Refuel Addon
+    [] execVM "Scripts\repairactions.sqf";
+
+	//[EPOCH-35]
+	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
+	//[/EPOCH-35]
+};
+
+// ------------Player Side Addons----------END---------------------------
+
 // ---------------Map Addons---------------START----------------------
 
 //[EPOCH-50] Curt - Novy Lug
@@ -164,37 +196,3 @@ if (!isDedicated) then {
 //[/EPOCH-50]
 
 // ------------Map Addons------------------END---------------------------
-
-// ***
-
-// ------------Server & Player Addons------START-------------------------
-
-// UPSMON for SAR_AI
-call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
-// SHK for SAR_AI
-call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
-// run SAR_AI
-[] execVM "addons\SARGE\SAR_AI_init.sqf";
-
-// ------------Server & Player Addons------END---------------------------
-
-// ------------Server Side Addons----------START-------------------------
-
-if (isServer) then {
-	// Add server side addon calls here
-};
-
-// ------------Server Side Addons----------END---------------------------
-
-// ------------Player Side Addons----------START-------------------------
-
-if (!isDedicated) then {
-	//Repair/Refuel Addon
-    [] execVM "Scripts\repairactions.sqf";
-
-	//[EPOCH-35]
-	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
-	//[/EPOCH-35]
-};
-
-// ------------Player Side Addons----------END---------------------------
