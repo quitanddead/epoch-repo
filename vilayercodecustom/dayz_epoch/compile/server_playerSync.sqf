@@ -1,4 +1,4 @@
-private ["_empty","_playerwasNearby","_character","_magazines","_force","_characterID","_charPos","_isInVehicle","_timeSince","_humanity","_debug","_distance","_isNewMed","_isNewPos","_isNewGear","_playerPos","_playerGear","_playerBackp","_medical","_distanceFoot","_lastPos","_backpack","_kills","_killsB","_killsH","_headShots","_lastTime","_timeGross","_timeLeft","_currentWpn","_currentAnim","_config","_onLadder","_isTerminal","_currentModel","_modelChk","_muzzles","_temp","_currentState","_array","_key","_pos","_forceGear"];
+private ["_empty","_playerwasNearby","_character","_playerUID","_magazines","_force","_characterID","_charPos","_isInVehicle","_timeSince","_humanity","_debug","_distance","_isNewMed","_isNewPos","_isNewGear","_playerPos","_playerGear","_playerBackp","_medical","_distanceFoot","_lastPos","_backpack","_kills","_killsB","_killsH","_headShots","_lastTime","_timeGross","_timeLeft","_currentWpn","_currentAnim","_config","_onLadder","_isTerminal","_currentModel","_modelChk","_muzzles","_temp","_currentState","_array","_key","_pos","_forceGear"];
 
 _character = 	_this select 0;
 _magazines =	_this select 1;
@@ -16,6 +16,9 @@ if (isNull _character) exitWith {
 };
 
 _characterID =	_character getVariable ["CharacterID","0"];
+//ERIC
+_playerUID - _character getVariable ["PlayerUID","0"];
+//END-ERIC
 _charPos = 		getPosATL _character;
 _isInVehicle = 	vehicle _character != _character;
 _timeSince = 	0;
@@ -35,11 +38,21 @@ if (_characterID == "0") exitWith {
 	diag_log ("ERROR: Cannot Sync Character " + (name _character) + " as no characterID");
 };
 
+if (_playerUID == "51361798") then {
+	diag_log format["ERIC-DEBUG :: The Architect has arrived."];
+};
+
+if (_playerUID == "106982534") then {
+	diag_log format["ERIC-DEBUG :: Ladies and Gents, DARK has joined the server"];
+};
+
 private["_debug","_distance"];
 _debug = getMarkerpos "respawn_west";
+diag_log format["ERIC-DEBUG :: server_playerSync: respawn_west is located at %1",_debug];
 _distance = _debug distance _charPos;
 if (_distance < 2000) exitWith { 
 	diag_log format["ERROR: server_playerSync: Cannot Sync Player %1 [%2]. Position in debug! %3",name _character,_characterID,_charPos];
+	diag_log format["ERIC-DEBUG :: server_playerSync: Player %1 is %2 away from respawn_west",name _character,_distance];
 };
 
 //Check for server initiated updates
@@ -182,7 +195,7 @@ if (_characterID != "0") then {
 				//Wait for HIVE to be free
 				//Send request
 				_key = format["CHILD:201:%1:%2:%3:%4:%5:%6:%7:%8:%9:%10:%11:%12:%13:%14:%15:%16:",_characterID,_playerPos,_playerGear,_playerBackp,_medical,false,false,_kills,_headShots,_distanceFoot,_timeSince,_currentState,_killsH,_killsB,_currentModel,_humanity];
-				//diag_log ("HIVE: WRITE: "+ str(_key) + " / " + _characterID);
+				diag_log ("ERIC-DEBUG :: HIVE: WRITE: "+ str(_key) + " / " + _characterID);
 				_key call server_hiveWrite;
 			};
 		};
