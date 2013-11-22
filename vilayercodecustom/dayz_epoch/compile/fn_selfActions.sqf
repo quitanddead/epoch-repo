@@ -15,6 +15,23 @@ _inVehicle = (_vehicle != player);
 _onLadder =		(getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
 _canDo = (!r_drag_sqf and !r_player_unconscious and !_onLadder);
 
+// ------------------------------------------------------------------------Krixes Self Bloodbag Start------------------------------------------------------------------------
+	_mags = magazines player;
+	
+	// Krixes Self Bloodbag
+	if ("ItemBloodbag" in _mags) then {
+		hasBagItem = true;
+	} else { hasBagItem = false;};
+	if((speed player <= 1) && hasBagItem && _canDo) then {
+		if (s_player_selfBloodbag < 0) then {
+			s_player_selfBloodbag = player addaction[("<t color=""#c70000"">" + ("Self Bloodbag") +"</t>"),"Scripts\player_selfbloodbag.sqf","",5,false,true,"", ""];
+		};
+	} else {
+		player removeAction s_player_selfBloodbag;
+		s_player_selfBloodbag = -1;
+	};
+// ------------------------------------------------------------------------Krixes Self Bloodbag End------------------------------------------------------------------------
+
 _nearLight = 	nearestObject [player,"LitObject"];
 _canPickLight = false;
 if (!isNull _nearLight) then {
@@ -309,6 +326,17 @@ if (!isNull cursorTarget and !_inVehicle and !_isPZombie and (player distance cu
 		if (_isMan and !_isZombie and !_isAnimal) then {
 			_player_studybody = true;
 		}
+
+		//CLOTHES [EPOCH-5]
+    	if (_isMan and !_isAlive and !_isZombie and !_isAnimal) then {
+    		if (s_clothes < 0) then {
+            	s_clothes = player addAction [("<t color=""#FF0000"">" + ("Take Clothes") + "</t>"), "Scripts\clothes.sqf",cursorTarget, 1, false, true, "",""];
+        	};
+    	} else {
+        	player removeAction s_clothes;
+        	s_clothes = -1;
+    	};
+    	//[/EPOCH-5]
 	};
 
 
@@ -759,6 +787,8 @@ if (!isNull cursorTarget and !_inVehicle and !_isPZombie and (player distance cu
 	s_player_fillfuel = -1;
 	player removeAction s_player_studybody;
 	s_player_studybody = -1;
+	player removeAction s_clothes;
+    s_clothes = -1;
 	//Dog
 	player removeAction s_player_tamedog;
 	s_player_tamedog = -1;
