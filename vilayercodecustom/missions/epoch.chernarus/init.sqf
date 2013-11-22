@@ -52,6 +52,7 @@ progressLoadingScreen 0.4;
 call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\compiles.sqf";				//Compile regular functions
 progressLoadingScreen 0.5;
 call compile preprocessFileLineNumbers "server_traders.sqf";				//Compile trader configs
+progressLoadingScreen 0.75;
 call compile preprocessFileLineNumbers "Scripts\compiles.sqf"; //Compile custom compiles
 progressLoadingScreen 1.0;
 

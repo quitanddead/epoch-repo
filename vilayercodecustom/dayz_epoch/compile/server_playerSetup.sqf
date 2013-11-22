@@ -1,4 +1,4 @@
-private ["_characterID","_playerObj","_playerID","_dummy","_worldspace","_state","_doLoop","_key","_primary","_medical","_stats","_humanity","_lastinstance","_friendlies","_randomSpot","_position","_debug","_distance","_hit","_fractures","_score","_findSpot","_pos","_isIsland","_w","_clientID","_spawnMC","_namespace"];
+private ["_characterID","_playerObj","_playerID","_charName","_dummy","_worldspace","_state","_doLoop","_key","_primary","_medical","_stats","_humanity","_lastinstance","_friendlies","_randomSpot","_position","_debug","_distance","_hit","_fractures","_score","_findSpot","_pos","_isIsland","_w","_clientID","_spawnMC","_namespace"];
 
 //diag_log ("SETUP: attempted with " + str(_this));
 
@@ -202,8 +202,12 @@ if (_randomSpot) then {
 	// 
 	_spawnMC = actualSpawnMarkerCount;
 
+	//ERIC
+	_charName = name _character;
+	//END-ERIC
+
 	//spawn into random
-	diag_log format ["ERIC-DEBUG :: Spawning %1 into random shore location", name _character];
+	diag_log format ["ERIC-DEBUG :: Spawning %1 into random shore location",_charName];
 	_findSpot = true;
 	_mkr = "";
 	while {_findSpot} do {
@@ -231,7 +235,7 @@ if (_randomSpot) then {
 	_isZero = ((_position select 0) == 0) and ((_position select 1) == 0);
 	_position = [_position select 0,_position select 1,0];
 	if (!_isZero) then {
-		diag_log format ["ERIC-DEBUG :: Worldspace set to [0,[%1]] for player %2",_position,name _character];
+		diag_log format ["ERIC-DEBUG :: Worldspace set to [0,[%1]] for player %2",_position,name _charName];
 		//ERIC - Force player to move on random spot find? I uncommented the below line
 		_playerObj setPosATL _position;
 		//END-ERIC
