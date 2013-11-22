@@ -235,7 +235,7 @@ if (_randomSpot) then {
 	_isZero = ((_position select 0) == 0) and ((_position select 1) == 0);
 	_position = [_position select 0,_position select 1,0];
 	if (!_isZero) then {
-		diag_log format ["ERIC-DEBUG :: Worldspace set to [0,[%1]] for player %2",_position,name _charName];
+		//diag_log format ["ERIC-DEBUG :: Worldspace set to [0,[%1]] for player %2",_position,name _charName];
 		//ERIC - Force player to move on random spot find? I uncommented the below line
 		_playerObj setPosATL _position;
 		//END-ERIC
