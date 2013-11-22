@@ -124,10 +124,13 @@ if (!isDedicated) then {
 // ------------Server & Player Addons------START-------------------------
 
 // UPSMON for SAR_AI
+diag_log format ["---Loading UPSMON for SAR_AI"];
 call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
 // SHK for SAR_AI
+diag_log format ["---Loading SHK for SAR_AI"];
 call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 // run SAR_AI
+diag_log format ["---Loading SAR_AI"];
 [] execVM "addons\SARGE\SAR_AI_init.sqf";
 
 // ------------Server & Player Addons------END---------------------------
@@ -144,9 +147,11 @@ if (isServer) then {
 
 if (!isDedicated) then {
 	//Repair/Refuel Addon
+	diag_log format ["---Loading Repair/Refuel Addon"];
     [] execVM "Scripts\repairactions.sqf";
 
 	//[EPOCH-35]
+	diag_log format ["---Loading AGN Safe Trader Zones"];
 	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
 	//[/EPOCH-35]
 };
@@ -156,42 +161,52 @@ if (!isDedicated) then {
 // ---------------Map Addons---------------START----------------------
 
 //[EPOCH-50] Curt - Novy Lug
+diag_log format ["---Loading [AiE] Custom Novy Lug Base"];
 [] execVM "NovyLugBase\NovyLugBase.sqf";
 //[EPOCH-50]
 
 //[EPOCH-50] Curt - Balota
+diag_log format ["---Loading [AiE] Custom Balota"];
 [] execVM "Balota\Balota.sqf";
 //[EPOCH-50]
 
 //[EPOCH-50] Curt - Zelenogorsk
+diag_log format ["---Loading [AiE] Custom Zelenogorsk"];
 [] execVM 'Zelen\Zelen.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Curt - Cherno
+diag_log format ["---Loading [AiE] Custom Chero"];
 [] execVM 'Cherno\Cherno.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Aaron - NWAF
+diag_log format ["---Loading [AiE] Custom NWAF"];
 [] execVM 'NWAF\NWAF.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Found Online - NWAF
+diag_log format ["---Loading [AiE] Custom NWAF Base"];
 [] execVM 'NWAFBase\NWAFBase.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Logan - New Admin Base
+//diag_log format ["---Loading [AiE] Custom Admin Base"];
 //[] execVM 'AdminBase\AdminBase.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Aaron - Electro
+diag_log format ["---Loading [AiE] Custom Electro"];
 [] execVM 'Electro\Electro.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Curt - GreenMountain
+diag_log format ["---Loading [AiE] Custom Green Mountain"];
 [] execVM 'GreenMountain\GreenMountain.sqf';
 //[/EPOCH-50]
 
 //[EPOCH-50] Curt - Berenzino
+diag_log format ["---Loading [AiE] Custom Berenzino"];
 [] execVM 'Berenzino\Berenzino.sqf';
 //[/EPOCH-50]
 
