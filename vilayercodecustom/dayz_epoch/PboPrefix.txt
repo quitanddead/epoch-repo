@@ -1,1 +1,6 @@
-z\addons\dayz_server
+z\addons\dayz_code
+======<HEADER>=======
+prefix=z\addons\dayz_code
+Pbo Type is: Arma Addon
+Sha: 'DFB0D84B124FF45B9C1792F5AEDBC4A11D6CFEA2'
+======</HEADER>============
