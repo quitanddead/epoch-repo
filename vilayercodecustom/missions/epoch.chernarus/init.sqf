@@ -211,4 +211,9 @@ diag_log format ["---Loading [AiE] Custom Berenzino"];
 [] execVM 'Berenzino\Berenzino.sqf';
 //[/EPOCH-50]
 
+//[EPOCH-50] Curt - North Base
+diag_log format ["---Loading [AiE] Custom North Base"];
+[] execVM 'NorthBase\NorthBase.sqf';
+//[/EPOCH-50]
+
 // ------------Map Addons------------------END---------------------------
