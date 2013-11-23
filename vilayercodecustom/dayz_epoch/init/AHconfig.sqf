@@ -16,7 +16,7 @@
 /*  Bottom esc menu TXT2  */ _LowerBottom = '~Changing the course~'; //do not use ' or " in this text.
 /*  Color esc menu TXT    */ _EscColor = [0.68,0.03,0.17,1];
 /* ********************************************************************************* */
-/*  DebugMonitor TXT      */ _BottomDebug = '[AiE] DebugMonitorTest'; //do not use ' or " in this text.
+/*  DebugMonitor TXT      */ _BottomDebug = '[AiE] aieclan.com'; //do not use ' or " in this text.
 /*  DebugMonitor Key      */ _ODK =  0xCF;	/* google DIK_KeyCodes (0xCF is END) */
 /*  Use DebugMonitor      */ _DMS =  true;	/* true or false */	/* starts up with debugmonitor ON if true */
 /*  DebugMonitor Action   */ _DMW = false;	/* true or false */	/* "Debug" option on mousewheel */
