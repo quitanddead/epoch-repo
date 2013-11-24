@@ -63,9 +63,6 @@ this number is randomized
 // grid definition for the automatic spawn system
 //
 
-// Northern Base, 3 bandit groups, 0 soldier groups, 0 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-_check = [["max_grps","rnd_grps","max_p_grp"],[[3,0,0],[100,0,0],[5,0,0]],"SAR_area_5_12"] call SAR_AI_mon_upd;
-
 // Kamenka, 0 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
 _check = [["max_grps","rnd_grps","max_p_grp"],[[0,1,2],[0,100,100],[0,2,1]],"SAR_area_0_0"] call SAR_AI_mon_upd; 
 
@@ -190,6 +187,16 @@ _this setMarkerBrush "Solid";
 _this setMarkerSize [100, 100];
 SAR_marker_DEBUG1 = _this;
 
+// Northern Base
+_this = createMarker ["SAR_area_northBase", [6505.51,14159,0.002]];
+_this setMarkerShape "RECTANGLE";
+_this setMarkeralpha 0;
+_this setMarkerType "Flag";
+_this setMarkerBrush "Solid";
+_this setMarkerSize [200, 200];
+_this setMarkerDir 120.050;
+SAR_marker_northBase = _this;
+
 // ----------------------------------------------------------------------------------------
 // End of area marker definition section
 // ----------------------------------------------------------------------------------------
@@ -249,7 +256,8 @@ diag_log format["SAR_AI: Area & Trigger definition finalized"];
 
 // add here if needed
 
-
+//Northern Base Protection
+[SAR_marker_northBase,3,2,10,"fortify",true] call SAR_AI;
 
 
 // ---- end of configuration area ----
