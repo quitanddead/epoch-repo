@@ -7,11 +7,10 @@ curlIt ()
 	theFile=$1;
 	lowerDir=$(echo $theFile | sed 's,/var/lib/jenkins/jobs/epoch-repo/workspace/,,g');
 
-	if [ $2 != 1 ]; then
+	if [[ $2 -ne 1 ]]; then
 		# First attempt with this file
 		echo "Transferring $theFile";
 		echo "Lower directory structure: $lowerDir";
-
 		curl --retry 10 --ftp-create-dirs -u AiE:aie12345 -T $theFile ftp://198.27.80.126:8821/198.27.80.126_2362/$lowerDir;
 
 		if [ $? -ne 0 ]; then
@@ -20,11 +19,11 @@ curlIt ()
 		fi
 	fi
 
-	if [ $2 != 1 ]; then
+	if [[ $2 -eq 1 ]]; then
 		echo "Retrying $theFile";
 		curl --retry 10 --ftp-create-dirs -u AiE:aie12345 -T $theFile ftp://198.27.80.126:8821/198.27.80.126_2362/$lowerDir;
 
-		if [ $? -ne 0 ]; then
+		if [[ $? -ne 0 ]]; then
 			# Error detected on transferring $theFile, set flag 1 to show retry
 			curlIt $theFile 1;
 		fi
