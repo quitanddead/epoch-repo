@@ -6,6 +6,7 @@
 
 	<!-- Schedular to be shown all days in the week. -->
 	<!-- show text ingame every 20 min -->
+	<!--
 	<job id="0">
 		<time>002000</time>
 		<delay>000000</delay>
@@ -14,8 +15,10 @@
 		<cmd>say -1 This is a annoying message sent every 5th seconds to the server from Bec 1.48.</cmd>	
 		<cmdtype>0</cmdtype>
 	</job>
+	-->
 	
 	<!-- show text ingame every 60 min -->
+	<!--
 	<job id="1">
 		<time>006000</time>
 		<delay>000000</delay>
@@ -24,7 +27,8 @@
 		<cmd>say -1 This server restarts 4 times per day, 06:00, 12:00, 1800 and 00:00.</cmd>
 		<cmdtype>0</cmdtype>			
 	</job>
-	
+	-->
+
 	
 	
 </Scheduler>
