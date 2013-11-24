@@ -12,6 +12,10 @@ dayzHiveRequest = [];
 initialized = false;
 dayz_previousID = 0;
 
+//ERIC Tow/Lift
+_logistic = execVM "=BTC=_Logistic\=BTC=_Logistic_Init.sqf";
+//END-ERIC
+
 //disable greeting menu 
 player setVariable ["BIS_noCoreConversations", true];
 //disable radio messages to be heard and shown in the left lower corner of the screen
