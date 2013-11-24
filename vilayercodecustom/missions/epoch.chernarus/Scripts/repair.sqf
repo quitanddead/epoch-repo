@@ -25,7 +25,8 @@ if (!ib_refueling_in_progress) then {
                 if ((_velocity select 0 > 1) or (_velocity select 1 > 1) or (_velocity select 2 > 1)) exitWith {
                         titleText ["Refueling and Repairs Stopped", "PLAIN DOWN", 3];
                 };
-                if (_cfcust >= 1.0 and _cust2 <= 0) exitWith {
+                //if (_cfcust >= 1.0 and _cust2 <= 0) exitWith {
+                if (_cfcust >= 1.0) exitWith {
                         titleText ["Refueling and Repairs Finished", "PLAIN DOWN", 3];
                 };
  
