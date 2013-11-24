@@ -64,7 +64,7 @@ this number is randomized
 //
 
 // Northern Base, 3 bandit groups, 0 soldier groups, 0 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-_check = [["max_grps","rnd_grps","max_p_grp"],[[3,0,0],[100,0,00],[5,0,0]],"SAR_area_5_12"] call SAR_AI_mon_upd;
+_check = [["max_grps","rnd_grps","max_p_grp"],[[3,0,0],[100,0,0],[5,0,0]],"SAR_area_5_12"] call SAR_AI_mon_upd;
 
 // Kamenka, 0 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
 _check = [["max_grps","rnd_grps","max_p_grp"],[[0,1,2],[0,100,100],[0,2,1]],"SAR_area_0_0"] call SAR_AI_mon_upd; 
