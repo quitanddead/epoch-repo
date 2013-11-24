@@ -325,7 +325,7 @@ if (!isNull cursorTarget and !_inVehicle and !_isPZombie and (player distance cu
 		// Study body
 		if (_isMan and !_isZombie and !_isAnimal) then {
 			_player_studybody = true;
-		}
+		};
 
 		//CLOTHES [EPOCH-5]
     	if (_isMan and !_isAlive and !_isZombie and !_isAnimal) then {
