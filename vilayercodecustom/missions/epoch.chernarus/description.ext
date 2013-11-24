@@ -153,4 +153,15 @@ class DayZ_loadingScreen
 	};
 };
 
+class CfgMusic
+{
+	tracks[]={};
+
+	class PriceRightDeath
+	{
+		name = "";
+		sound[] = {"\AiE_Media\deathsound.ogg", db+0, 1.0};
+	};
+};
+
 #include "addons\SARGE\SAR_define.hpp"

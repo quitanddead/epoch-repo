@@ -130,7 +130,8 @@ sleep 2;
 1 cutRsc ["DeathScreen","BLACK OUT",3];
 
 
-playMusic "dayz_track_death_1";
+//playMusic "dayz_track_death_1";
+playMusic "PriceRightDeath";
 
 "dynamicBlur" ppEffectAdjust [0]; "dynamicBlur" ppEffectCommit 5;
 "colorCorrections" ppEffectAdjust [1, 1, 0, [1, 1, 1, 0.0], [1, 1, 1, 1],  [1, 1, 1, 1]];"colorCorrections" ppEffectCommit 5;
