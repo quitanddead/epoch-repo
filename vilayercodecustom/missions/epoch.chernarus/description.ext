@@ -160,8 +160,31 @@ class CfgMusic
 	class PriceRightDeath
 	{
 		name = "";
-		sound[] = {"\AiE_Media\deathsound.ogg", db+0, 1.0};
+		sound[] = {"AiE_Media\deathsound.ogg", db+0, 1.0};
 	};
+};
+
+class AiEDeathScreen {
+  idd = -1;
+  movingEnable = 0;
+  duration = 10;
+  fadein = 2;
+  fadeout = 2;
+  name="AiEDeathScreen";
+ 
+  controls[]={"Picture"};
+ 
+  class Picture {
+    x=0.0; y=0.0; w=1.0; h=1.0;
+    text="DeathScreen.jpg";
+    sizeEx = -1;
+    type=0;
+    idc=-1;
+    style=48;
+    colorBackground[]={0,0,0,0};
+    colorText[]={1,1,1,1};
+    font="Bitstream";
+  };
 };
 
 #include "addons\SARGE\SAR_define.hpp"
