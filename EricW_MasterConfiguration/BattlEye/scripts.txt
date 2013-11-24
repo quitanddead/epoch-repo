@@ -23,8 +23,8 @@
 5 v.i.l.e
 5 Lystic
 5 BattleFieldClearance
-1 "BIS_MPF_logic" !"BIS_MPF_logic = BIS_MPF_dummygroup createUnit" !"if (isNil "RE" && isNil "BIS_MPF_logic") then {"
-1 "BIS_MPF_dummygroup" !="BIS_MPF_dummygroup = createGroup sideLogic;" !"BIS_MPF_logic = BIS_MPF_dummygroup createUnit"
+5 "BIS_MPF_logic" !"BIS_MPF_logic = BIS_MPF_dummygroup createUnit" !"if (isNil \"RE\" && isNil \"BIS_MPF_logic\") then {"
+5 "BIS_MPF_dummygroup" !="BIS_MPF_dummygroup = createGroup sideLogic;" !"BIS_MPF_logic = BIS_MPF_dummygroup createUnit"
 5 setDammage
 5 "compile toString"
 5 @TheWarZ
