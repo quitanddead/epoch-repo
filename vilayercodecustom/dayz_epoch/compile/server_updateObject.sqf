@@ -39,6 +39,9 @@ if (_isNotOk and _isbuildable) exitWith {  };
 // delete if still not ok
 if (_isNotOk) exitWith { deleteVehicle _object; diag_log(format["Deleting object %1 with invalid ID at pos [%2,%3,%4]",typeOf _object,_object_position select 0,_object_position select 1, _object_position select 2]); };
 
+//Aaron adding missions
+if (_object getVariable "Mission" == 1) exitWith {};
+//Aaron Done
 
 _lastUpdate = _object getVariable ["lastUpdate",time];
 _needUpdate = _object in needUpdate_objects;
