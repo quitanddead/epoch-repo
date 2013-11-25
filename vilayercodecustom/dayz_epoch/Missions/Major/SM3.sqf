@@ -10,25 +10,25 @@ _coords = [getMarkerPos "center",0,5500,50,0,20,0] call BIS_fnc_findSafePos;
 
 Ccoords = _coords;
 publicVariable "Ccoords";
-[] execVM "debug\addmarkers.sqf";
+[] execVM "aimissionmarkers\addmarkers.sqf";
 
 
 _baserunover = createVehicle ["land_fortified_nest_big",[(_coords select 0) - 20, (_coords select 1) - 10,-0.2],[], 0, "CAN_COLLIDE"];
 _baserunover2 = createVehicle ["Land_Fort_Watchtower",[(_coords select 0) - 10, (_coords select 1) + 10,-0.2],[], 0, "CAN_COLLIDE"];
 _hummer = createVehicle ["HMMWV_DZ",[(_coords select 0) + 25, (_coords select 1) - 5,0],[], 0, "CAN_COLLIDE"];
 
-_baserunover2 setVariable ["Mission",1,true];
-_baserunover setVariable ["Mission",1,true];
-_hummer setVariable ["Mission",1,true];
+_baserunover2 setVariable ["Sarge",1,true];
+_baserunover setVariable ["Sarge",1,true];
+_hummer setVariable ["Sarge",1,true];
 
 _crate = createVehicle ["USVehicleBox",[(_coords select 0) + 5, (_coords select 1),0],[], 0, "CAN_COLLIDE"];
 [_crate] execVM "\z\addons\dayz_server\missions\misc\fillBoxesM.sqf";
-_crate setVariable ["Mission",1,true];
+_crate setVariable ["Sarge",1,true];
 
 
 _crate2 = createVehicle ["USLaunchersBox",[(_coords select 0) + 12, _coords select 1,0],[], 0, "CAN_COLLIDE"];
 [_crate2] execVM "\z\addons\dayz_server\missions\misc\fillBoxesS.sqf";
-_crate2 setVariable ["Mission",1,true];
+_crate2 setVariable ["Sarge",1,true];
 
 _aispawn = [_coords,80,6,3,1] execVM "\z\addons\dayz_server\missions\add_unit_server.sqf";//AI Guards
 sleep 5;
@@ -41,7 +41,7 @@ waitUntil{{isPlayer _x && _x distance _baserunover < 10  } count playableunits >
 
 [nil,nil,rTitleText,"Survivors have taken control of the camp and medical supplies.", "PLAIN",6] call RE;
 
-[] execVM "debug\remmarkers.sqf";
+[] execVM "aimissionmarkers\remmarkers.sqf";
 MissionGo = 0;
 Ccoords = 0;
 publicVariable "Ccoords";

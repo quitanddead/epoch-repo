@@ -10,24 +10,24 @@ _coords = [getMarkerPos "center",0,5500,30,0,20,0] call BIS_fnc_findSafePos;
 
 Ccoords = _coords;
 publicVariable "Ccoords";
-[] execVM "debug\addmarkers.sqf";
+[] execVM "aimissionmarkers\addmarkers.sqf";
 
 _chopper = ["UH1H_DZ","Mi17_DZ"] call BIS_fnc_selectRandom;
 
 _hueychop = createVehicle [_chopper,_coords,[], 0, "NONE"];
-_hueychop setVariable ["Mission",1,true];
+_hueychop setVariable ["Sarge",1,true];
 _hueychop setFuel 0.1;
 _hueychop setVehicleAmmo 0.2;
 
 _crate2 = createVehicle ["USLaunchersBox",[(_coords select 0) - 6, _coords select 1,0],[], 0, "CAN_COLLIDE"];
 [_crate2] execVM "\z\addons\dayz_server\missions\misc\fillBoxesS.sqf";
-_crate2 setVariable ["Mission",1,true];
+_crate2 setVariable ["Sarge",1,true];
 _crate2 = createVehicle ["USLaunchersBox",[(_coords select 0) + 6, _coords select 1,0],[], 90, "CAN_COLLIDE"];
 [_crate2] execVM "\z\addons\dayz_server\missions\misc\fillBoxesS.sqf";
-_crate2 setVariable ["Mission",1,true];
+_crate2 setVariable ["Sarge",1,true];
 _crate3 = createVehicle ["RULaunchersBox",[(_coords select 0) - 14, (_coords select 1) -10,0],[], 0, "CAN_COLLIDE"];
 [_crate3] execVM "\z\addons\dayz_server\missions\misc\fillBoxesH.sqf";
-_crate3 setVariable ["Mission",1,true];
+_crate3 setVariable ["Sarge",1,true];
 
 _aispawn = [_coords,80,6,6,1] execVM "\z\addons\dayz_server\missions\add_unit_server.sqf";//AI Guards
 sleep 5;
@@ -40,7 +40,7 @@ waitUntil{{isPlayer _x && _x distance _hueychop < 10  } count playableunits > 0}
 [nil,nil,rTitleText,"The helicopter has been taken by survivors!", "PLAIN",6] call RE;
 
 
-[] execVM "debug\remmarkers.sqf";
+[] execVM "aimissionmarkers\remmarkers.sqf";
 MissionGo = 0;
 Ccoords = 0;
 publicVariable "Ccoords";

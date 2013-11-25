@@ -11,10 +11,10 @@ _coords = [getMarkerPos "center",0,5500,2,0,2000,0] call BIS_fnc_findSafePos;
 
 MCoords = _coords;
 publicVariable "MCoords";
-[] execVM "debug\addmarkers75.sqf";
+[] execVM "aimissionmarkers\addmarkers75.sqf";
 
 _hummer = createVehicle ["UAZ_Unarmed_UN_EP1",[(_coords select 0) + 10, (_coords select 1) - 5,0],[], 0, "CAN_COLLIDE"];
-_hummer setVariable ["Mission",1,true];
+_hummer setVariable ["Sarge",1,true];
 
 [_coords,80,4,2,1] execVM "\z\addons\dayz_server\missions\add_unit_server2.sqf";//AI Guards
 sleep 5;
@@ -27,7 +27,7 @@ waitUntil{({alive _x} count (units SniperTeam)) < 1};
 
 [nil,nil,rTitleText,"The hunting party has been wiped out!", "PLAIN",6] call RE;
 
-[] execVM "debug\remmarkers75.sqf";
+[] execVM "aimissionmarkers\remmarkers75.sqf";
 MissionGoMinor = 0;
 MCoords = 0;
 publicVariable "MCoords";
