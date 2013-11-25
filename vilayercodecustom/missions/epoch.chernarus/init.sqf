@@ -225,4 +225,9 @@ diag_log format ["---Loading [AiE] Custom North Base"];
 [] execVM 'NorthBase\NorthBase.sqf';
 //[/EPOCH-50]
 
+//[EPOCH-50] Jir - Shipment
+diag_log format ["---Loading [AiE] Custom North Base"];
+[] execVM 'Shipment\Shipment.sqf';
+//[/EPOCH-50]
+
 // ------------Map Addons------------------END---------------------------
