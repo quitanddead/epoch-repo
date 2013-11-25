@@ -161,6 +161,11 @@ if (!isDedicated) then {
 	//[/EPOCH-35]
 };
 
+//Aaron adding missions
+[] execVM "faction.sqf";
+//Aaron done
+
+
 // ------------Player Side Addons----------END---------------------------
 
 // ---------------Map Addons---------------START----------------------
