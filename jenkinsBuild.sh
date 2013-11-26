@@ -31,7 +31,9 @@ curlIt ()
 }
 
 # Main function
-for file in $(find /var/lib/jenkins/jobs/epoch-repo/workspace/ -type f -mmin -10 ! -path "*/.git/*" ! -name ".git*"); do
+#for file in $(find /var/lib/jenkins/jobs/epoch-repo/workspace/ -type f -mmin -10 ! -path "*/.git/*" ! -name ".git*"); do
+for file in $(cd /var/lib/jenkins/jobs/epoch-repo/workspace && git show --pretty="format:" --name-only | grep "."); do
 	# For all files in the epoch-repo that are not part of git, call curlIt with the full path of the file
-	curlIt $file;		
-done
+	#curlIt $file;
+	echo $file;
+done;
