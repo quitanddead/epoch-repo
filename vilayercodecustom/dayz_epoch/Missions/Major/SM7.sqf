@@ -12,7 +12,7 @@ Ccoords = _coords;
 publicVariable "Ccoords";
 [] execVM "aimissionmarkers\addmarkers.sqf";
 
-_chopper = ["c130j_wreck_ep1"] call BIS_fnc_selectRandom;
+_chopper = ["C130J_wreck_EP1"] call BIS_fnc_selectRandom;
 
 _c130crash = createVehicle [_chopper,_coords,[], 0, "NONE"];
 _c130crash setVariable ["Sarge",1,true];
