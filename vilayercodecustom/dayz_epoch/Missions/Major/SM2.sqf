@@ -6,7 +6,7 @@ WaitUntil {MissionGo == 1};
 
 _coords = [getMarkerPos "center",0,5600,100,0,20,0] call BIS_fnc_findSafePos;
 
-[nil,nil,rTitleText,"A C-130 carrying medical supplies has crashed and bandits are securing the site! Check your map for the location!", "PLAIN",10] call RE;
+[nil,nil,rTitleText,"A C-130 carrying building supplies has crashed and bandits are securing the site! Check your map for the location!", "PLAIN",10] call RE;
 
 Ccoords = _coords;
 publicVariable "Ccoords";
@@ -23,12 +23,12 @@ _hummer1 setVariable ["Sarge",1,true];
 _hummer2 setVariable ["Sarge",1,true];
 
 _crate = createVehicle ["USVehicleBox",[(_coords select 0) - 10, _coords select 1,0],[], 0, "CAN_COLLIDE"];
-[_crate] execVM "\z\addons\dayz_server\missions\misc\fillBoxesM.sqf";
+[_crate] execVM "\z\addons\dayz_server\missions\misc\fillBoxesGold1.sqf";
 
 _crate setVariable ["Sarge",1,true];
 
 _crate2 = createVehicle ["USLaunchersBox",[(_coords select 0) - 6, _coords select 1,0],[], 0, "CAN_COLLIDE"];
-[_crate2] execVM "\z\addons\dayz_server\missions\misc\fillBoxesS.sqf";
+[_crate2] execVM "\z\addons\dayz_server\missions\misc\fillBoxesBuilding.sqf";
 _crate2 setVariable ["Sarge",1,true];
 
 _aispawn = [[(_coords select 0) + 20, _coords select 1,0],80,6,6,1] execVM "\z\addons\dayz_server\missions\add_unit_server.sqf";//AI Guards
