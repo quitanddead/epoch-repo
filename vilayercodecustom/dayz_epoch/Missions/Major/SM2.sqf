@@ -23,12 +23,12 @@ _hummer1 setVariable ["Sarge",1,true];
 _hummer2 setVariable ["Sarge",1,true];
 
 _crate = createVehicle ["USVehicleBox",[(_coords select 0) - 10, _coords select 1,0],[], 0, "CAN_COLLIDE"];
-[_crate] execVM "\z\addons\dayz_server\missions\misc\fillBoxesGold1.sqf";
+[_crate] execVM "\z\addons\dayz_server\missions\misc\fillBoxesBuilding.sqf";
 
 _crate setVariable ["Sarge",1,true];
 
 _crate2 = createVehicle ["USLaunchersBox",[(_coords select 0) - 6, _coords select 1,0],[], 0, "CAN_COLLIDE"];
-[_crate2] execVM "\z\addons\dayz_server\missions\misc\fillBoxesBuilding.sqf";
+[_crate2] execVM "\z\addons\dayz_server\missions\misc\fillBoxesGold1.sqf";
 _crate2 setVariable ["Sarge",1,true];
 
 _aispawn = [[(_coords select 0) + 20, _coords select 1,0],80,6,6,1] execVM "\z\addons\dayz_server\missions\add_unit_server.sqf";//AI Guards
