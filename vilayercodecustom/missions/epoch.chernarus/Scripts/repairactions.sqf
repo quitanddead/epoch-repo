@@ -31,7 +31,7 @@ while {true} do
             if (_currentVehicle != player && _isNearFeed && !(_currentVehicle isKindof "Bicycle")) then {  //change "Bicycle" to "Land" to allow only air vehicles to aut-refuel
                 _vehicle = _currentVehicle;
  
-                _vehicle_refuel_id = _vehicle addAction ["Refuel and Repair", "Scripts\repair.sqf", [_amount,_amount2], -1, false, true, "", "vehicle _this == _target && local _target"];
+                _vehicle_refuel_id = _vehicle addAction ["Refuel", "Scripts\repair.sqf", [_amount,_amount2], -1, false, true, "", "vehicle _this == _target && local _target"];
             };
         };
    
