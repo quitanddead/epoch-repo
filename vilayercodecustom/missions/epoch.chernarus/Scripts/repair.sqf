@@ -54,7 +54,8 @@ if (!ib_refueling_in_progress) then {
                 if (_cfcust2 <= 0.0) then { _cfcust2 = 0.0; };
 
                 //Set real vehicle damage to new total damage variable
-                _target setDamage _cfcust2;
+                //ERIC - Change to never set damage
+                //_target setDamage _cfcust2;
         };
  
         titleFadeOut 1;
