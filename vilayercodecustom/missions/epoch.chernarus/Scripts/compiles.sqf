@@ -1,2 +1,3 @@
 //fnc_usec_selfActions = compile preprocessFileLineNumbers "z\addons\dayz_code\compile\fn_selfActions.sqf";      // fnc_usec_selfActions - adds custom actions to dayz code
 fnc_usec_selfActions = compile preprocessFileLineNumbers "Scripts\fn_selfActions.sqf";      // fnc_usec_selfActions - adds custom actions to dayz code
+world_surfaceNoise = compile preprocessFileLineNumbers "Scripts\fn_surfaceNoise.sqf"; //ERIC Overload fn_surfaceNoise.sqf for JSRS patch
