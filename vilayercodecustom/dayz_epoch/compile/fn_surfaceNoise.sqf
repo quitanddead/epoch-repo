@@ -7,14 +7,17 @@ _typeA = 	toArray _type;
 _typeA 		set [0,"DEL"];
 _typeA = 	_typeA - ["DEL"];
 _type = 	toString _typeA;
-// _test = 	0;
-
-//diag_log ("FINDME: " + _type);
 
 _soundType = 	getText (configFile >> "CfgSurfaces" >> _type >> "soundEnviron");
-_soundVal =		parseNumber format["%1",((getArray (configFile >> "CfgVehicles" >> "CAManBase" >> "SoundEnvironExt" >> _soundType) select 0) select 3)];
-if (_soundVal == 0) then {
+if((typeName ((getArray (configFile >> "CfgVehicles" >> "CAManBase" >> "SoundEnvironExt" >> _soundType) select 0) select 1)) == "ARRAY") then{
+	// JSRS present, setting static Val of 25
 	_soundVal = 25;
+} else {
+	// No JSRS present, grabbing configvalue
+	_soundVal =	parseNumber format["%1",((getArray (configFile >> "CfgVehicles" >> "CAManBase" >> "SoundEnvironExt" >> _soundType) select 0) select 3)];
+	if (_soundVal == 0) then {
+		_soundVal = 25;
+	};
 };
 _array = [_soundType,_soundVal];
 _array
