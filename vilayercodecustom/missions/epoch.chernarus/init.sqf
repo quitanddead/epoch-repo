@@ -29,12 +29,13 @@ MaxVehicleLimit = 300; // Default = 50
 MaxDynamicDebris = 50; // Default = 100
 dayz_MapArea = 14000; // Default = 10000
 dayz_maxLocalZombies = 30; // Default = 30 
+DZE_BuildingLimit = 300 // Default = 150
 
 dayz_paraSpawn = false;
 
 dayz_maxAnimals = 8; // Default: 8
 dayz_tameDogs = true;
-DynamicVehicleDamageLow = 0; // Default: 0
+DynamicVehicleDamageLow = 25; // Default: 0
 DynamicVehicleDamageHigh = 100; // Default: 100
 
 // Loadout config
