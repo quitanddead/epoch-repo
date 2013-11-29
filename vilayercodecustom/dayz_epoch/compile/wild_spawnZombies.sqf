@@ -57,4 +57,4 @@ if (_rnd > 0.3) then {
 };
 
 //Start behavior
-_id = [_position,_agent] execFSM "\z\AddOns\dayz_code\system\zombie_agent.fsm";
+_id = [_position,_agent] execFSM "\z\addons\dayz_server\system\zombie_agent.fsm";

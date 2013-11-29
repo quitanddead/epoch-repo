@@ -13,16 +13,16 @@ if (!_hasmeditem) exitWith {cutText [format[(localize "str_player_31"),_text,"us
 
 switch (_item) do {
 	case "ItemBandage": {
-		_id = [0,0,0,[player]] execVM "\z\addons\dayz_code\medical\bandage.sqf";
+		_id = [0,0,0,[player]] execVM "\z\addons\dayz_server\medical\bandage.sqf";
 	};
 	case "ItemMorphine": {
-		_id = [0,0,0,[player]] execVM "\z\addons\dayz_code\medical\morphine.sqf";
+		_id = [0,0,0,[player]] execVM "\z\addons\dayz_server\medical\morphine.sqf";
 	};
 	case "ItemPainkiller": {
-		_id = [0,0,0,[player]] execVM "\z\addons\dayz_code\medical\painkiller.sqf";
+		_id = [0,0,0,[player]] execVM "\z\addons\dayz_server\medical\painkiller.sqf";
 	};
 	case "ItemAntibiotic": {
-		_id = [0,0,0,[player]] execVM "\z\addons\dayz_code\medical\antibiotics.sqf";
+		_id = [0,0,0,[player]] execVM "\z\addons\dayz_server\medical\antibiotics.sqf";
 	};
 	case "ItemHeatPack": {
 		player removeMagazine "ItemHeatPack";

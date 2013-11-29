@@ -1196,12 +1196,12 @@ call compile ("
 "+_randvar9+" = {
 	[] spawn {
 		sleep 5;
-		_check1 = compile preprocessFileLineNumbers '\z\addons\dayz_code\compile\player_zombieAttack.sqf';
-		_check2 = compile preprocessFileLineNumbers '\z\addons\dayz_code\compile\player_zombieCheck.sqf';
-		_check3 = compile preprocessFileLineNumbers '\z\addons\dayz_code\compile\player_fired.sqf';
-		_check4 = compile preprocessFileLineNumbers '\z\addons\dayz_code\compile\fn_damageHandler.sqf';
-		_check5 = compile preprocessFileLineNumbers '\z\addons\dayz_code\compile\fn_unconscious.sqf';
-		_check6 = compile preprocessFileLineNumbers '\z\addons\dayz_code\compile\player_death.sqf';
+		_check1 = compile preprocessFileLineNumbers '\z\addons\dayz_server\compile\player_zombieAttack.sqf';
+		_check2 = compile preprocessFileLineNumbers '\z\addons\dayz_server\compile\player_zombieCheck.sqf';
+		_check3 = compile preprocessFileLineNumbers '\z\addons\dayz_server\compile\player_fired.sqf';
+		_check4 = compile preprocessFileLineNumbers '\z\addons\dayz_server\compile\fn_damageHandler.sqf';
+		_check5 = compile preprocessFileLineNumbers '\z\addons\dayz_server\compile\fn_unconscious.sqf';
+		_check6 = compile preprocessFileLineNumbers '\z\addons\dayz_server\compile\player_death.sqf';
 		if (isNil 'player_zombieAttack') then {player_zombieAttack = _check1};
 		if (isNil 'player_zombieCheck') then {player_zombieCheck = _check2};
 		if (isNil 'player_fired') then {player_fired = _check3};
@@ -1400,7 +1400,7 @@ call compile ("
 					publicVariableServer '"+_randvar10+"';
 					(findDisplay 46) closeDisplay 0;
 				};
-				fnc_usec_damageHandler = compile preprocessFileLineNumbers '\z\addons\dayz_code\compile\fn_damageHandler.sqf';
+				fnc_usec_damageHandler = compile preprocessFileLineNumbers '\z\addons\dayz_server\compile\fn_damageHandler.sqf';
 				player allowDamage true;
 				player removeAllEventHandlers 'HandleDamage';
 				player addeventhandler ['HandleDamage',{_this call fnc_usec_damageHandler;} ];
@@ -3592,8 +3592,8 @@ PV_AdminMenuCode = {
 			PVAH_WriteLogRequest = [_savelog];
 			publicVariableServer "PVAH_WriteLogRequest";
 			
-			player_zombieCheck = compile preprocessFileLineNumbers '\z\addons\dayz_code\compile\player_zombieCheck.sqf';
-			player_zombieAttack = compile preprocessFileLineNumbers '\z\addons\dayz_code\compile\player_zombieAttack.sqf';
+			player_zombieCheck = compile preprocessFileLineNumbers '\z\addons\dayz_server\compile\player_zombieCheck.sqf';
+			player_zombieAttack = compile preprocessFileLineNumbers '\z\addons\dayz_server\compile\player_zombieAttack.sqf';
 		};
 	};
 	admin_vehicleboost = {
@@ -3757,7 +3757,7 @@ PV_AdminMenuCode = {
 		else
 		{
 			gmdadmin = 0;
-			fnc_usec_damageHandler = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_damageHandler.sqf";
+			fnc_usec_damageHandler = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\fn_damageHandler.sqf";
 			[] spawn adminDEGOD;
 			hint "God Disabled";
 			
@@ -5116,7 +5116,7 @@ diag_log ("infiSTAR.de ProPlan by infiSTAR.de - ADDING PublicVariableEventHandle
 	{
 		_do = format ['if (getPlayerUID player == "%1") then
 		{
-			fnc_usec_unconscious = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_unconscious.sqf";
+			fnc_usec_unconscious = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\fn_unconscious.sqf";
 			_unit = player;
 			if (_unit == player) then
 			{

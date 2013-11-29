@@ -157,7 +157,7 @@ fnc_usec_playerBleed = {
 		_bTime = _bTime + 1;
 		if (_bTime > _myBleedTime) then {
 			r_player_injured = false;
-			_id = [player,player] execVM "\z\addons\dayz_code\medical\publicEH\medBandaged.sqf";
+			_id = [player,player] execVM "\z\addons\dayz_server\medical\publicEH\medBandaged.sqf";
 			dayz_sourceBleeding =	objNull;
 			{player setVariable[_x,false,true];} forEach USEC_woundHit;
 			player setVariable ["USEC_injured",false,true];

@@ -1,7 +1,7 @@
 //Medical Event Handlers
-"norrnRaLW"					addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\publicEH\load_wounded.sqf"};
-"norrnRLact"				addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\load\load_wounded.sqf"};
-"norrnRDead"				addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\publicEH\deadState.sqf"};
+"norrnRaLW"					addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_server\medical\publicEH\load_wounded.sqf"};
+"norrnRLact"				addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_server\medical\load\load_wounded.sqf"};
+"norrnRDead"				addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_server\medical\publicEH\deadState.sqf"};
 "usecBleed"					addPublicVariableEventHandler {_id = (_this select 1) spawn fnc_usec_damageBleed};
 "usecBandage"				addPublicVariableEventHandler {(_this select 1) call player_medBandage};
 "usecInject"				addPublicVariableEventHandler {(_this select 1) call player_medInject};
@@ -66,6 +66,6 @@ if (!isDedicated) then {
 	"PVDZE_plr_FriendRQ"	addPublicVariableEventHandler {cutText[(_this select 1),"PLAIN DOWN"];};
 	
 	
-	"norrnRaDrag"			addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\publicEH\animDrag.sqf"};
-	"norrnRnoAnim"			addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_code\medical\publicEH\noAnim.sqf"};
+	"norrnRaDrag"			addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_server\medical\publicEH\animDrag.sqf"};
+	"norrnRnoAnim"			addPublicVariableEventHandler {[_this select 1] execVM "\z\addons\dayz_server\medical\publicEH\noAnim.sqf"};
 };
