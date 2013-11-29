@@ -10,7 +10,7 @@ TradeInprogress = true;
 player removeAction s_player_downgrade_build;
 s_player_downgrade_build = 1;
 
-_distance = 30;
+_distance = 100;
 _needText = "Plot Pole";
 
 // check for near plot
