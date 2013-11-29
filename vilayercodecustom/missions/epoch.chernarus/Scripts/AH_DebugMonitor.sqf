@@ -22,8 +22,7 @@ fnc_debugX0 = {
 };	
 fnc_debugX = {
 	admin_debug_run = false;
-	_BottomDebug = "+(str _BottomDebug)+";
-	_item = "+(str _DBI)+";
+	_item = _DBI;
 	_state = true;
 	while {debugMonitorX} do
 	{
@@ -55,7 +54,7 @@ fnc_debugX = {
 		_minutes = floor(_stime/60);
 		_minutes2 = _minutes - (_hours*60);
 		
-		hintSilent parseText format [""
+		hintSilent parseText format ["
 		<t size='1' font='Bitstream' align='Center' >[%1]</t><br/>
 		<img size='4.75' image='%4'/><br/>
 		<t size='1' font='Bitstream' align='left' color='#CC0000'>Blood: </t><t size='1' font='Bitstream' align='right'>%2</t><br/>
@@ -68,7 +67,7 @@ fnc_debugX = {
 		<t size='1' font='Bitstream' align='left' color='#FFBF00'>UPTIME: </t><t size='1' font='Bitstream' align='right'>%5h %6min</t><br/>
 		<t size='1' font='Bitstream' align='left' color='#FFBF00'>FPS: </t><t size='1' font='Bitstream' align='right'>%8</t><br/>
 		<t size='1' font='Bitstream' align='Center' color='#CC0000'>%7</t>
-		"",
+		",
 		_txt,
 		(r_player_blood),
 		round (player getVariable['humanity', 0]),
