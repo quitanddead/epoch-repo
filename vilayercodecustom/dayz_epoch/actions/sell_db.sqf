@@ -92,7 +92,7 @@ if(isNil "PVDZE_plr_TradeMenuResult") then {
 	
 	// Action file to use for trade
 	_afile = _x select 7;
-	_File = "\z\addons\dayz_server\actions\" + _afile + ".sqf";
+	_File = "\z\addons\dayz_code\actions\" + _afile + ".sqf";
 	
 	// Allways 1 for now
 	//_out = _sqty;
@@ -134,7 +134,7 @@ if(isNil "PVDZE_plr_TradeMenuResult") then {
 	
 } forEach PVDZE_plr_TradeMenuResult;
 
-_cancel = player addAction ["Cancel", "\z\addons\dayz_server\actions\trade_cancel.sqf",["medical"], 0, true, false, "",""];
+_cancel = player addAction ["Cancel", "\z\addons\dayz_code\actions\trade_cancel.sqf",["medical"], 0, true, false, "",""];
 s_player_parts set [count s_player_parts,_cancel];
 
 // Cache data in client side global variable

@@ -57,16 +57,16 @@ diag_log format["DEBUG: templvl: %1 dayz_temperatur: %2 tempval: %3",_tempLvl, d
 */
 
 if (_bloodLvl <= 0) then { 
-	_blood = "\z\addons\dayz_server\gui\status_blood_inside_1_ca.paa";
+	_blood = "\z\addons\dayz_code\gui\status_blood_inside_1_ca.paa";
 	} else {
-	_blood = "\z\addons\dayz_server\gui\status_blood_inside_" + str(_bloodLvl) + "_ca.paa";
+	_blood = "\z\addons\dayz_code\gui\status_blood_inside_" + str(_bloodLvl) + "_ca.paa";
 	};
 
 if (_thirstLvl < 0) then { _thirstLvl = 0 };
-_thirst = "\z\addons\dayz_server\gui\status_thirst_inside_" + str(_thirstLvl) + "_ca.paa";
+_thirst = "\z\addons\dayz_code\gui\status_thirst_inside_" + str(_thirstLvl) + "_ca.paa";
 
 if (_foodLvl < 0) then { _foodLvl = 0 };
-_food = "\z\addons\dayz_server\gui\status_food_inside_" + str(_foodLvl) + "_ca.paa";
+_food = "\z\addons\dayz_code\gui\status_food_inside_" + str(_foodLvl) + "_ca.paa";
 
 if ( _tempLvl >= 36 )							then { _tempImg = 4 };
 if ( _tempLvl > 33 and _tempLvl < 36 )			then { _tempImg = 3 };
@@ -74,7 +74,7 @@ if ( _tempLvl >= 30 and _tempLvl <= 33 )		then { _tempImg = 2 };
 if ( _tempLvl > 28 and _tempLvl < 30 )			then { _tempImg = 1 };
 if ( _tempLvl <= 28 )							then { _tempImg = 0 };
 
-_temp = "\z\addons\dayz_server\gui\status_temp_" + str(_tempImg) + "_ca.paa";
+_temp = "\z\addons\dayz_code\gui\status_temp_" + str(_tempImg) + "_ca.paa";
 
 _ctrlBlood ctrlSetText _blood;
 _ctrlThirst ctrlSetText _thirst;
@@ -86,7 +86,7 @@ _ctrlTemp ctrlSetText _temp;
 */
 _visualtext = "";
     _visual = (round((dayz_disVisual / 100) * 4)) min 5;
-if (_visual > 0) then {_visualtext = "\z\addons\dayz_server\gui\val_" + str(_visual) + "_ca.paa"};
+if (_visual > 0) then {_visualtext = "\z\addons\dayz_code\gui\val_" + str(_visual) + "_ca.paa"};
 _ctrlEye ctrlSetText _visualtext;
 
 /*
@@ -94,7 +94,7 @@ _ctrlEye ctrlSetText _visualtext;
 */
 _audibletext = "";
     _audible = (round((dayz_disAudial / 50) * 4)) min 5;
-if (_audible > 0) then {_audibletext = "\z\addons\dayz_server\gui\val_" + str(_audible) + "_ca.paa"};
+if (_audible > 0) then {_audibletext = "\z\addons\dayz_code\gui\val_" + str(_audible) + "_ca.paa"};
 _ctrlEar ctrlSetText _audibletext;
 
 /*
@@ -149,7 +149,7 @@ if(_humanity != dayz_lastHumanity) then {
 	};
 	dayz_lastHumanity = _humanity;
 	dayz_guiHumanity = _guiHumanity;
-	_humanityText = "\z\addons\dayz_server\gui\humanity_" + str(_guiHumanity) + "_ca.paa";
+	_humanityText = "\z\addons\dayz_code\gui\humanity_" + str(_guiHumanity) + "_ca.paa";
 	_ctrlHumanity ctrlSetText _humanityText;
 };
 */

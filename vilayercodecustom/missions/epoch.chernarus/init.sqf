@@ -48,13 +48,13 @@ EpochEvents = [["any","any","any","any",30,"crash_spawner"],["any","any","any","
 dayz_fullMoonNights = true;
 
 //Load in compiled functions
-call compile preprocessFileLineNumbers "\z\addons\dayz_server\init\variables.sqf"; //Initilize the Variables (IMPORTANT: Must happen very early)
+call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\variables.sqf"; //Initilize the Variables (IMPORTANT: Must happen very early)
 progressLoadingScreen 0.1;
-call compile preprocessFileLineNumbers "\z\addons\dayz_server\init\publicEH.sqf";				//Initilize the publicVariable event handlers
+call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\publicEH.sqf";				//Initilize the publicVariable event handlers
 progressLoadingScreen 0.2;
-call compile preprocessFileLineNumbers "\z\addons\dayz_server\medical\setup_functions_med.sqf";	//Functions used by CLIENT for medical
+call compile preprocessFileLineNumbers "\z\addons\dayz_code\medical\setup_functions_med.sqf";	//Functions used by CLIENT for medical
 progressLoadingScreen 0.4;
-call compile preprocessFileLineNumbers "\z\addons\dayz_server\init\compiles.sqf";				//Compile regular functions
+call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\compiles.sqf";				//Compile regular functions
 progressLoadingScreen 0.5;
 call compile preprocessFileLineNumbers "server_traders.sqf";				//Compile trader configs
 progressLoadingScreen 0.75;
@@ -64,9 +64,9 @@ progressLoadingScreen 1.0;
 "filmic" setToneMappingParams [0.153, 0.357, 0.231, 0.1573, 0.011, 3.750, 6, 4]; setToneMapping "Filmic";
 
 /* BIS_Effects_* fixes from Dwarden */
-BIS_Effects_EH_Killed = compile preprocessFileLineNumbers "\z\addons\dayz_server\system\BIS_Effects\killed.sqf";
-BIS_Effects_AirDestruction = compile preprocessFileLineNumbers "\z\addons\dayz_server\system\BIS_Effects\AirDestruction.sqf";
-BIS_Effects_AirDestructionStage2 = compile preprocessFileLineNumbers "\z\addons\dayz_server\system\BIS_Effects\AirDestructionStage2.sqf";
+BIS_Effects_EH_Killed = compile preprocessFileLineNumbers "\z\addons\dayz_code\system\BIS_Effects\killed.sqf";
+BIS_Effects_AirDestruction = compile preprocessFileLineNumbers "\z\addons\dayz_code\system\BIS_Effects\AirDestruction.sqf";
+BIS_Effects_AirDestructionStage2 = compile preprocessFileLineNumbers "\z\addons\dayz_code\system\BIS_Effects\AirDestructionStage2.sqf";
 
 BIS_Effects_globalEvent = {
 	BIS_effects_gepv = _this;
@@ -109,7 +109,7 @@ if (isServer) then {
 	
 	// Add trader citys
 	_nil = [] execVM "mission.sqf";
-	_serverMonitor = 	[] execVM "\z\addons\dayz_server\system\server_monitor.sqf";
+	_serverMonitor = 	[] execVM "\z\addons\dayz_code\system\server_monitor.sqf";
 };
 
 if (!isDedicated) then {
@@ -120,13 +120,13 @@ if (!isDedicated) then {
 	
 	//Run the player monitor
     _id = player addEventHandler ["Respawn", {_id = [] spawn player_death;}];
-	_playerMonitor = 	[] execVM "\z\addons\dayz_server\system\player_monitor.sqf";
+	_playerMonitor = 	[] execVM "\z\addons\dayz_code\system\player_monitor.sqf";
 	//Eric Add AH Debug Monitor For All Players
 	[] execVM "Scripts\AH_DebugMonitor.sqf";	
 	_void = [] execVM "R3F_Realism\R3F_Realism_Init.sqf";
 	
 	//Lights
-	//[0,0,true,true,true,58,280,600,[0.698, 0.556, 0.419],"Generator_DZ",0.1] execVM "\z\addons\dayz_server\compile\local_lights_init.sqf";
+	//[0,0,true,true,true,58,280,600,[0.698, 0.556, 0.419],"Generator_DZ",0.1] execVM "\z\addons\dayz_code\compile\local_lights_init.sqf";
 };
 
 // ------------Server & Player Addons------START-------------------------

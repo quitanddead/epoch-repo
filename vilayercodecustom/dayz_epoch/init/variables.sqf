@@ -487,7 +487,7 @@ dayz_spawnPos = getPosATL player;
 DZE_Lock_Door = "";
 
 //init global arrays for Loot Chances
-call compile preprocessFileLineNumbers "\z\addons\dayz_server\init\loot_init.sqf";
+call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\loot_init.sqf";
 
 if(isServer) then {
 	dayz_players = [];

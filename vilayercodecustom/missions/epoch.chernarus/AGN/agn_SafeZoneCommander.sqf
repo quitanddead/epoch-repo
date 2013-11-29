@@ -229,8 +229,8 @@ while {true} do {
 	
 	if ( AGN_safeZoneGodmode ) then
 	{
-		player_zombieCheck = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\player_zombieCheck.sqf";
-		fnc_usec_damageHandler = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\fn_damageHandler.sqf";
+		player_zombieCheck = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\player_zombieCheck.sqf";
+		fnc_usec_damageHandler = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_damageHandler.sqf";
 		_thePlayer addEventHandler ["handleDamage", {true}];
 		_thePlayer removeAllEventHandlers "handleDamage";
 		_thePlayer allowDamage true;

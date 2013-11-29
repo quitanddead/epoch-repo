@@ -13,7 +13,7 @@ if ((_hasRawMeat) && (_hasdog == "false")) then {
 	_dog = (group player) createUnit [typeOf _target, _pos, [], 0, "FORM"];
 
 	_dog disableAI "FSM";
-	_fsmid = [_dog, typeOf _target] execFSM "\z\addons\dayz_server\system\dog_agent.fsm";
+	_fsmid = [_dog, typeOf _target] execFSM "\z\addons\dayz_code\system\dog_agent.fsm";
 	_fsmid setFSMVariable ["_handle", _fsmid];
 	_target removeAction _id;
     	player setvariable ["dogid", _fsmid];

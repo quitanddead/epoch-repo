@@ -1181,7 +1181,7 @@ class FSM
        "diag_log (""Local Time: "" +str(PVDZE_plr_SetDate));" \n
        "" \n
        "//Medical" \n
-       "dayz_medicalH = 	[] execVM ""\z\addons\dayz_server\medical\init_medical.sqf"";	//Medical Monitor Script (client only)" \n
+       "dayz_medicalH = 	[] execVM ""\z\addons\dayz_code\medical\init_medical.sqf"";	//Medical Monitor Script (client only)" \n
        "[player] call fnc_usec_damageHandle;" \n
        "if (r_player_unconscious) then {" \n
        "	r_player_timeout = player getVariable[""unconsciousTime"",0];" \n

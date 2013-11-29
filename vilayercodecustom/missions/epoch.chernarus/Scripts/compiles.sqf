@@ -1,2 +1,2 @@
-//fnc_usec_selfActions = compile preprocessFileLineNumbers "z\addons\dayz_server\compile\fn_selfActions.sqf";      // fnc_usec_selfActions - adds custom actions to dayz code
+//fnc_usec_selfActions = compile preprocessFileLineNumbers "z\addons\dayz_code\compile\fn_selfActions.sqf";      // fnc_usec_selfActions - adds custom actions to dayz code
 fnc_usec_selfActions = compile preprocessFileLineNumbers "Scripts\fn_selfActions.sqf";      // fnc_usec_selfActions - adds custom actions to dayz code

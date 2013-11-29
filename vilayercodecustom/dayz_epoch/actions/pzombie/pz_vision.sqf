@@ -22,7 +22,7 @@ exitwith
 	ppEffectDestroy ppColor;
 	ppEffectDestroy ppBlur;
 	player setvariable ["NV",["OFF",_oldAperture]];
-	player addAction ["Vision", "\z\addons\dayz_server\actions\pzombie\pz_vision.sqf", [], 0, false, true, "nightVision", "_this == _target"];
+	player addAction ["Vision", "\z\addons\dayz_code\actions\pzombie\pz_vision.sqf", [], 0, false, true, "nightVision", "_this == _target"];
 };
 
 ppEffectDestroy ppColor;
@@ -66,5 +66,5 @@ player setVariable ["NV2",_NV2];
 player setVariable ["NV3",_NV3];
 
 
-player addAction ["Vision", "\z\addons\dayz_server\actions\pzombie\pz_vision.sqf", [], 0, false, true, "nightVision", "_this == _target"];
+player addAction ["Vision", "\z\addons\dayz_code\actions\pzombie\pz_vision.sqf", [], 0, false, true, "nightVision", "_this == _target"];
 exit;

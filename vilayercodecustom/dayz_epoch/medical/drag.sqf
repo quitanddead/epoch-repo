@@ -39,8 +39,8 @@ r_drag_sqf 	= true;
 //Uneccesary actions removed & drop body added 
 call fnc_usec_medic_removeActions;
 
-NORRN_dropAction = player addAction ["Drop body", "\z\addons\dayz_server\medical\drop_body.sqf",_dragee, 0, false, true];
-//NORRN_carryAction = player addAction ["Carry body", "\z\addons\dayz_server\medical\carry.sqf",_dragee, 0, false, true];
+NORRN_dropAction = player addAction ["Drop body", "\z\addons\dayz_code\medical\drop_body.sqf",_dragee, 0, false, true];
+//NORRN_carryAction = player addAction ["Carry body", "\z\addons\dayz_code\medical\carry.sqf",_dragee, 0, false, true];
 sleep 1;
 
 if (true) exitWith {};

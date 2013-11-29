@@ -25,11 +25,11 @@ _nrGen = [];
 _genCount = 0;
 _hsRange = 250;
 _lightTrig = vehicle player;//Central point around which to run the lights
-call compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\fn_lightFunctions.sqf";
-axeTowerLights = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\local_lights_tower.sqf";
-axeHouseLights = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\local_lights_house.sqf";
-//axeStreetLights = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\local_lights_street.sqf";
-axeDeleteLights = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\local_lights_off.sqf";
+call compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\fn_lightFunctions.sqf";
+axeTowerLights = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\local_lights_tower.sqf";
+axeHouseLights = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\local_lights_house.sqf";
+//axeStreetLights = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\local_lights_street.sqf";
+axeDeleteLights = compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\local_lights_off.sqf";
 waitUntil {getPos Player select 0 > 0};
 
 //Detect Dusk and Dawn

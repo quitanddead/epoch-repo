@@ -299,7 +299,7 @@ class FSM
        "" \n
        "_character = player;" \n
        "" \n
-       "_actionDir = ""\z\addons\dayz_server\actions\dog\"";" \n
+       "_actionDir = ""\z\addons\dayz_code\actions\dog\"";" \n
        "" \n
        "_speedVal = [1,8,-1];" \n
        "" \n

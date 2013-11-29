@@ -43,7 +43,7 @@ if (_directon == 1) then {
 
 _display = findDisplay 41144;
 _control = _display displayCtrl _control;
-_control ctrlSetText format["\z\addons\dayz_server\ui\%1_%2.paa",_name,_result];
+_control ctrlSetText format["\z\addons\dayz_epoch\ui\%1_%2.paa",_name,_result];
 
 [player,"combo_tick",0,false] call dayz_zombieSpeak;
 

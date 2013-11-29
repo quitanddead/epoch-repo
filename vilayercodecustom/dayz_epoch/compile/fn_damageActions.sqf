@@ -31,7 +31,7 @@ if (_inVehicle) then {
 			_weapons = _vehicle weaponsTurret _turret;
 			{
 				_weaponName = getText (configFile >> "cfgWeapons" >> _x >> "displayName");
-				_action = _vehicle addAction [format["Add AMMO to %1",_weaponName], "\z\addons\dayz_server\actions\ammo.sqf",[_vehicle,_x,_turret], 0, false, true];
+				_action = _vehicle addAction [format["Add AMMO to %1",_weaponName], "\z\addons\dayz_code\actions\ammo.sqf",[_vehicle,_x,_turret], 0, false, true];
 				r_player_actions2 set [count r_player_actions2,_action];
 				r_action2 = true;
 			} forEach _weapons;
@@ -74,8 +74,8 @@ if (!isNull _menClose and _hasPatient and !r_drag_sqf and !r_action and !_inVehi
 	//Allow player to drag
 	if(_unconscious) then {
 		r_action = true;
-		_action1 = _unit addAction [localize "str_actions_medical_01", "\z\addons\dayz_server\medical\drag.sqf",_unit, 0, true, true];
-		_action2 = _unit addAction [localize "str_actions_medical_02", "\z\addons\dayz_server\medical\pulse.sqf",_unit, 0, true, true];
+		_action1 = _unit addAction [localize "str_actions_medical_01", "\z\addons\dayz_code\medical\drag.sqf",_unit, 0, true, true];
+		_action2 = _unit addAction [localize "str_actions_medical_02", "\z\addons\dayz_code\medical\pulse.sqf",_unit, 0, true, true];
 		r_player_actions = r_player_actions + [_action1,_action2];
 	};
 	//Load Vehicle
@@ -89,38 +89,38 @@ if (!isNull _menClose and _hasPatient and !r_drag_sqf and !r_action and !_inVehi
 			_vehicle = (_vehClose select _x);
 		};
 		_vehType = typeOf _vehicle;
-		_action = _unit addAction [format[localize "str_actions_medical_03",_vehType], "\z\addons\dayz_server\medical\load\load_act.sqf",[player,_vehicle,_unit], 0, true, true];
+		_action = _unit addAction [format[localize "str_actions_medical_03",_vehType], "\z\addons\dayz_code\medical\load\load_act.sqf",[player,_vehicle,_unit], 0, true, true];
 		r_player_actions set [count r_player_actions,_action];
 	};
 	//Allow player to bandage
 	if(_injured and _hasBandage) then {
 		r_action = true;
 		//_unit setdamage 0.8;
-		_action = _unit addAction [localize "str_actions_medical_04", "\z\addons\dayz_server\medical\bandage.sqf",[_unit], 0, true, true, "", ""];
+		_action = _unit addAction [localize "str_actions_medical_04", "\z\addons\dayz_code\medical\bandage.sqf",[_unit], 0, true, true, "", ""];
 		r_player_actions set [count r_player_actions,_action];
 	};
 	//Allow player to give Epinephrine
 	if(_unconscious and _hasEpi) then {
 		r_action = true;
-		_action = _unit addAction [localize "str_actions_medical_05", "\z\addons\dayz_server\medical\epinephrine.sqf",[_unit], 0, true, true];
+		_action = _unit addAction [localize "str_actions_medical_05", "\z\addons\dayz_code\medical\epinephrine.sqf",[_unit], 0, true, true];
 		r_player_actions set [count r_player_actions,_action];
 	};
 	//Allow player to give Morphine
 	if((_legsBroke or _armsBroke) and _hasMorphine) then {
 		r_action = true;
-		_action = _unit addAction [localize "str_actions_medical_06", "\z\addons\dayz_server\medical\morphine.sqf",[_unit], 0, true, true, "", ""];
+		_action = _unit addAction [localize "str_actions_medical_06", "\z\addons\dayz_code\medical\morphine.sqf",[_unit], 0, true, true, "", ""];
 		r_player_actions set [count r_player_actions,_action];
 	};
 	//Allow player to give Painkillers
 	if(_inPain and _hasPainkillers) then {
 		r_action = true;
-		_action = _unit addAction [localize "str_actions_medical_07", "\z\addons\dayz_server\medical\painkiller.sqf",[_unit], 0, true, true, "", ""];
+		_action = _unit addAction [localize "str_actions_medical_07", "\z\addons\dayz_code\medical\painkiller.sqf",[_unit], 0, true, true, "", ""];
 		r_player_actions set [count r_player_actions,_action];
 	};
 	//Allow player to transfuse blood
 	if(_lowBlood and _hasBlood) then {
 		r_action = true;
-		_action = _unit addAction [localize "str_actions_medical_08", "\z\addons\dayz_server\medical\transfusion.sqf",[_unit], 0, true, true, "", ""];
+		_action = _unit addAction [localize "str_actions_medical_08", "\z\addons\dayz_code\medical\transfusion.sqf",[_unit], 0, true, true, "", ""];
 		r_player_actions set [count r_player_actions,_action];
 	};
 	
@@ -132,13 +132,13 @@ if (!isNull _menClose and _hasPatient and !r_drag_sqf and !r_action and !_inVehi
 		//CAN WE REFUEL THE OBJECT?
 		if ((fuel _unit < 1) and (_hasJerry or _hasBarrel)) then {
 			r_action = true;
-			_action = _unit addAction [format[localize "str_actions_medical_10",_typeVeh], "\z\addons\dayz_server\actions\refuel.sqf",[], 0, true, true, "", ""];
+			_action = _unit addAction [format[localize "str_actions_medical_10",_typeVeh], "\z\addons\dayz_code\actions\refuel.sqf",[], 0, true, true, "", ""];
 			r_player_actions set [count r_player_actions,_action];
 		};
 		//CAN WE siphon fuel from THE OBJECT?
 		if ((fuel _unit > 0) and (_hasJerryE or _hasBarrelE)) then {
 			r_action = true;
-			_action = _unit addAction [format["Siphon fuel from %1",_typeVeh], "\z\addons\dayz_server\actions\siphonFuel.sqf",[], 0, true, true, "", ""];
+			_action = _unit addAction [format["Siphon fuel from %1",_typeVeh], "\z\addons\dayz_code\actions\siphonFuel.sqf",[], 0, true, true, "", ""];
 			r_player_actions set [count r_player_actions,_action];
 		};
 
@@ -156,7 +156,7 @@ if (!isNull _menClose and _hasPatient and !r_drag_sqf and !r_action and !_inVehi
 						//Have at least one
 						r_action = true;
 						_displayName = getText(configFile >> "cfgMagazines" >> _x >> "displayName");
-						_action = _unit addAction [format[localize "str_actions_medical_11",_displayName], "\z\addons\dayz_server\actions\logistics_loadmag.sqf",[_unit,_x], 0, false, true];
+						_action = _unit addAction [format[localize "str_actions_medical_11",_displayName], "\z\addons\dayz_code\actions\logistics_loadmag.sqf",[_unit,_x], 0, false, true];
 						r_player_actions set [count r_player_actions,_action];
 					};
 				};
@@ -165,7 +165,7 @@ if (!isNull _menClose and _hasPatient and !r_drag_sqf and !r_action and !_inVehi
 		//CAN CARRY BACKPACK
 		if ((_type in USEC_PackableObjects) and (_classbag == "")) then {
 			r_action = true;
-			_action = _unit addAction [format[localize "str_actions_medical_12",_typeVeh], "\z\addons\dayz_server\actions\pack.sqf",[_unit], 0, true, true];
+			_action = _unit addAction [format[localize "str_actions_medical_12",_typeVeh], "\z\addons\dayz_code\actions\pack.sqf",[_unit], 0, true, true];
 			r_player_actions set [count r_player_actions,_action];
 		};
 	} else {
@@ -173,7 +173,7 @@ if (!isNull _menClose and _hasPatient and !r_drag_sqf and !r_action and !_inVehi
 		// should only fire if cursor target is man and not vehicle
 		if ((isPlayer _unit) and !(_charID in _friendlies)) then {
 			r_action = true;
-			_action = _unit addAction ["Tag as friendly", "\z\addons\dayz_server\actions\player_tagFriendly.sqf", [], 0, false, true, "", ""];
+			_action = _unit addAction ["Tag as friendly", "\z\addons\dayz_code\actions\player_tagFriendly.sqf", [], 0, false, true, "", ""];
 			r_player_actions set [count r_player_actions,_action];
 		};
 		
@@ -187,20 +187,20 @@ if (!isNull _menClose and _hasPatient and !r_drag_sqf and !r_action and !_inVehi
 			r_action = true;
 			_index = USEC_CanDisassemble find _type;
 			_inventory = USEC_DisassembleKits select _index;
-			_action = _unit addAction [format[localize "str_actions_medical_12",_typeVeh], "\z\addons\dayz_server\actions\disassemble.sqf",[_unit,_inventory], 0, true, true];
+			_action = _unit addAction [format[localize "str_actions_medical_12",_typeVeh], "\z\addons\dayz_code\actions\disassemble.sqf",[_unit,_inventory], 0, true, true];
 			r_player_actions set [count r_player_actions,_action];
 		};
 		//Upgrade Wire
 		if (_isEngineer and (_type == "usec_wire_cat1") and _hasWire) then {
 			r_action = true;
 			_unitTo = "usec_wire_cat2";
-			_action = _unit addAction [format[localize "str_actions_medical_13",_typeVeh], "\z\addons\dayz_server\actions\engineer_upgrade.sqf",[_unit,"ItemWire",_unitTo], 0, false, true];
+			_action = _unit addAction [format[localize "str_actions_medical_13",_typeVeh], "\z\addons\dayz_code\actions\engineer_upgrade.sqf",[_unit,"ItemWire",_unitTo], 0, false, true];
 			r_player_actions set [count r_player_actions,_action];
 		};
 		if (_isEngineer and (_type == "usec_wire_cat2") and _hasWire) then {
 			r_action = true;
 			_unitTo = "Fort_RazorWire";
-			_action = _unit addAction [format[localize "str_actions_medical_13",_typeVeh], "\z\addons\dayz_server\actions\engineer_upgrade.sqf",[_unit,"ItemWire",_unitTo], 0, false, true];
+			_action = _unit addAction [format[localize "str_actions_medical_13",_typeVeh], "\z\addons\dayz_code\actions\engineer_upgrade.sqf",[_unit,"ItemWire",_unitTo], 0, false, true];
 			r_player_actions set [count r_player_actions,_action];
 		};
 	};
@@ -232,7 +232,7 @@ if (_inVehicle) then {
 			if (!r_action_unload) then {
 				r_action_unload = true;
 				_vehType = typeOf _vehicle;
-				_action = _vehicle addAction [format[localize "str_actions_medical_14",_vehType], "\z\addons\dayz_server\medical\load\unLoad_act.sqf",[player,_vehicle], 0, false, true];
+				_action = _vehicle addAction [format[localize "str_actions_medical_14",_vehType], "\z\addons\dayz_code\medical\load\unLoad_act.sqf",[player,_vehicle], 0, false, true];
 				r_player_actions set [count r_player_actions,_action];
 			};
 		} else {

@@ -43,7 +43,7 @@ if (_finished) then {
 		
 	if (_unit == player) then {
 		//Self Healing
-		_id = [player,player] execVM "\z\addons\dayz_server\medical\publicEH\medBandaged.sqf";
+		_id = [player,player] execVM "\z\addons\dayz_code\medical\publicEH\medBandaged.sqf";
 		dayz_sourceBleeding =	objNull;
 	} else {
 		//PVDZE_plr_HumanityChange = [player,20];

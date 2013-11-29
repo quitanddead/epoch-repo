@@ -54,7 +54,7 @@ _hitpoints = _vehicle call vehicle_getHitpoints;
 
 			_percent = round(_damage*100);
 			_string = format["<t %2>Remove%1 (%3 %4)</t>",_cmpt,_color,_percent,"%"]; //Remove - Part
-			_handle = dayz_myCursorTarget addAction [_string, "\z\addons\dayz_server\actions\salvage.sqf",[_vehicle,_part,_x], 0, false, true, "",""];
+			_handle = dayz_myCursorTarget addAction [_string, "\z\addons\dayz_code\actions\salvage.sqf",[_vehicle,_part,_x], 0, false, true, "",""];
 			s_player_repairActions set [count s_player_repairActions,_handle];
 			
 		};
@@ -64,7 +64,7 @@ _hitpoints = _vehicle call vehicle_getHitpoints;
 
 if(count _hitpoints > 0 ) then {
 	
-	_cancel = dayz_myCursorTarget addAction ["Cancel", "\z\addons\dayz_server\actions\repair_cancel.sqf","repair", 0, true, false, "",""];
+	_cancel = dayz_myCursorTarget addAction ["Cancel", "\z\addons\dayz_code\actions\repair_cancel.sqf","repair", 0, true, false, "",""];
 	s_player_repairActions set [count s_player_repairActions,_cancel];
 	s_player_repair_crtl = 1;
 };
