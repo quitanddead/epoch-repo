@@ -41,14 +41,14 @@ if (!ib_refueling_in_progress) then {
                 //Set real vehicle fuel to new total fuel variable 
                 _target setFuel _cfcust;
 
-                diag_log format ["ERIC-DEBUG - repair.sqf: Vehicle Repair Factor per Unit Repair Time (_amount2) = %1", _amount2];
+                //diag_log format ["ERIC-DEBUG - repair.sqf: Vehicle Repair Factor per Unit Repair Time (_amount2) = %1", _amount2];
 
-                diag_log format ["ERIC-DEBUG - repair.sqf: Current Vehicle Damage (_cfcust2) = %1", _cfcust2];
+                //diag_log format ["ERIC-DEBUG - repair.sqf: Current Vehicle Damage (_cfcust2) = %1", _cfcust2];
 
                 //Subtract Repair factor from total damage variable
                 _cfcust2 = _cfcust2 - _amount2;
 
-                diag_log format ["ERIC-DEBUG - repair.sqf: Current Vehicle Damage After Repair (_cfcust2) = %1", _cfcust2];
+                //diag_log format ["ERIC-DEBUG - repair.sqf: Current Vehicle Damage After Repair (_cfcust2) = %1", _cfcust2];
 
                 //If we go under 0.0, reset to 0.0 
                 if (_cfcust2 <= 0.0) then { _cfcust2 = 0.0; };
