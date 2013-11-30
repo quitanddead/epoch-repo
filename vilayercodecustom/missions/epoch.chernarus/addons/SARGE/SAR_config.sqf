@@ -19,7 +19,7 @@
 // -----------------------------------------------
 // enable or disable dynamic grid spawning
 // -----------------------------------------------
-SAR_dynamic_spawning = true;
+SAR_dynamic_spawning = false;
 
 // -----------------------------------------------
 // default values for dynamic grid spawning
