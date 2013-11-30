@@ -1,5 +1,5 @@
 [] spawn {[] execVM "\z\addons\dayz_server\init\AH.sqf";}; // (AT THE VERY TOP OF server_functions.sqf ABOVE EVERYTHING ELSE!)
-diag_log format["ERIC-DEBUG :: server_functions.sqf has been called."];
+//diag_log format["ERIC-DEBUG :: server_functions.sqf has been called."];
 
 waituntil {!isnil "bis_fnc_init"};
 

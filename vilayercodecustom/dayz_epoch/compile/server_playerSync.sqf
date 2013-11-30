@@ -40,11 +40,11 @@ if (_characterID == "0") exitWith {
 
 private["_debug","_distance"];
 _debug = getMarkerpos "respawn_west";
-diag_log format["ERIC-DEBUG :: server_playerSync: respawn_west is located at %1",_debug];
+//diag_log format["ERIC-DEBUG :: server_playerSync: respawn_west is located at %1",_debug];
 _distance = _debug distance _charPos;
 if (_distance < 2000) exitWith { 
 	diag_log format["ERROR: server_playerSync: Cannot Sync Player %1 [%2]. Position in debug! %3",name _character,_characterID,_charPos];
-	diag_log format["ERIC-DEBUG :: server_playerSync: Player %1 is %2 away from respawn_west",name _character,_distance];
+	//diag_log format["ERIC-DEBUG :: server_playerSync: Player %1 is %2 away from respawn_west",name _character,_distance];
 };
 
 //Check for server initiated updates

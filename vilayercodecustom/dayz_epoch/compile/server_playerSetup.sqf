@@ -26,10 +26,6 @@ if (_playerID == "") exitWith {
 if (_playerID == "51361798") then {
 	diag_log format["ERIC-DEBUG :: The Architect has arrived."]
 };
-
-if (_playerUID == "106982534") then {
-	diag_log format["ERIC-DEBUG :: Ladies and Gents, DARK has joined the server"];
-};
 //END-ERIC
 
 private["_dummy"];
