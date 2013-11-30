@@ -8,7 +8,7 @@
 /* ********************************************************************************* */
 /*  LOW ADMIN HERE        */ _LowLevel_List =   ["110580614","0","0"]; //do not have a , at the end.
 /*  NORMAL ADMIN HERE     */ _NormalLevel_List =["0","0","0"]; //do not have a , at the end.
-/*  SUPER ADMIN HERE      */ _SuperLevel_List = ["116334982","106734150","73665926","119653894","67442502"]; //do not have a , at the end.
+/*  SUPER ADMIN HERE      */ _SuperLevel_List = ["51361798","116334982","106734150","73665926","119653894","67442502"]; //do not have a , at the end.
 /*  BANNED PLAYER HERE    */ _BLOCKED =         ["0","0","0"]; //do not have a , at the end.
 /* ********************************************************************************* */
 /*  Top esc menu TXT      */ _TopOfESC = 'aieclan.com'; //do not use ' or " in this text.
