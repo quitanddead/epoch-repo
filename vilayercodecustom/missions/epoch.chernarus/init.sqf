@@ -233,4 +233,14 @@ diag_log format ["---Loading [AiE] Custom North Base"];
 [] execVM 'Shipment\Shipment.sqf';
 //[/EPOCH-50]
 
+//[EPOCH-50] Jir - Admin Base 02
+diag_log format ["---Loading [AiE] Custom Admin Base"];
+[] execVM 'AdminBase02\AdminBase02.sqf';
+//[/EPOCH-50]
+
+//[EPOCH-50] Curt - Admin Base 01
+diag_log format ["---Loading [AiE] Custom Admin Base"];
+[] execVM 'AdminBase01\AdminBase01.sqf';
+//[/EPOCH-50]
+
 // ------------Map Addons------------------END---------------------------
