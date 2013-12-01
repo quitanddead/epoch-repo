@@ -414,15 +414,6 @@ if (true) then
   _this setPos [4302.6528, 10548.084];
 };
 
-_vehicle_2193 = objNull;
-if (true) then
-{
-  _this = createVehicle ["UH1Wreck", [4421.5557, 10612.776, 3.0517578e-005], [], 0, "CAN_COLLIDE"];
-  _vehicle_2193 = _this;
-  _this setDir 1.2031933;
-  _this setPos [4421.5557, 10612.776, 3.0517578e-005];
-};
-
 _vehicle_2227 = objNull;
 if (true) then
 {
@@ -830,15 +821,6 @@ if (true) then
   _vehicle_2573 = _this;
   _this setDir 36.134907;
   _this setPos [4478.7578, 10601.735, -3.0517578e-005];
-};
-
-_vehicle_2576 = objNull;
-if (true) then
-{
-  _this = createVehicle ["USMC_WarfareBMGNest_M240", [4474.9395, 10606.455, 0.11660619], [], 0, "CAN_COLLIDE"];
-  _vehicle_2576 = _this;
-  _this setDir 94.360664;
-  _this setPos [4474.9395, 10606.455, 0.11660619];
 };
 
 _vehicle_2579 = objNull;
@@ -4743,15 +4725,6 @@ if (true) then
   _this setPos [4456.834, 10587.114, -3.0517578e-005];
 };
 
-_vehicle_3837 = objNull;
-if (true) then
-{
-  _this = createVehicle ["M2StaticMG_US_EP1", [4455.1201, 10588.524, 3.0517578e-005], [], 0, "CAN_COLLIDE"];
-  _vehicle_3837 = _this;
-  _this setDir 143.22571;
-  _this setPos [4455.1201, 10588.524, 3.0517578e-005];
-};
-
 _vehicle_3839 = objNull;
 if (true) then
 {
@@ -4768,15 +4741,6 @@ if (true) then
   _vehicle_3846 = _this;
   _this setDir 131.93864;
   _this setPos [4396.1807, 10605.864, -9.1552734e-005];
-};
-
-_vehicle_3847 = objNull;
-if (true) then
-{
-  _this = createVehicle ["M2StaticMG_US_EP1", [4396.7368, 10604.584, -6.1035156e-005], [], 0, "CAN_COLLIDE"];
-  _vehicle_3847 = _this;
-  _this setDir 244.99565;
-  _this setPos [4396.7368, 10604.584, -6.1035156e-005];
 };
 
 _vehicle_3848 = objNull;
@@ -6839,154 +6803,6 @@ if (true) then
   _vehicle_4439 = _this;
   _this setDir -299.67111;
   _this setPos [4392.3037, 10712.491];
-};
-
-
-//NWAF Crate Area
-_vehicle_3078 = objNull;
-if (true) then
-{
-  _this = createVehicle ["USVehicleBox_EP1", [4490.9863, 10633.744, 0], [], 0, "CAN_COLLIDE"];
-  _vehicle_3078 = _this;
-  _this setDir 62.275021;
-    //Clear Cargo	
-  clearweaponcargoGlobal _this;
-  clearmagazinecargoGlobal _this;
-  //Add Cargo
-  _this addWeaponCargoGlobal ["ItemEtool",2];
-  _this addWeaponCargoGlobal ["ItemToolbox",2];
-  _this addWeaponCargoGlobal ["ItemSledge",1];
-
-  _this addmagazineCargoGlobal ["bulk_ItemTankTrap",2];
-  _this addmagazineCargoGlobal ["bulk_ItemWire",2];
-  _this addmagazineCargoGlobal ["bulk_ItemSandbag",2];
-  _this addmagazineCargoGlobal ["bulk_PartGeneric",2];
-  _this addmagazineCargoGlobal ["PartPlankPack",10];
-  _this addmagazineCargoGlobal ["PartPlywoodPack",10];
-  _this addmagazineCargoGlobal ["CinderBlocks",21];
-  _this addmagazineCargoGlobal ["MortarBucket",7];
-
-  _this setPos [4490.9863, 10633.744, 0];
-};
-
-//HQ Gear
-_vehicle_3478 = objNull;
-if (true) then
-{
-  _this = createVehicle ["USOrdnanceBox_EP1", [4445.3955, 10554.499], [], 0, "CAN_COLLIDE"];
-  _vehicle_3478 = _this;
-  _this setDir -94.266945;
-    //Clear Cargo	
-  clearweaponcargoGlobal _this;
-  clearmagazinecargoGlobal _this;
-  //Add Cargo
-  _this addWeaponCargoGlobal ["Binocular",2];
-  _this addWeaponCargoGlobal ["Binocular_Vector",2];
-  _this addWeaponCargoGlobal ["NVGoggles",2];
-  _this addWeaponCargoGlobal ["ItemGPS",2];
-  _this addWeaponCargoGlobal ["SCAR_L_CQC_Holo",1];
-  _this addWeaponCargoGlobal ["SCAR_L_STD_Mk4CQT",1];
-  _this addWeaponCargoGlobal ["SCAR_H_CQC_CCO_SD",1];
-  
-  _this addmagazineCargoGlobal ["30Rnd_556x45_Stanag",20];
-  _this addmagazineCargoGlobal ["20Rnd_762x51_B_SCAR",10];
-  _this addmagazineCargoGlobal ["20Rnd_762x51_SB_SCAR",10];
-  
-  _this setPos [4445.3955, 10554.499];
-};
-
-//Heli Crash
-_vehicle_3484 = objNull;
-if (true) then
-{
-  _this = createVehicle ["USOrdnanceBox_EP1", [4423.4888, 10611.725, 6.1035156e-005], [], 0, "CAN_COLLIDE"];
-  _vehicle_3484 = _this;
-  _this setDir -121.73288;
-    //Clear Cargo	
-  clearweaponcargoGlobal _this;
-  clearmagazinecargoGlobal _this;
-  //Add Cargo
-  _this addWeaponCargoGlobal ["ItemEtool",1];
-  _this addWeaponCargoGlobal ["ItemToolbox",1];
-  _this addWeaponCargoGlobal ["NVGoggles",1];
-  _this addWeaponCargoGlobal ["M4A1_HWS_GL",1];
-  _this addWeaponCargoGlobal ["M16A4_ACG_GL",2];
-  _this addWeaponCargoGlobal ["M240_DZ",1];
-  _this addWeaponCargoGlobal ["Stinger",1];
-  
-  _this addmagazineCargoGlobal ["PartGeneric",5];
-  _this addmagazineCargoGlobal ["PartEngine",2];
-  _this addmagazineCargoGlobal ["PartVRotor",2];
-  _this addmagazineCargoGlobal ["PartWheel",16];
-  _this addmagazineCargoGlobal ["PartFueltank",1];
-  _this addmagazineCargoGlobal ["PartGlass",10];
-  _this addmagazineCargoGlobal ["30Rnd_556x45_Stanag",20];
-  _this addmagazineCargoGlobal ["100Rnd_762x51_M240",10];
-  _this addmagazineCargoGlobal ["Stinger",10];
-  
-  _this setPos [4423.4888, 10611.725, 6.1035156e-005];
-};
-//Mess Hall
-_vehicle_3486 = objNull;
-if (true) then
-{
-  _this = createVehicle ["USOrdnanceBox_EP1", [4403.1333, 10581.208, -3.0517578e-005], [], 0, "CAN_COLLIDE"];
-  _vehicle_3486 = _this;
-  _this setDir -116.14831;
-    //Clear Cargo	
-  clearweaponcargoGlobal _this;
-  clearmagazinecargoGlobal _this;
-  //Add Cargo
-  _this addmagazineCargoGlobal ["FoodMRE",15];
-  _this addmagazineCargoGlobal ["ItemTrashToiletpaper",2];
-  _this addmagazineCargoGlobal ["ItemSodaMdew",10];
-  _this addmagazineCargoGlobal ["Skin_Drake_Light_DZ",2];
-  _this addmagazineCargoGlobal ["Skin_FR_OHara_DZ",2];
-  _this addmagazineCargoGlobal ["Skin_FR_Rodriguez_DZ",2];
-  _this addmagazineCargoGlobal ["Skin_CZ_Soldier_Sniper_EP1_DZ",2];
-  _this addmagazineCargoGlobal ["Skin_Graves_Light_DZ",2];
-
-  _this addbackpackCargoGlobal ["DZ_Backpack_EP1",2];
-  _this setPos [4403.1333, 10581.208, -3.0517578e-005];
-};
-
-//Abrams
-_vehicle_3121 = objNull;
-if (true) then
-{
-  _this = createVehicle ["USOrdnanceBox_EP1", [4467.0278, 10659.71, -3.0517578e-005], [], 0, "CAN_COLLIDE"];
-  _vehicle_3121 = _this;
-  _this setDir -17.79924;
-    //Clear Cargo	
-  clearweaponcargoGlobal _this;
-  clearmagazinecargoGlobal _this;
-  //Add Cargo
-  _this addmagazineCargoGlobal ["PartGeneric",20];
-  _this addmagazineCargoGlobal ["PartEngine",10];
-  _this addmagazineCargoGlobal ["PartWheel",16];
-  _this addmagazineCargoGlobal ["PartFueltank",10];
-  _this addmagazineCargoGlobal ["PartGlass",20];
-  _this addmagazineCargoGlobal ["100Rnd_762x51_M240",10];
-
-  _this setPos [4467.0278, 10659.71, -3.0517578e-005];
-};
-
-//Fuel Point
-_vehicle_3488 = objNull;
-if (true) then
-{
-  _this = createVehicle ["USOrdnanceBox_EP1", [4457.5713, 10676.689,0], [], 0, "CAN_COLLIDE"];
-  _vehicle_3488 = _this;
-  _this setDir -121.73288;
-    //Clear Cargo	
-  clearweaponcargoGlobal _this;
-  clearmagazinecargoGlobal _this;
-  //Add Cargo
-  _this addmagazineCargoGlobal ["ItemFuelBarrel",10];
-  _this addmagazineCargoGlobal ["ItemJerrycan",10];
-  _this addmagazineCargoGlobal ["PartFueltank",10];
-
-  _this setPos [4457.5713, 10676.689,0];
 };
 
 
