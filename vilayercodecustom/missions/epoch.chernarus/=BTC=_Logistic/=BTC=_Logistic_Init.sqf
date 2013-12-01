@@ -68,12 +68,12 @@ BTC_paradrop =
 	_chute_type   = _this select 2;
 	private ["_chute"];
 	_dropped_type = typeOf _dropped;
-	if (typeOf _Veh == "MH6J_EP1") then {_chute = createVehicle [_chute_type, [((position _Veh) select 0) - 5,((position _Veh) select 1) - 10,((position _Veh) select 2)- 4], [], 0, "NONE"];} else {_chute = createVehicle [_chute_type, [((position _Veh) select 0) - 5,((position _Veh) select 1) - 3,((position _Veh) select 2)- 4], [], 0, "NONE"];};
-	_smoke        = "SmokeshellGreen" createVehicle position _Veh;
+	if (typeOf _Veh == "UH60M_EP1_DZE") then {_chute = createVehicle [_chute_type, [((position _Veh) select 0) - 5,((position _Veh) select 1) - 10,((position _Veh) select 2)- 4], [], 0, "NONE"];} else {_chute = createVehicle [_chute_type, [((position _Veh) select 0) - 5,((position _Veh) select 1) - 3,((position _Veh) select 2)- 4], [], 0, "NONE"];};
+	_smoke        = "SmokeShellOrange" createVehicle position _Veh;
     _smoke attachto [_dropped,[0,0,0]]; 
 	_dropped attachTo [_chute,[0,0,0]];
 	while {getPos _chute select 2 > 2} do {sleep 1;};
 	detach _dropped;
-	if (_dropped_type isKindOf "ReammoBox") then {_dropped setPosATL [getpos _dropped select 0, getpos _dropped select 1, 0];};
+	if (_dropped_type isKindOf "LandVehicle") then {_dropped setPosATL [getpos _dropped select 0, getpos _dropped select 1, 0];};
 };
 BTC_hint = {_text  = _this select 0;_sleep = _this select 1;hintSilent _text;sleep _sleep;hintSilent "";};
