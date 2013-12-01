@@ -302,7 +302,7 @@ class FSM
        " } forEach allMissionObjects ""ReammoBox"";" \n
        "*/" \n
        "" \n
-       "dayz_serverObjectMonitor = _safety;" \n
+       /*"dayz_serverObjectMonitor = _safety;" \n*/
        ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
