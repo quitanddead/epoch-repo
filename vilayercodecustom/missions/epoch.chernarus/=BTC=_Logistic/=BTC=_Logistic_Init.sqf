@@ -41,7 +41,8 @@ BTC_get_liftable_array =
 		case "CH_47F_BAF"      : {_array = ["LandVehicle","Air","Ship"];};
 		case "Mi17_TK_EP1"     : {_array = ["LandVehicle","Air","Ship"];};
 		case "Mi171Sh_CZ_EP1"  : {_array = ["LandVehicle","Air","Ship"];};
-		case "MV-22"		   : {_array = ["LandVehicle","Air","Ship"];};
+		case "MV22_DZ"		   : {_array = ["LandVehicle","Air","Ship"];};
+		case "UH60M_EP1_DZE"   : {_array = ["LandVehicle","Air","Ship"];};
 	};
 	_array
 };
