@@ -12,7 +12,7 @@
 5 "BIS_MPF_dummygroup"
 5 "compile"
 5 "loadFile"
-5 "call"
+1 "call"
 5 "mission"
 5 "spawn"
 5 "format"
