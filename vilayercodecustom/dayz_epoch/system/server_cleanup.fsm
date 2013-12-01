@@ -326,7 +326,7 @@ class FSM
       name = "prepare";
       init = /*%FSM<STATEINIT""">*/"diag_log (""CLEANUP: INITIALIZING CLEANUP SCRIPT"");" \n
        "" \n
-       "_safety = dayz_serverObjectMonitor;" \n
+       /*"_safety = dayz_serverObjectMonitor;" \n*/
        "" \n
        "_lastTimeSync = time;" \n
        "_lastDeadCheck = time;" \n
