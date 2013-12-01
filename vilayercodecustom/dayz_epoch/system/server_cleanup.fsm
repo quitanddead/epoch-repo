@@ -258,7 +258,7 @@ class FSM
        "  _dateNum = dateToNumber(_date); " \n
        "  _diff = ( _dateNum - dateToNumber (date) )*365*24*60;" \n
        "  if ( abs(_diff)>5 ) then {" \n
-       "    /*[""dayzSetDate"",_date] call broadcastRpcCallAll;" \n*/
+       "    //[""dayzSetDate"",_date] call broadcastRpcCallAll;" \n
        "    diag_log (""TIME SYNC: Local Time set to "" + str(_date));" \n
        "  };" \n
        "};" \n
