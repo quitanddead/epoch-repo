@@ -1177,7 +1177,7 @@ class Mission
                 items=1;
                 class Item0
                 {
-                    position[]={7350,500,8400};
+                    position[]={6350,500,114115};
                     id=94;
                     side="CIV";
                     vehicle="Survivor1_DZ";
