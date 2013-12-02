@@ -3,4 +3,5 @@ bbcdef0123456789abcdef0123456789 Guid of Nils Pils.
 cbcdef0123456789abcdef0123456789 Friend of Nils Pils
 dbcdef0123456789abcdef0123456789
 a0755addc0ab2820a2acb2a05f54ce0a Nux
+278bb91c3382854332d3f9e7f060a309 Sandman HC
 
