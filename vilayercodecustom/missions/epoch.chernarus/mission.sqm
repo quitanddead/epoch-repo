@@ -1186,7 +1186,7 @@ class Mission
                     text="HeadlessClient";
                     init="this allowDamage false";
                     description="HeadlessClient";
-                    name="HeadlessClient";
+                    name="Sandman";
                     forceHeadlessClient=1;
                 };
             };
