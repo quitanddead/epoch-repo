@@ -150,14 +150,22 @@ if(! ( hasInterface || isDedicated )) then {
 // ------------Server Side Addons----------START-------------------------
 
 if (isServer) then {
-	// Add server side addon calls here
+	//Declare global variables for SARGE/HC
+	publicvariable "SAR_surv_kill_value";
+	publicvariable "SAR_band_kill_value";
+	publicvariable "SAR_DEBUG";
+	publicvariable "SAR_EXTREME_DEBUG";
+	publicvariable "SAR_DETECT_HOSTILE";
+	publicvariable "SAR_DETECT_INTERVAL";
+	publicvariable "SAR_HUMANITY_HOSTILE_LIMIT";
+	//End Declare global variables for SARGE/HC
 };
 
 // ------------Server Side Addons----------END---------------------------
 
 // ------------Player Side Addons----------START-------------------------
 
-if (!isDedicated) then {
+if  ( !isDedicated && hasInterface ) then {
 	//Repair/Refuel Addon
 	diag_log format ["---Loading Repair/Refuel Addon"];
     [] execVM "Scripts\repairactions.sqf";
