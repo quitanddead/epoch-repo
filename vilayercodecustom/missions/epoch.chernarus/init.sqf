@@ -131,17 +131,16 @@ if (!isDedicated) then {
 
 // ------------Server & Player Addons------START-------------------------
 
-// UPSMON for SAR_AI
-diag_log format ["---Loading UPSMON for SAR_AI"];
-call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
-// SHK for SAR_AI
-diag_log format ["---Loading SHK for SAR_AI"];
-call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
-
 // ------------Server & Player Addons------END---------------------------
 
 //ERIC - SARGE AI Spawn on Headless Client Only
 if(! ( hasInterface || isDedicated )) then {
+	// UPSMON for SAR_AI
+	diag_log format ["---Loading UPSMON for SAR_AI"];
+	call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
+	// SHK for SAR_AI
+	diag_log format ["---Loading SHK for SAR_AI"];
+	call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
 	// run SAR_AI
 	diag_log format ["---Loading SAR_AI"];
 	[] execVM "addons\SARGE\SAR_AI_init.sqf";
