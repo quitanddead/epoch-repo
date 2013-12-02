@@ -40,7 +40,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=2;
+		items=3;
 		class Item0
 		{
 			side="WEST";
@@ -1169,6 +1169,28 @@ class Mission
 				};
 			};
 		};
+		class Item2
+        {
+            side="CIV";
+            class Vehicles
+            {
+                items=1;
+                class Item0
+                {
+                    position[]={8000,500,8000};
+                    id=94;
+                    side="CIV";
+                    vehicle="Survivor1_DZ";
+                    player="PLAYER COMMANDER";
+                    skill=0.60000002;
+                    text="HeadlessClient";
+                    init="this allowDamage false";
+                    description="HeadlessClient";
+                    name="HeadlessClient";
+                    forceHeadlessClient=1;
+                };
+            };
+        };
 	};
 	class Markers
 	{
