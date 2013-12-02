@@ -1183,7 +1183,7 @@ class Mission
                     vehicle="Survivor1_DZ";
                     player="PLAYER COMMANDER";
                     skill=0.60000002;
-                    text="HeadlessClient";
+                    text="Sandman";
                     init="this allowDamage false";
                     description="HeadlessClient";
                     name="Sandman";

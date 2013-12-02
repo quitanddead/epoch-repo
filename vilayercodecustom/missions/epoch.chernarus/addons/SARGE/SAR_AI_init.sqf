@@ -29,7 +29,7 @@ if (!isServer) then { // only run this on the connected clients
 }; 
 
 
-if (!isServer) exitWith {}; // only run this on the server
+//if (!isServer) exitWith {}; // only run this on the server
 
 diag_log "----------------------------------------";
 diag_log format["Starting SAR_AI version %1",SAR_version];
