@@ -18,10 +18,10 @@
 	-->
 	
 	<admin id="0">
-		<name>nux</name>
-		<guid>a0755addc0ab2820a2acb2a05f54ce0b</guid>
+		<name>Architect</name>
+		<guid>127198718d5998fa8ef52b6f312ca8ca</guid>
 		<group>0</group>
-		<groupname>Super Admin</groupname>
+		<groupname></groupname>
 	</admin>
 	
 	<admin id="1">
