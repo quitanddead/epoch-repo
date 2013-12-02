@@ -129,27 +129,9 @@ if (!isDedicated) then {
 	//[0,0,true,true,true,58,280,600,[0.698, 0.556, 0.419],"Generator_DZ",0.1] execVM "\z\addons\dayz_code\compile\local_lights_init.sqf";
 };
 
-// ------------Server & Player Addons------START-------------------------
+// ------------Server Side Only Addons----------START--------------------
 
-// ------------Server & Player Addons------END---------------------------
-
-//ERIC - SARGE AI Spawn on Headless Client Only
-if(! ( hasInterface || isDedicated )) then {
-	// UPSMON for SAR_AI
-	diag_log format ["---Loading UPSMON for SAR_AI"];
-	call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
-	// SHK for SAR_AI
-	diag_log format ["---Loading SHK for SAR_AI"];
-	call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
-	// run SAR_AI
-	diag_log format ["---Loading SAR_AI"];
-	[] execVM "addons\SARGE\SAR_AI_init.sqf";
-};
-//END ERIC
-
-// ------------Server Side Addons----------START-------------------------
-
-if (isServer) then {
+if (isDedicated) then {
 	//Declare global variables for SARGE/HC
 	publicvariable "SAR_surv_kill_value";
 	publicvariable "SAR_band_kill_value";
@@ -161,9 +143,37 @@ if (isServer) then {
 	//End Declare global variables for SARGE/HC
 };
 
-// ------------Server Side Addons----------END---------------------------
+// ------------Server Side Only Addons----------END----------------------
 
-// ------------Player Side Addons----------START-------------------------
+// ------------Headless Client Addons------START-------------------------
+
+if(! ( hasInterface || isDedicated )) then {
+	// UPSMON for SAR_AI
+	diag_log format ["---Loading UPSMON for SAR_AI"];
+	call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
+	// SHK for SAR_AI
+	diag_log format ["---Loading SHK for SAR_AI"];
+	call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
+	// run SAR_AI
+	diag_log format ["---Loading SAR_AI"];
+	[] execVM "addons\SARGE\SAR_AI_init.sqf";
+
+	//ERIC - Apparently we don't need this because we already have SARGE
+	//Aaron adding missions
+	//[] execVM "faction.sqf";
+	//Aaron done
+	//END-ERIC
+};
+
+// ------------Headless Client Addons------END---------------------------
+
+// ------------Server AND Player Addons------START-----------------------
+
+	// Add code here for both Server AND Players to run
+
+// ------------Server AND Player Addons------END-------------------------
+
+// ------------Player Side Only Addons----------START--------------------
 
 if  ( !isDedicated && hasInterface ) then {
 	//Repair/Refuel Addon
@@ -176,83 +186,60 @@ if  ( !isDedicated && hasInterface ) then {
 	//[/EPOCH-35]
 };
 
-//Aaron adding missions
-[] execVM "faction.sqf";
-//Aaron done
+// ------------Player Side Only Addons----------END----------------------
 
-
-// ------------Player Side Addons----------END---------------------------
-
-// ---------------Map Addons---------------START----------------------
+// ---------------Map Addons---------------START-------------------------
 
 //[EPOCH-50] Curt - Novy Lug
 diag_log format ["---Loading [AiE] Custom Novy Lug Base"];
 [] execVM "NovyLugBase\NovyLugBase.sqf";
-//[EPOCH-50]
 
 //[EPOCH-50] Curt - Balota
 diag_log format ["---Loading [AiE] Custom Balota"];
 [] execVM "Balota\Balota.sqf";
-//[EPOCH-50]
 
 //[EPOCH-50] Curt - Zelenogorsk
 diag_log format ["---Loading [AiE] Custom Zelenogorsk"];
 [] execVM 'Zelen\Zelen.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Curt - Cherno
 diag_log format ["---Loading [AiE] Custom Chero"];
 [] execVM 'Cherno\Cherno.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Aaron - NWAF
 diag_log format ["---Loading [AiE] Custom NWAF"];
 [] execVM 'NWAF\NWAF.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Found Online - NWAF
 diag_log format ["---Loading [AiE] Custom NWAF Base"];
 [] execVM 'NWAFBase\NWAFBase.sqf';
-//[/EPOCH-50]
-
-//[EPOCH-50] Logan - New Admin Base
-//diag_log format ["---Loading [AiE] Custom Admin Base"];
-//[] execVM 'AdminBase\AdminBase.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Aaron - Electro
 diag_log format ["---Loading [AiE] Custom Electro"];
 [] execVM 'Electro\Electro.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Curt - GreenMountain
 diag_log format ["---Loading [AiE] Custom Green Mountain"];
 [] execVM 'GreenMountain\GreenMountain.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Curt - Berenzino
 diag_log format ["---Loading [AiE] Custom Berenzino"];
 [] execVM 'Berenzino\Berenzino.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Curt - North Base
 diag_log format ["---Loading [AiE] Custom North Base"];
 [] execVM 'NorthBase\NorthBase.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Jir - Shipment
 diag_log format ["---Loading [AiE] Custom North Base"];
 [] execVM 'Shipment\Shipment.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Jir - Admin Base 02
 diag_log format ["---Loading [AiE] Custom Admin Base"];
 [] execVM 'AdminBase02\AdminBase02.sqf';
-//[/EPOCH-50]
 
 //[EPOCH-50] Curt - Admin Base 01
 diag_log format ["---Loading [AiE] Custom Admin Base"];
 [] execVM 'AdminBase01\AdminBase01.sqf';
-//[/EPOCH-50]
 
 // ------------Map Addons------------------END---------------------------
