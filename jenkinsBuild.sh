@@ -1,5 +1,6 @@
 #!/bin/bash
 # jenkinsBuild.sh
+# Author: [AiE]~Architect
 
 # curlIt function - to be called recursively until success
 curlIt ()
