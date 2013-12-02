@@ -1184,7 +1184,7 @@ class Mission
                     player="PLAYER COMMANDER";
                     skill=0.60000002;
                     text="Sandman";
-                    init="this allowDamage false";
+                    init="player allowDamage false";
                     description="HeadlessClient";
                     name="Sandman";
                     forceHeadlessClient=1;
