@@ -1183,10 +1183,10 @@ class Mission
                     vehicle="Survivor1_DZ";
                     player="PLAYER COMMANDER";
                     skill=0.60000002;
-                    text="Sandman";
+                    text="[AiE]~Skynet";
                     init="player allowDamage false";
-                    description="HeadlessClient";
-                    name="Sandman";
+                    description="[AiE]~Skynet";
+                    name="[AiE]~Skynet";
                     forceHeadlessClient=1;
                 };
             };
