@@ -197,6 +197,16 @@ _this setMarkerSize [10, 10];
 _this setMarkerDir 120.050;
 SAR_marker_northBase = _this;
 
+// ERIC Island HC Test
+_this = createMarker ["SAR_area_testIsland", [13715,2935,0]];
+_this setMarkerShape "ELLIPSE";
+_this setMarkeralpha 0;
+_this setMarkerType "Flag";
+_this setMarkerBrush "Solid";
+_this setMarkerSize [10, 10];
+_this setMarkerDir 120.050;
+SAR_marker_testIsland = _this;
+
 // ----------------------------------------------------------------------------------------
 // End of area marker definition section
 // ----------------------------------------------------------------------------------------
@@ -258,6 +268,9 @@ diag_log format["SAR_AI: Area & Trigger definition finalized"];
 
 //Northern Base Protection
 [SAR_marker_northBase,3,2,16,"fortify",true] call SAR_AI;
+
+//Eric Island Test
+[SAR_marker_testIsland,3,0,30,"fortify",true] call SAR_AI;
 
 
 // ---- end of configuration area ----
