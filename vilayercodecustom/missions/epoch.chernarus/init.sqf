@@ -152,6 +152,7 @@ if(! ( hasInterface || isDedicated )) then {
 	fnc_usec_damageHandler = {};
 	_object = player;
 	_object allowDamage false;
+	_object setPosATL [7735,15655,0];
 	zoombiieshieldd = true;
 	//End God-Mode
 
