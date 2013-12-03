@@ -147,14 +147,6 @@ if (isDedicated) then {
 // ------------Headless Client Addons------START-------------------------
 
 if( !( hasInterface || isDedicated ) ) then {
-	//God-Mode
-	fnc_usec_damageHandler = {};
-	_object = player;
-	_object allowDamage false;
-	_object setPosATL [7735,15655,0];
-	zoombiieshieldd = true;
-	//End God-Mode
-
 	// UPSMON for SAR_AI
 	diag_log format ["---Loading UPSMON for SAR_AI"];
 	call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
@@ -164,12 +156,6 @@ if( !( hasInterface || isDedicated ) ) then {
 	// run SAR_AI
 	diag_log format ["---Loading SAR_AI"];
 	[] execVM "addons\SARGE\SAR_AI_init.sqf";
-
-	//ERIC - Apparently we don't need this because we already have SARGE
-	//Aaron adding missions
-	//[] execVM "faction.sqf";
-	//Aaron done
-	//END-ERIC
 };
 
 // ------------Headless Client Addons------END---------------------------

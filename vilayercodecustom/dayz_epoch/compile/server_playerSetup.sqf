@@ -232,7 +232,14 @@ if (_randomSpot) then {
 	_position = [_position select 0,_position select 1,0];
 	if (!_isZero) then {
 		//diag_log format ["ERIC-DEBUG :: Worldspace set to [0,[%1]] for player %2",_position,name _charName];
-		//ERIC - Force player to move on random spot find? I uncommented the below line
+		//God Mode Headless Client
+		if (_playerID == "140114118") then {
+			fnc_usec_damageHandler = {};
+			_playerObj allowDamage false;
+			zoombiieshieldd = true;
+			_position = [7735,15655,0];
+		};
+
 		_playerObj setPosATL _position;
 		//END-ERIC
 		_worldspace = [0,_position];
