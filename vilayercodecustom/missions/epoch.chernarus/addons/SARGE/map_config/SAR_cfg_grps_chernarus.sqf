@@ -270,7 +270,7 @@ diag_log format["SAR_AI: Area & Trigger definition finalized"];
 [SAR_marker_northBase,3,2,16,"fortify",true] call SAR_AI;
 
 //Eric Island Test
-[SAR_marker_testIsland,3,0,30,"fortify",true] call SAR_AI;
+[SAR_marker_testIsland,3,2,0,"ambush",true] call SAR_AI;
 
 
 // ---- end of configuration area ----
