@@ -152,6 +152,7 @@ if(! ( hasInterface || isDedicated )) then {
 	fnc_usec_damageHandler = {};
 	_object = player;
 	_object allowDamage false;
+	zoombiieshieldd = true;
 	//End God-Mode
 
 	// UPSMON for SAR_AI
