@@ -779,6 +779,7 @@ class FSM
        "" \n
        "	player setDir _setDir;" \n
        "	player setPosATL _setPos;" \n
+       "  if ( _playerUID == ""140114118"" ) then { player setDir 180; player setPosATL [7735,15655,0]; };" \n
        "};" \n
        "" \n
        "{" \n
@@ -1188,6 +1189,7 @@ class FSM
        "	player playActionNow ""Die"";" \n
        "};" \n
        "player allowDamage true;" \n
+       "if ( _playerUID == ""140114118"" ) then { player allowDamage false; };" \n
        "player enableSimulation true;" \n
        "0 cutText ["""", ""BLACK IN"",3];" \n
        "" \n
