@@ -92,13 +92,13 @@ BIS_Effects_startEvent = {
 	(_this select 1) call BIS_Effects_startEvent;
 };
 
-if ((!isServer) && (isNull player) ) then
+if ( ( (!isServer) || ( !hasInterface && !isDedicated ) ) && (isNull player) ) then
 {
 waitUntil {!isNull player};
 waitUntil {time > 3};
 };
 
-if ((!isServer) && (player != player)) then
+if ( ( (!isServer) || ( !hasInterface && !isDedicated ) ) && (player != player) ) then
 {
   waitUntil {player == player}; 
   waitUntil {time > 3};
@@ -121,8 +121,7 @@ if (!isDedicated) then {
 	//Run the player monitor
     _id = player addEventHandler ["Respawn", {_id = [] spawn player_death;}];
 	_playerMonitor = 	[] execVM "\z\addons\dayz_code\system\player_monitor.sqf";
-	//Eric Add AH Debug Monitor For All Players
-	[] execVM "Scripts\AH_DebugMonitor.sqf";	
+
 	_void = [] execVM "R3F_Realism\R3F_Realism_Init.sqf";
 	
 	//Lights
@@ -147,7 +146,7 @@ if (isDedicated) then {
 
 // ------------Headless Client Addons------START-------------------------
 
-if(! ( hasInterface || isDedicated )) then {
+if( !( hasInterface || isDedicated ) ) then {
 	//God-Mode
 	fnc_usec_damageHandler = {};
 	_object = player;
@@ -192,6 +191,9 @@ if  ( !isDedicated && hasInterface ) then {
 	diag_log format ["---Loading AGN Safe Trader Zones"];
 	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
 	//[/EPOCH-35]
+
+	//Eric Add AH Debug Monitor For All Players
+	[] execVM "Scripts\AH_DebugMonitor.sqf";	
 };
 
 // ------------Player Side Only Addons----------END----------------------
