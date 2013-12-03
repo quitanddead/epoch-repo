@@ -1184,7 +1184,7 @@ class Mission
                     player="PLAYER COMMANDER";
                     skill=0.60000002;
                     text="[AiE]~Skynet";
-                    init="player allowDamage false";
+                    init="this allowDamage false;";
                     description="[AiE]~Skynet";
                     name="[AiE]~Skynet";
                     forceHeadlessClient=1;
