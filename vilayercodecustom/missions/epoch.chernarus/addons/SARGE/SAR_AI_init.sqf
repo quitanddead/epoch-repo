@@ -29,7 +29,7 @@ if (hasInterface) then { // only run this on the connected clients
 }; 
 
 
-if (( hasInterface || isDedicated )) exitWith {}; // only run this on the server
+if ( hasInterface || isDedicated ) exitWith {}; // only run this on the server
 
 diag_log "----------------------------------------";
 diag_log format["Starting SAR_AI version %1",SAR_version];
