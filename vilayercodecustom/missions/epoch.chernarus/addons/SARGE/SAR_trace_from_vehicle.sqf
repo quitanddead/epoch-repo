@@ -32,7 +32,7 @@ _sleeptime = SAR_DETECT_INTERVAL/2;
     
 while {alive _ai} do {
 
-    if !(isServer) then {
+    if (hasInterface) then {
     
         _entity_array = (position _ai) nearEntities [_tracewhat, _detectrange];
         
@@ -60,7 +60,7 @@ while {alive _ai} do {
     };
     // refresh ammo & fuel
     
-    if (isServer) then {
+    if (!( hasInterface || isDedicated )) then {
     
         _vehicle = vehicle _ai;
     

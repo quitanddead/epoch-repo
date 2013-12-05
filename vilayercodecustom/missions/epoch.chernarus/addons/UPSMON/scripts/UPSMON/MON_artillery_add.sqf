@@ -28,7 +28,7 @@
 	For more info:
 	http://dev-heaven.net/projects/upsmon/wiki/Artillery_module
  =====================================================================================================*/
-if (!isserver) exitWith {}; 
+if (hasInterface) exitWith {}; 
 
 //Waits until UPSMON is init
 waitUntil {!isNil("KRON_UPS_INIT")};

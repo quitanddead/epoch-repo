@@ -128,6 +128,25 @@ if (!isDedicated) then {
 	//[0,0,true,true,true,58,280,600,[0.698, 0.556, 0.419],"Generator_DZ",0.1] execVM "\z\addons\dayz_code\compile\local_lights_init.sqf";
 };
 
+// ------------Server AND Player AND HC Addons------START----------------
+
+//No if statement needed
+[] execVM "faction.sqf";
+
+// UPSMON for SAR_AI
+diag_log format ["---Loading UPSMON for SAR_AI"];
+call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
+
+// SHK for SAR_AI
+diag_log format ["---Loading SHK for SAR_AI"];
+call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
+
+// run SAR_AI
+diag_log format ["---Loading SAR_AI"];
+[] execVM "addons\SARGE\SAR_AI_init.sqf";
+
+// ------------Server AND Player Addons------END-------------------------
+
 // ------------Server Side Only Addons----------START--------------------
 
 if (isDedicated) then {
@@ -135,13 +154,6 @@ if (isDedicated) then {
 };
 
 // ------------Server Side Only Addons----------END----------------------
-
-// ------------Server AND Player AND HC Addons------START----------------
-
-	//No if statement needed
-	[] execVM "faction.sqf";
-
-// ------------Server AND Player Addons------END-------------------------
 
 // ------------Server AND HC Addons------START---------------------------
 
@@ -173,15 +185,6 @@ if ( (!( hasInterface || isDedicated )) || isPlayer ) then {
 // ------------Headless Client Only Addons------START--------------------
 
 if ( !( hasInterface || isDedicated ) ) then {
-	// UPSMON for SAR_AI
-	diag_log format ["---Loading UPSMON for SAR_AI"];
-	call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
-	// SHK for SAR_AI
-	diag_log format ["---Loading SHK for SAR_AI"];
-	call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
-	// run SAR_AI
-	diag_log format ["---Loading SAR_AI"];
-	[] execVM "addons\SARGE\SAR_AI_init.sqf";
 	//Start AI Missions
 	[] execVM "Scripts\AIMissions.sqf";
 };

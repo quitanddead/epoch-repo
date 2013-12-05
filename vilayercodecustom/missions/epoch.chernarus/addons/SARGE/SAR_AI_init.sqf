@@ -22,14 +22,14 @@ SAR_version = "1.1.0";
 
 // establish PvEH on all clients
 
-if (!isServer) then { // only run this on the connected clients
+if (hasInterface) then { // only run this on the connected clients
     
     "adjustrating" addPublicVariableEventHandler {((_this select 1) select 0) addRating ((_this select 1) select 1);	};
 
 }; 
 
 
-//if (!isServer) exitWith {}; // only run this on the server
+if (( hasInterface || isDedicated )) exitWith {}; // only run this on the server
 
 diag_log "----------------------------------------";
 diag_log format["Starting SAR_AI version %1",SAR_version];

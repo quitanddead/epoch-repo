@@ -19,7 +19,7 @@
 
 private ["_riflemenlist","_side","_leader_group","_initstring","_patrol_area_name","_rndpos","_groupheli","_heli","_leaderheli","_man2heli","_man3heli","_argc","_tracewhat","_grouptype","_respawn","_leader_weapon_names","_leader_items","_leader_tools","_soldier_weapon_names","_soldier_items","_soldier_tools","_leaderskills","_sniperskills","_ups_para_list"];
 
-//if(!isServer) exitWith {};
+if(( hasInterface || isDedicated )) exitWith {};
 
 _argc = count _this;
 

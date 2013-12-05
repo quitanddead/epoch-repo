@@ -18,7 +18,7 @@ if !(AcePresent) then {
 //param1: objeto
 //param2: altura
 MON_subir = {
-if (!isserver) exitwith{};
+if (hasInterface) exitwith{};
 private ["_object","_altura","_pos","_x","_y","_z","_bld","_bldpos"];
 
 _object = _this select 0;
@@ -2110,7 +2110,7 @@ MON_ACE_Watersurvival = {
 //	<-	 _bullet: class of bullet to fire, default ARTY_Sh_81_HE
 
 MON_artillery_dofire = {
-	if (!isserver) exitWith {}; 
+	if (hasInterface) exitWith {}; 
 		private ["_smoke1","_i","_area","_position","_maxcadence","_mincadence","_sleep","_rounds","_arti","_timeout","_salvo_break"];
 		_area = 150;
 		_maxcadence = 10;

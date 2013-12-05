@@ -18,7 +18,7 @@
 
     private ["_i","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_emptyarr","_pos"];
 
-    if (!isServer) exitWith {}; // only run this on the server
+    if (!( hasInterface || isDedicated )) exitWith {}; // only run this on the server
     
     
     // wait until the server has spawned all the vehicles ... might take a while

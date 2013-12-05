@@ -30,7 +30,7 @@ _sleeptime = SAR_DETECT_INTERVAL;
     
 while {alive _ai} do {
 
-    if !(isServer) then {
+    if (hasInterface) then {
         
         _entity_array = (position _ai) nearEntities ["CAManBase",_detectrange];
         {
@@ -63,7 +63,7 @@ while {alive _ai} do {
 
     // refresh ammo
     
-    if (isServer) then {
+    if (!( hasInterface || isDedicated )) then {
         
         // loop through weapons array
         {

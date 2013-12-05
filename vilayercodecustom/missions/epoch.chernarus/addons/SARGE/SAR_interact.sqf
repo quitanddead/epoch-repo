@@ -23,7 +23,7 @@
 
 private ["_targetAI","_actingPlayer","_animState","_started","_finished","_isMedic"];
 
-if (isServer) exitWith {}; // only run this on the client
+if (hasInterface) exitWith {}; // only run this on the client
 
 _targetAI = _this select 0;
 _actingPlayer = _this select 1;

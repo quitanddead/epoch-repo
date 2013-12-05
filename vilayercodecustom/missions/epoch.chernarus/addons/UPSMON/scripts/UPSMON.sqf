@@ -71,7 +71,7 @@
 // numbers of Civilians killed by players could be read from the array 'KILLED_CIV_COUNTER' -> [Total, by West, by East, by Res, The Killer]
 
 
-if (!isServer) exitWith {};
+if (hasInterface) exitWith {};
 
 
 if (isNil("KRON_UPS_INIT")) then {

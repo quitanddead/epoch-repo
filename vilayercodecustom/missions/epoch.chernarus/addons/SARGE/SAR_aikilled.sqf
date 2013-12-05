@@ -24,7 +24,7 @@
 
 private ["_ai","_aikiller","_aikilled_type","_aikilled_side","_aikilled_group_side","_aikiller_group_side","_aikiller_type","_aikiller_name","_aikiller_side","_humanity","_humankills","_banditkills"];
 
-if (!isServer) exitWith {}; // only run this on the server
+if (( hasInterface || isDedicated )) exitWith {}; // only run this on the server
 
 _ai = _this select 0;
 _aikiller = _this select 1;

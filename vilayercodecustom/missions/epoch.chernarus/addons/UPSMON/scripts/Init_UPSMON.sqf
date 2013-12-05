@@ -24,7 +24,7 @@
 	};
 
 
-if (!isServer) exitWith {};
+if (hasInterface) exitWith {};
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
 //        These Variables should be checked and set as required, to make the mission runs properly.
