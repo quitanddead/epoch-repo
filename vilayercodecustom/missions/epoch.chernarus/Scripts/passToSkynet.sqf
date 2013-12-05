@@ -9,6 +9,6 @@ if (isDedicated) then {
 		};
 	} forEach allUnits;
 
-	sleep 600;
+	sleep 300;
 
 };
