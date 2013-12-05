@@ -150,6 +150,17 @@ if (isDedicated) then {
 
 // ------------Server AND Player Addons------END-------------------------
 
+// ------------Player AND HC Addons------START---------------------------
+
+if( (!( hasInterface || isDedicated )) || isPlayer ) then {
+	//[EPOCH-35]
+	diag_log format ["---Loading AGN Safe Trader Zones"];
+	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
+	//[/EPOCH-35]
+};
+
+// ------------Player AND HC Addons------END-----------------------------
+
 // ------------Headless Client Only Addons------START--------------------
 
 if( !( hasInterface || isDedicated ) ) then {
@@ -174,11 +185,6 @@ if  ( !isDedicated && hasInterface ) then {
 	//Repair/Refuel Addon
 	diag_log format ["---Loading Repair/Refuel Addon"];
     [] execVM "Scripts\repairactions.sqf";
-
-	//[EPOCH-35]
-	diag_log format ["---Loading AGN Safe Trader Zones"];
-	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
-	//[/EPOCH-35]
 
 	//Eric Add AH Debug Monitor For All Players
 	[] execVM "Scripts\AH_DebugMonitor.sqf";	
