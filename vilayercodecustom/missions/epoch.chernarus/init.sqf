@@ -188,6 +188,7 @@ if (isPlayer player) then {
 if ( !( hasInterface || isDedicated ) ) then {
 	waitUntil {!isNull player};
 	HC = player;
+	publicvariable "HC";
 
 	//Start AI Missions
 	[] execVM "Scripts\AIMissions.sqf";
