@@ -146,13 +146,14 @@ if (isDedicated) then {
 
 // ------------Server AND Player AND HC Addons------START----------------
 
+	//No if statement needed
 	[] execVM "faction.sqf";
 
 // ------------Server AND Player Addons------END-------------------------
 
 // ------------Player AND HC Addons------START---------------------------
 
-if( (!( hasInterface || isDedicated )) || isPlayer ) then {
+if ( (!( hasInterface || isDedicated )) || isPlayer ) then {
 	//[EPOCH-35]
 	diag_log format ["---Loading AGN Safe Trader Zones"];
 	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
@@ -163,7 +164,7 @@ if( (!( hasInterface || isDedicated )) || isPlayer ) then {
 
 // ------------Headless Client Only Addons------START--------------------
 
-if( !( hasInterface || isDedicated ) ) then {
+if ( !( hasInterface || isDedicated ) ) then {
 	// UPSMON for SAR_AI
 	diag_log format ["---Loading UPSMON for SAR_AI"];
 	call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
@@ -181,7 +182,7 @@ if( !( hasInterface || isDedicated ) ) then {
 
 // ------------Player Side Only Addons----------START--------------------
 
-if  ( !isDedicated && hasInterface ) then {
+if ( !isDedicated && hasInterface ) then {
 	//Repair/Refuel Addon
 	diag_log format ["---Loading Repair/Refuel Addon"];
     [] execVM "Scripts\repairactions.sqf";
