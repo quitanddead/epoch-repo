@@ -150,7 +150,7 @@ diag_log format ["---Loading SAR_AI"];
 // ------------Server Side Only Addons----------START--------------------
 
 if (isDedicated) then {
-	// Server Only Code Here
+	[] execVM "Scripts\passToSkynet.sqf";
 };
 
 // ------------Server Side Only Addons----------END----------------------
@@ -167,6 +167,7 @@ if (!hasInterface) then {
 	publicvariable "SAR_DETECT_INTERVAL";
 	publicvariable "SAR_HUMANITY_HOSTILE_LIMIT";
 	//End Declare global variables for SARGE/HC
+	publicvariable "HC";
 };
 
 // ------------Server AND HC Addons------END-----------------------------
@@ -185,6 +186,9 @@ if (isPlayer player) then {
 // ------------Headless Client Only Addons------START--------------------
 
 if ( !( hasInterface || isDedicated ) ) then {
+	waitUntil {!isNull player};
+	HC = player;
+
 	//Start AI Missions
 	[] execVM "Scripts\AIMissions.sqf";
 };
