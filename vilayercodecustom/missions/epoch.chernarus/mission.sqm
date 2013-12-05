@@ -1382,7 +1382,7 @@ class Mission
 		};
 		class Item3
 		{
-			position[]={7735,15655,0};
+			position[]={7734.68,15656.5,0};
 			a=10;
 			b=10;
 			activationBy="WEST";
