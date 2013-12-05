@@ -173,7 +173,7 @@ if (!hasInterface) then {
 
 // ------------Player AND HC Addons------START---------------------------
 
-if ( (!( hasInterface || isDedicated )) || isPlayer ) then {
+if ( !( hasInterface || isDedicated ) || isPlayer ) then {
 	//[EPOCH-35]
 	diag_log format ["---Loading AGN Safe Trader Zones"];
 	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
