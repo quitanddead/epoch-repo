@@ -131,6 +131,21 @@ if (!isDedicated) then {
 // ------------Server Side Only Addons----------START--------------------
 
 if (isDedicated) then {
+	// Server Only Code Here
+};
+
+// ------------Server Side Only Addons----------END----------------------
+
+// ------------Server AND Player AND HC Addons------START----------------
+
+	//No if statement needed
+	[] execVM "faction.sqf";
+
+// ------------Server AND Player Addons------END-------------------------
+
+// ------------Server AND HC Addons------START---------------------------
+
+if (!hasInterface) then {
 	//Declare global variables for SARGE/HC
 	publicvariable "SAR_surv_kill_value";
 	publicvariable "SAR_band_kill_value";
@@ -142,14 +157,7 @@ if (isDedicated) then {
 	//End Declare global variables for SARGE/HC
 };
 
-// ------------Server Side Only Addons----------END----------------------
-
-// ------------Server AND Player AND HC Addons------START----------------
-
-	//No if statement needed
-	[] execVM "faction.sqf";
-
-// ------------Server AND Player Addons------END-------------------------
+// ------------Server AND HC Addons------END-----------------------------
 
 // ------------Player AND HC Addons------START---------------------------
 
