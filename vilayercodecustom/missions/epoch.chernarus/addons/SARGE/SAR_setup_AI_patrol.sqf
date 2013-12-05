@@ -28,7 +28,7 @@
 
 private ["_leadername","_patrol_area_name","_grouptype","_snipers","_riflemen","_action","_side","_leader_group","_riflemenlist","_sniperlist","_rndpos","_group","_leader","_i","_cond","_respawn","_leader_weapon_names","_leader_items","_leader_tools","_soldier_weapon_names","_soldier_items","_soldier_tools","_sniper_weapon_names","_sniper_items","_sniper_tools","_leaderskills","_riflemanskills","_sniperskills","_ups_para_list"];
 
-if(!( hasInterface || isDedicated )) exitWith {};
+if( hasInterface || isDedicated ) exitWith {};
 
 _patrol_area_name = _this select 0;
 _grouptype = _this select 1;
