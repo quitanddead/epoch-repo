@@ -1383,14 +1383,14 @@ class Mission
 		class Item3
 		{
 			position[]={7734.68,0,15656.5};
-			a=10;
-			b=10;
+			a=1;
+			b=1;
 			activationBy="WEST";
 			repeating=1;
 			interruptable=1;
 			age="UNKNOWN";
 			name="zoneHC";
-			expCond="(player distance zoneHC) < 10;";
+			expCond="(player distance zoneHC) < 1;";
 			expActiv="canbuild = false;";
 			expDesactiv="canbuild = true;";
 			class Effects
