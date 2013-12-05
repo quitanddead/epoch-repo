@@ -144,7 +144,13 @@ if (isDedicated) then {
 
 // ------------Server Side Only Addons----------END----------------------
 
-// ------------Headless Client Addons------START-------------------------
+// ------------Server AND Player AND HC Addons------START----------------
+
+	[] execVM "faction.sqf";
+
+// ------------Server AND Player Addons------END-------------------------
+
+// ------------Headless Client Only Addons------START--------------------
 
 if( !( hasInterface || isDedicated ) ) then {
 	// UPSMON for SAR_AI
@@ -156,15 +162,11 @@ if( !( hasInterface || isDedicated ) ) then {
 	// run SAR_AI
 	diag_log format ["---Loading SAR_AI"];
 	[] execVM "addons\SARGE\SAR_AI_init.sqf";
+	//Start AI Missions
+	[] execVM "Scripts\AIMissions.sqf";
 };
 
-// ------------Headless Client Addons------END---------------------------
-
-// ------------Server AND Player Addons------START-----------------------
-
-	// Add code here for both Server AND Players to run
-
-// ------------Server AND Player Addons------END-------------------------
+// ------------Headless Client Only Addons------END----------------------
 
 // ------------Player Side Only Addons----------START--------------------
 

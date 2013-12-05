@@ -27,7 +27,7 @@ if ((typeName _objectID != "string") || (typeName _uid != "string")) then
 };
 
 //Aaron adding missions
-if (_object getVariable "Mission" == 1) exitWith {};
+if (_object getVariable "Sarge" == 1) exitWith {};
 //Aaron Done
 
 if (!_parachuteWest and !(locked _object)) then {
