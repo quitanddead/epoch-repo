@@ -231,14 +231,17 @@ if (_randomSpot) then {
 	_isZero = ((_position select 0) == 0) and ((_position select 1) == 0);
 	_position = [_position select 0,_position select 1,0];
 	if (!_isZero) then {
-		//diag_log format ["ERIC-DEBUG :: Worldspace set to [0,[%1]] for player %2",_position,name _charName];
 		//Teleport/God Mode Headless Client
-		if (_playerID == "140114118") then {
+		diag_log format ["ERIC-DEBUG :: _characterID = %1 owner HC = %2",_characterID,owner HC];
+		if (_characterID == owner HC) then {
 			publicvariable "GMSKYNET";
 			fnc_usec_damageHandler = {};
+			_playerObj setVariable["allowDamage",false,true];
 			_playerObj allowDamage false;
-			_position = [7735,0,15655];
+			_position = [7734.68,15656.5,0];
 		};
+
+		diag_log format ["ERIC-DEBUG :: Worldspace set to [180,[%1]] for player %2",_position,name _charName];
 
 		_playerObj setPosATL _position;
 		//END-ERIC
