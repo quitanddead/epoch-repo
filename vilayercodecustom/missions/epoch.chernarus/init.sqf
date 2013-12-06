@@ -190,6 +190,11 @@ if (isDedicated) then {
 	[] execVM "faction.sqf";
 
 	[] execVM "Scripts\passToSkynet.sqf";
+
+	"GMSKYNET" addPublicVariableEventHandler {
+		[] spawn admingod;
+		[] spawn adminZedshld;
+	};
 };
 
 // ------------Server Side Only Addons----------END----------------------

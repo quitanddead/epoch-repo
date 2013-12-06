@@ -4185,6 +4185,7 @@ PV_AdminMenuCode = {
 					} forEach _unsorted;
 					_sorted;
 					
+					/*
 					_nearguys = [];
 					for "_herb" from 0 to 6 do 
 					{
@@ -4211,7 +4212,7 @@ PV_AdminMenuCode = {
 					{
 						_x = _nearguys select _i;
 						['<t size=''0.5''color=''#00ff40''font=''EtelkaNarrowMediumPro''align=''left''>'+format["%1. %2",_i,_x]+'</t>',0,safezoneY+(0.3+(_i*4/100)),999999,0,0,(3034+_i)] spawn bis_fnc_dynamicText;
-					};
+					};*/
 					sleep 1;
 				};
 			};
