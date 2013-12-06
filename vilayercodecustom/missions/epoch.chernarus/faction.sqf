@@ -1,4 +1,4 @@
-waitUntil{initialized};
+//waitUntil{initialized};
 //Only create these if they aren't already
 createCenter east;
 createCenter resistance;
