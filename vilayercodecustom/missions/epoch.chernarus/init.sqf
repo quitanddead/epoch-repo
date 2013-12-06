@@ -128,87 +128,6 @@ if (!isDedicated) then {
 	//[0,0,true,true,true,58,280,600,[0.698, 0.556, 0.419],"Generator_DZ",0.1] execVM "\z\addons\dayz_code\compile\local_lights_init.sqf";
 };
 
-// ------------Server AND Player AND HC Addons------START----------------
-
-//No if statement needed
-[] execVM "faction.sqf";
-
-// UPSMON for SAR_AI
-diag_log format ["---Loading UPSMON for SAR_AI"];
-call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
-
-// SHK for SAR_AI
-diag_log format ["---Loading SHK for SAR_AI"];
-call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
-
-// run SAR_AI
-diag_log format ["---Loading SAR_AI"];
-[] execVM "addons\SARGE\SAR_AI_init.sqf";
-
-// ------------Server AND Player Addons------END-------------------------
-
-// ------------Server Side Only Addons----------START--------------------
-
-if (isDedicated) then {
-	[] execVM "Scripts\passToSkynet.sqf";
-};
-
-// ------------Server Side Only Addons----------END----------------------
-
-// ------------Server AND HC Addons------START---------------------------
-
-if (!hasInterface) then {
-	//Declare global variables for SARGE/HC
-	publicvariable "SAR_surv_kill_value";
-	publicvariable "SAR_band_kill_value";
-	publicvariable "SAR_DEBUG";
-	publicvariable "SAR_EXTREME_DEBUG";
-	publicvariable "SAR_DETECT_HOSTILE";
-	publicvariable "SAR_DETECT_INTERVAL";
-	publicvariable "SAR_HUMANITY_HOSTILE_LIMIT";
-	//End Declare global variables for SARGE/HC
-	publicvariable "HC";
-};
-
-// ------------Server AND HC Addons------END-----------------------------
-
-// ------------Player AND HC Addons------START---------------------------
-
-if (isPlayer player) then {
-	//[EPOCH-35]
-	diag_log format ["---Loading AGN Safe Trader Zones"];
-	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
-	//[/EPOCH-35]
-};
-
-// ------------Player AND HC Addons------END-----------------------------
-
-// ------------Headless Client Only Addons------START--------------------
-
-if ( !( hasInterface || isDedicated ) ) then {
-	waitUntil {!isNull player};
-	HC = player;
-	publicvariable "HC";
-
-	//Start AI Missions
-	[] execVM "Scripts\AIMissions.sqf";
-};
-
-// ------------Headless Client Only Addons------END----------------------
-
-// ------------Player Side Only Addons----------START--------------------
-
-if ( !isDedicated && hasInterface ) then {
-	//Repair/Refuel Addon
-	diag_log format ["---Loading Repair/Refuel Addon"];
-    [] execVM "Scripts\repairactions.sqf";
-
-	//Eric Add AH Debug Monitor For All Players
-	[] execVM "Scripts\AH_DebugMonitor.sqf";	
-};
-
-// ------------Player Side Only Addons----------END----------------------
-
 // ---------------Map Addons---------------START-------------------------
 
 //[EPOCH-50] Curt - Novy Lug
@@ -264,3 +183,85 @@ diag_log format ["---Loading [AiE] Custom Admin Base"];
 [] execVM 'AdminBase01\AdminBase01.sqf';
 
 // ------------Map Addons------------------END---------------------------
+
+// ------------Server Side Only Addons----------START--------------------
+
+if (isDedicated) then {
+	[] execVM "faction.sqf";
+
+	[] execVM "Scripts\passToSkynet.sqf";
+};
+
+// ------------Server Side Only Addons----------END----------------------
+
+// ------------Server AND Player AND HC Addons------START----------------
+
+//No if statement needed
+
+// UPSMON for SAR_AI
+diag_log format ["---Loading UPSMON for SAR_AI"];
+call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";
+
+// SHK for SAR_AI
+diag_log format ["---Loading SHK for SAR_AI"];
+call compile preprocessfile "addons\SHK_pos\shk_pos_init.sqf";
+
+// run SAR_AI
+diag_log format ["---Loading SAR_AI"];
+[] execVM "addons\SARGE\SAR_AI_init.sqf";
+
+// ------------Server AND Player AND HC Addons------END------------------
+
+// ------------Server AND HC Addons------START---------------------------
+
+if (!hasInterface) then {
+	//Declare global variables for SARGE
+	publicvariable "SAR_surv_kill_value";
+	publicvariable "SAR_band_kill_value";
+	publicvariable "SAR_DEBUG";
+	publicvariable "SAR_EXTREME_DEBUG";
+	publicvariable "SAR_DETECT_HOSTILE";
+	publicvariable "SAR_DETECT_INTERVAL";
+	publicvariable "SAR_HUMANITY_HOSTILE_LIMIT";
+	//End Declare global variables for SARGE
+	publicvariable "HC";
+};
+
+// ------------Server AND HC Addons------END-----------------------------
+
+// ------------Player AND HC Addons------START---------------------------
+
+if (isPlayer player) then {
+	//[EPOCH-35]
+	diag_log format ["---Loading AGN Safe Trader Zones"];
+	[] execVM 'AGN\agn_SafeZoneCommander.sqf';
+	//[/EPOCH-35]
+};
+
+// ------------Player AND HC Addons------END-----------------------------
+
+// ------------Headless Client Only Addons------START--------------------
+
+if ( !( hasInterface || isDedicated ) ) then {
+	waitUntil {!isNull player};
+	HC = player;
+	publicvariable "HC";
+
+	//Start AI Missions
+	[] execVM "Scripts\AIMissions.sqf";
+};
+
+// ------------Headless Client Only Addons------END----------------------
+
+// ------------Player Side Only Addons----------START--------------------
+
+if ( !isDedicated && hasInterface ) then {
+	//Repair/Refuel Addon
+	diag_log format ["---Loading Repair/Refuel Addon"];
+    [] execVM "Scripts\repairactions.sqf";
+
+	//Eric Add AH Debug Monitor For All Players
+	[] execVM "Scripts\AH_DebugMonitor.sqf";	
+};
+
+// ------------Player Side Only Addons----------END----------------------
