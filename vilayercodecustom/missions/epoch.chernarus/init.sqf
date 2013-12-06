@@ -131,7 +131,6 @@ if (!isDedicated) then {
 // ------------Server AND Player AND HC Addons------START----------------
 
 //No if statement needed
-[] execVM "faction.sqf";
 
 // UPSMON for SAR_AI
 diag_log format ["---Loading UPSMON for SAR_AI"];
@@ -150,6 +149,8 @@ diag_log format ["---Loading SAR_AI"];
 // ------------Server Side Only Addons----------START--------------------
 
 if (isDedicated) then {
+	[] execVM "faction.sqf";
+
 	[] execVM "Scripts\passToSkynet.sqf";
 };
 
@@ -158,7 +159,7 @@ if (isDedicated) then {
 // ------------Server AND HC Addons------START---------------------------
 
 if (!hasInterface) then {
-	//Declare global variables for SARGE/HC
+	//Declare global variables for SARGE
 	publicvariable "SAR_surv_kill_value";
 	publicvariable "SAR_band_kill_value";
 	publicvariable "SAR_DEBUG";
@@ -166,7 +167,7 @@ if (!hasInterface) then {
 	publicvariable "SAR_DETECT_HOSTILE";
 	publicvariable "SAR_DETECT_INTERVAL";
 	publicvariable "SAR_HUMANITY_HOSTILE_LIMIT";
-	//End Declare global variables for SARGE/HC
+	//End Declare global variables for SARGE
 	publicvariable "HC";
 };
 
