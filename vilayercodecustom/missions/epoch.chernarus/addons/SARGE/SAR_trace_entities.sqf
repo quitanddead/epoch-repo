@@ -30,7 +30,7 @@ _sleeptime = SAR_DETECT_INTERVAL;
     
 while {alive _ai} do {
 
-    if (hasInterface) then {
+    if !(isServer) then {
         
         _entity_array = (position _ai) nearEntities ["CAManBase",_detectrange];
         {

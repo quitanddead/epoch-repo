@@ -233,8 +233,8 @@ if (_randomSpot) then {
 	if (!_isZero) then {
 		//Teleport/God Mode Headless Client
 		diag_log format ["ERIC-DEBUG :: _characterID = %1 owner HC = %2",_characterID,owner HC];
-		_ownerHC = owner HC;
-		if (_characterID == _ownerHC) then {
+		_uidHC = getPlayerUID HC;
+		if (_playerID == _uidHC) then {
 			publicvariable "GMSKYNET";
 			fnc_usec_damageHandler = {};
 			_playerObj setVariable["allowDamage",false,true];
