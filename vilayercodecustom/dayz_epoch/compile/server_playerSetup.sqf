@@ -242,7 +242,7 @@ if (_randomSpot) then {
 			_position = [7734.68,15656.5,0];
 		};
 
-		diag_log format ["ERIC-DEBUG :: Worldspace set to [180,[%1]] for player %2",_position,name _charName];
+		diag_log format ["ERIC-DEBUG :: Worldspace set to [180,[%1]] for player %2",_position, _charName];
 
 		_playerObj setPosATL _position;
 		//END-ERIC
