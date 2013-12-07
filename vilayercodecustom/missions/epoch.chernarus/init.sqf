@@ -266,7 +266,10 @@ if ( !isDedicated && hasInterface ) then {
     [] execVM "Scripts\repairactions.sqf";
 
 	//Eric Add AH Debug Monitor For All Players
-	[] execVM "Scripts\AH_DebugMonitor.sqf";	
+	diag_log format ["---Loading DebugMonitor Addon"];
+	[] execVM "Scripts\AH_DebugMonitor.sqf";
 };
 
 // ------------Player Side Only Addons----------END----------------------
+
+diag_log format ["---All Scripts Loaded."];

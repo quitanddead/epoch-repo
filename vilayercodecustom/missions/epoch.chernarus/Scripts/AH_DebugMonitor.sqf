@@ -7,6 +7,8 @@
 /*  DebugMonitor ITEM     */ _DBI = false;	/* item or false */	/* _DBI = 'your item choice'; */
 /* ********************************************************************************* */
 
+waitUntil {!isNull player && isPlayer player};
+
 fnc_debugX0 = {
 	if (isNil 'debugMonitorX') then 
 	{
