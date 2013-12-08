@@ -195,6 +195,26 @@ _this setMarkerBrush "Solid";
 _this setMarkerSize [10, 10];
 SAR_marker_DEBUG_devilscastle = _this;
 
+// Northern Base
+_this = createMarker ["SAR_area_northBase", [6505.51,14159,0.002]];
+_this setMarkerShape "ELLIPSE";
+_this setMarkeralpha 0;
+_this setMarkerType "Flag";
+_this setMarkerBrush "Solid";
+_this setMarkerSize [10, 10];
+_this setMarkerDir 120.050;
+SAR_marker_northBase = _this;
+
+// ERIC Island HC Test
+_this = createMarker ["SAR_area_testIsland", [13715,2935,0]];
+_this setMarkerShape "ELLIPSE";
+_this setMarkeralpha 0;
+_this setMarkerType "Flag";
+_this setMarkerBrush "Solid";
+_this setMarkerSize [10, 10];
+_this setMarkerDir 120.050;
+SAR_marker_testIsland = _this;
+
 diag_log format["SAR_AI: Static spawning area definition finished"];
 
 // ----------------------------------------------------------------------------------------
@@ -233,35 +253,35 @@ diag_log format["SAR_AI: Static spawning area definition finished"];
 //                      [SAR_marker_DEBUG,true,120] call SAR_AI_heli; 
 //
 //---------------------------------------------------------------------------------
-diag_log format["SAR_AI: Static Spawning for Helicopter patrols started"];
+//diag_log format["SAR_AI: Static Spawning for Helicopter patrols started"];
 
 //
 // define your static air patrols here
 //
 
  //Heli Patrol NWAF
-[SAR_marker_helipatrol_nwaf,1,true] call SAR_AI_heli;
+//[SAR_marker_helipatrol_nwaf,1,true] call SAR_AI_heli;
 
 //Heli Patrol NEAF
-[SAR_marker_helipatrol_neaf,1,true] call SAR_AI_heli;
+//[SAR_marker_helipatrol_neaf,1,true] call SAR_AI_heli;
 
 // Heli patrol south coast
-[SAR_marker_helipatrol_southcoast,1,true] call SAR_AI_heli;
-[SAR_marker_helipatrol_southcoast,1,true] call SAR_AI_heli;
+//[SAR_marker_helipatrol_southcoast,1,true] call SAR_AI_heli;
+//[SAR_marker_helipatrol_southcoast,1,true] call SAR_AI_heli;
 
 // heli patrol east coast
-[SAR_marker_helipatrol_eastcoast,1,true] call SAR_AI_heli;
-[SAR_marker_helipatrol_eastcoast,1,true] call SAR_AI_heli;
+//[SAR_marker_helipatrol_eastcoast,1,true] call SAR_AI_heli;
+//[SAR_marker_helipatrol_eastcoast,1,true] call SAR_AI_heli;
 
 
 // example war scenario in the northwest. Comment OUT after having had a look at it!
-[SAR_marker_DEBUG_veh,1,true,30] call SAR_AI_heli;
-[SAR_marker_DEBUG_veh,1,true,30] call SAR_AI_heli;
-[SAR_marker_DEBUG_veh,3,true,30] call SAR_AI_heli;
-[SAR_marker_DEBUG_veh,3,true,30] call SAR_AI_heli;
+//[SAR_marker_DEBUG_veh,1,true,30] call SAR_AI_heli;
+//[SAR_marker_DEBUG_veh,1,true,30] call SAR_AI_heli;
+//[SAR_marker_DEBUG_veh,3,true,30] call SAR_AI_heli;
+//[SAR_marker_DEBUG_veh,3,true,30] call SAR_AI_heli;
 
 
-diag_log format["SAR_AI: Static Spawning for Helicopter patrols finished"];
+//diag_log format["SAR_AI: Static Spawning for Helicopter patrols finished"];
 
 //---------------------------------------------------------------------------------
 // Static, predefined infantry patrols in defined areas with configurable units
@@ -307,11 +327,17 @@ diag_log format["SAR_AI: Static Spawning for infantry patrols started"];
 
 [SAR_marker_DEBUG_devilscastle,1,0,6,"fortify",true] call SAR_AI;
 
+//Northern Base Protection
+[SAR_marker_northBase,3,2,16,"fortify",true] call SAR_AI;
+
+//Eric Island Test
+[SAR_marker_testIsland,3,2,0,"ambush",true] call SAR_AI;
+
 // example war scenario in the northwest. Comment OUT after having had a look at it!
-[SAR_marker_DEBUG_veh,1,0,9,"patrol",true] call SAR_AI;
-[SAR_marker_DEBUG_veh,2,0,9,"patrol",true] call SAR_AI;
-[SAR_marker_DEBUG_veh,3,0,9,"patrol",true] call SAR_AI;
-[SAR_marker_DEBUG_veh,3,0,9,"patrol",true] call SAR_AI;
+//[SAR_marker_DEBUG_veh,1,0,9,"patrol",true] call SAR_AI;
+//[SAR_marker_DEBUG_veh,2,0,9,"patrol",true] call SAR_AI;
+//[SAR_marker_DEBUG_veh,3,0,9,"patrol",true] call SAR_AI;
+//[SAR_marker_DEBUG_veh,3,0,9,"patrol",true] call SAR_AI;
  
 
 diag_log format["SAR_AI: Static Spawning for infantry patrols finished"];
@@ -368,6 +394,7 @@ diag_log format["SAR_AI: Static Spawning for vehicle patrols started"];
 //
 
 // example war scenario in the northwest. Comment OUT after having had a look at it!
+/*
 [
     SAR_marker_DEBUG_veh,                           // Name of the area that the vehicle patrol will spawn in
     1,                                              // type of group
@@ -394,6 +421,7 @@ diag_log format["SAR_AI: Static Spawning for vehicle patrols started"];
     true,                               // if this group should respawn or not
     60                                  // waittime until this group will respawn
 ] call SAR_AI_land;
+*/
 
 diag_log format["SAR_AI: Static Spawning for vehicle patrols finished"];
 // ---- end of configuration area ----
