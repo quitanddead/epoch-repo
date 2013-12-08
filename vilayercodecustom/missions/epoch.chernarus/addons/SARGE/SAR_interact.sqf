@@ -1,10 +1,10 @@
 // =========================================================================================================
 //  SAR_AI - DayZ AI library
-//  Version: 1.1.0 
+//  Version: 1.5.0 
 //  Author: Sarge (sarge@krumeich.ch) 
 //
 //		Wiki: to come
-//		Forum: http://opendayz.net/index.php?threads/sarge-ai-framework-public-release.8391/
+//		Forum: http://opendayz.net/#sarge-ai.131
 //		
 // ---------------------------------------------------------------------------------------------------------
 //  Required:
@@ -13,7 +13,7 @@
 //  
 // ---------------------------------------------------------------------------------------------------------
 //   SAR_interact.sqf
-//   last modified: 1.4.2013
+//   last modified: 28.5.2013
 // ---------------------------------------------------------------------------------------------------------
 //  Parameters:
 //  [ _target (target unit of the interaction, 
@@ -21,12 +21,26 @@
 //   ]
 // ------------------------------------------------------------------------------------------------------------
 
-private ["_targetAI","_actingPlayer","_animState","_started","_finished","_isMedic"];
+private ["_targetAI","_actingPlayer","_animState","_started","_finished","_isMedic","_leadername"];
 
-if (hasInterface) exitWith {}; // only run this on the client
+
+if (isServer) exitWith {}; // only run this on the client
 
 _targetAI = _this select 0;
 _actingPlayer = _this select 1;
+
+_leadername = _targetAI getVariable ["SAR_leader_name",false];
+
+// suspend UPSMON
+call compile format ["KRON_UPS_%1=2",_leadername];
+
+publicVariable format["KRON_UPS_%1",_leadername];
+sleep 5;
+
+[_targetAI,"defend",15] spawn SAR_circle_static;
+
+
+
 
 if (vehicle _targetAI == _targetAI) then {
     doMedicAnim = [_targetAI,"Medic"];
@@ -44,7 +58,7 @@ while {r_doLoop} do {
 	if (_isMedic) then {
 		_started = true;
 	};
-	if (_started and !_isMedic) then {
+	if (_started && {!_isMedic}) then {
 		r_doLoop = false;
 		_finished = true;
 	};
@@ -66,3 +80,6 @@ if (_finished) then {
     doMedicAnim = [_targetAI,"Stop"];
     publicVariable "doMedicAnim";
 };
+
+// resume UPSMON
+call compile format ["KRON_UPS_%1=1",_leadername];

@@ -1,10 +1,10 @@
 // =========================================================================================================
 //  SAR_AI - DayZ AI library
-//  Version: 1.1.0 
+//  Version: 1.5.0 
 //  Author: Sarge (sarge@krumeich.ch) 
 //
 //		Wiki: to come
-//		Forum: http://opendayz.net/index.php?threads/sarge-ai-framework-public-release.8391/
+//		Forum: http://opendayz.net/#sarge-ai.131
 //		
 // ---------------------------------------------------------------------------------------------------------
 //  Required:
@@ -13,13 +13,13 @@
 //  
 // ---------------------------------------------------------------------------------------------------------
 //  SAR_AI_spawn.sqf - handle the logic of spawning and despawning AI groups via the defined trigger array
-//  last modified: 1.4.2013
+//  last modified: 28.5.2013
 // ---------------------------------------------------------------------------------------------------------
 
 
-private ["_i","_snipers","_soldiers","_group","_check","_probability","_chance","_playerlist","_triggername","_tmparr","_markername","_player","_valuearray","_max_grps","_rnd_grps","_max_p_grp","_grps_band","_grps_sold","_grps_surv","_grps_upd","_respawn"];
+private ["_snipers","_soldiers","_group","_check","_probability","_chance","_playerlist","_triggername","_tmparr","_markername","_player","_valuearray","_max_grps","_rnd_grps","_max_p_grp","_grps_band","_grps_sold","_grps_surv","_grps_upd","_respawn"];
 
-if (( hasInterface || isDedicated )) exitWith {}; // only run this on the server
+if (hasInterface || isDedicated) exitWith {}; // only run this on the server
 
 _playerlist = _this select 0;
 _triggername = _this select 1;
@@ -58,7 +58,8 @@ _grps_upd =[];
 
 _grps_upd = _grps_band;
 
-for [{_i = (count _grps_band)},{_i < (_max_grps select 0)}, {_i=_i+1}]  do
+//for [{_i = (count _grps_band)},{_i < (_max_grps select 0)}, {_i=_i+1}]  do
+for "_i" from (count _grps_band) to ((_max_grps select 0) - 1) do
 {
     if(_max_p_grp select 0 > 0) then {
         _probability = _rnd_grps select 0;
@@ -76,7 +77,8 @@ for [{_i = (count _grps_band)},{_i < (_max_grps select 0)}, {_i=_i+1}]  do
 
 _grps_upd = _grps_sold;
 
-for [{_i = (count _grps_sold)},{_i < (_max_grps select 1)}, {_i=_i+1}]  do
+//for [{_i = (count _grps_sold)},{_i < (_max_grps select 1)}, {_i=_i+1}]  do
+for "_i" from (count _grps_sold) to ((_max_grps select 1) - 1) do
 {
     if(_max_p_grp select 1 > 0) then {
         _probability = _rnd_grps select 1;
@@ -94,7 +96,8 @@ for [{_i = (count _grps_sold)},{_i < (_max_grps select 1)}, {_i=_i+1}]  do
 
 _grps_upd = _grps_surv;
 
-for [{_i = (count _grps_surv)},{_i < (_max_grps select 2)}, {_i=_i+1}]  do
+//for [{_i = (count _grps_surv)},{_i < (_max_grps select 2)}, {_i=_i+1}]  do
+for "_i" from (count _grps_surv) to ((_max_grps select 2) - 1) do
 {
     if(_max_p_grp select 2 > 0) then {
         _probability = _rnd_grps select 2;

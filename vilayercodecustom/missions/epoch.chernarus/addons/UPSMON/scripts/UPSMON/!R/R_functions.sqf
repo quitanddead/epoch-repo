@@ -39,7 +39,7 @@ R_ThrowSmoke =
 		_moves = ["AwopPercMstpSgthWrflDnon_Start1","AwopPknlMstpSgthWrflDnon_Start","AwopPpneMstpSgthWrflDnon_Start"];
 
 		_unit = _this select 0;
-		_shell = ["SmokeShell","SmokeShellGreen","SmokeShellYellow","SmokeShellBlue","SmokeShellRed"] call BIS_fnc_selectRandom;
+		_shell = ["SmokeShell","SmokeShellGreen","SmokeShellYellow","SmokeShellBlue","SmokeShellRed"] call SAR_fnc_selectRandom;
 		_unitPos = unitPos _unit; 
 		
 		//Animation
@@ -134,7 +134,7 @@ R_ThrowSmoke =
 	// array of units in cargo of the vehicle (in vehicle and assigned as cargo)
 	R_FN_unitsInCargo =
 	{
-		private ["_vehicle","_x","_unitsInCargo"]; 
+		private ["_vehicle","_unitsInCargo"]; 
 		
 		_vehicle = _this select 0;
 		_unitsInCargo = [];
@@ -182,7 +182,7 @@ R_ThrowSmoke =
 	// -> nothing
 	// nul = [_npc,_targetpos,_atdist] spawn R_SN_GetOutDist;
 	R_SN_GetOutDist = {
-		private["_vehicle","_npc","_target","_atdist","_getout","_dogetout","_driver","_commander","_targetpos","_dist","_vehpos","_vehicles"];	
+		private ["_vehicle","_npc","_atdist","_dogetout","_driver","_targetpos","_dist","_vehpos","_vehicles"];	
 	
 		_npc = _this select 0;
 		_targetpos = _this select 1;
@@ -218,7 +218,11 @@ R_ThrowSmoke =
 						{					
 							_x spawn MON_GetOut;	
 							sleep 0.3;												
-						} foreach _dogetout;				
+						} foreach _dogetout;
+
+                        if (KRON_UPS_Debug>0) then {diag_log format["KRON_UPS_Debug: Crew got out of a vehicle. Vehicle %1: Getoutdist dist=%2 atdist=%3 ",typeof _vehicle,_dist, _atdist]};
+                        
+                        [_npc,"defend"] spawn SAR_circle;
 
 						//We removed the id to the vehicle so it can be reused
 						_x setVariable ["UPSMON_grpid", 0, false];	
@@ -236,15 +240,14 @@ R_ThrowSmoke =
 	// nul = [_grpId] call R_FN_GOTHIT; 
 	R_FN_GOTHIT =
 	{
-		_grpId = _this select 0;
-		if ((R_GOTHIT_ARRAY select _grpId) != 0) then
-		{
-			true
-		}
-		else
-		{
-			false
-		}	
+		
+        private ["_grpId"];
+        _grpId = _this select 0;
+		if ((R_GOTHIT_ARRAY select _grpId) != 0) then {
+			true;
+		}else{
+			false;
+		};
 	};
 	
 		// use in gothit proces
@@ -294,7 +297,7 @@ R_ThrowSmoke =
 	// nul = [_unit, _shooter] spawn R_SN_EHKILLEDCIV; 
 	R_SN_EHKILLEDCIV = 
 	{
-		private ["_killer","_side"];
+		private ["_killer"];
 		_killer = _this select 1;
 		
 		//only if player killed a civilian

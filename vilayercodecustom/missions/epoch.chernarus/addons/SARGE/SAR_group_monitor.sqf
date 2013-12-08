@@ -1,10 +1,10 @@
 // =========================================================================================================
 //  SAR_AI - DayZ AI library
-//  Version: 1.1.0 
+//  Version: 1.5.0 
 //  Author: Sarge (sarge@krumeich.ch) 
 //
 //		Wiki: to come
-//		Forum: http://opendayz.net/index.php?threads/sarge-ai-framework-public-release.8391/
+//		Forum: http://opendayz.net/#sarge-ai.131
 //		
 // ---------------------------------------------------------------------------------------------------------
 //  Required:
@@ -13,17 +13,17 @@
 //  
 // ---------------------------------------------------------------------------------------------------------
 //   SAR_group_monitor.sqf
-//   last modified: 1.4.2013
+//   last modified: 28.5.2013
 // ---------------------------------------------------------------------------------------------------------
 
 
-private ["_allgroups","_running","_sleeptime","_usedgroups","_count_friendly_groups","_count_unfriendly_groups"];
+private ["_allgroups","_running","_sleeptime","_count_friendly_groups","_count_unfriendly_groups","_debugstring"];
 
-if (( hasInterface || isDedicated )) exitWith {}; // only run this on the server
+if (hasInterface || isDedicated) exitWith {}; // only run this on the server
 
 _running = true;
 _sleeptime = 5;
-_usedgroups = [];
+
 
 while {_running} do {
 
@@ -48,42 +48,57 @@ while {_running} do {
     } else {
         SAR_MAX_GRP_EAST_SPAWN = false;    
     };
+
     
-    _alldebuggroups = [];
+    // SAR AI debug monitor
     
-    {
-        if (side _x == west) then{
+    if (SAR_DEBUGMONITOR) then {
+
+        //[KRON_AllRes] call SAR_debug_array;
+        //[KRON_AllEast] call SAR_debug_array;
+        //[KRON_targetsPos] call SAR_debug_array;
+    
         
-            if (_x getVariable["SAR_protect",false]) then {
-            
-                _tmpgrp = _x;
-                _delete_group=true;
-            
-                // query player array, and get used groups
-                {
-                    if (str(_x getVariable["SAR_player_group",""]) == str(_tmpgrp)) then {
-                        _delete_group=false;
-                    };
-                
-                } foreach dayz_players;
+        _debugstring = parseText format ["
+        <t size='0.85' font='Bitstream' align='left' color='#0000FF'>  *******  SARGE AI Monitor *******</t><br/>
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># of AI units (alive/ever): </t><t size='0.85' font='Bitstream' align='right'>%6(%1)</t><br/>
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># of AI groups active: </t><t size='0.85' font='Bitstream' align='right'>%2</t><br/>
+        <t size='0.85' font='Bitstream' align='left' color='#0000FF'>---- Friendly ----</t><br/>
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># of alive AI units: </t><t size='0.85' font='Bitstream' align='right'>%4</t><br/>
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># in combat: </t><t size='0.85' font='Bitstream' align='right'>%7</t><br/>        
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># leaders in fight/walkmode: </t><t size='0.85' font='Bitstream' align='right'>%8/%9</t><br/>
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># of %13/%12 AI units: </t><t size='0.85' font='Bitstream' align='right'>%11/%10</t><br/>
+        <t size='0.85' font='Bitstream' align='left' color='#0000FF'>---- Unfriendly ----</t><br/>
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># of alive AI units: </t><t size='0.85' font='Bitstream' align='right'>%5</t><br/>        
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># in combat: </t><t size='0.85' font='Bitstream' align='right'>%14</t><br/>        
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># leaders in fight/walkmode: </t><t size='0.85' font='Bitstream' align='right'>%15/%16</t><br/>
+        <t size='0.85' font='Bitstream' align='left' color='#FFBF00'># of %13/%12 AI units: </t><t size='0.85' font='Bitstream' align='right'>%18/%17</t><br/>",
+        KRON_UPS_Total,                                                                                                                                                         // 1
+        KRON_UPS_Instances,                                                                                                                                                     // 2
+        ((count KRON_NPCs)-1),                                                                                                                                                  // 3
+        {alive _x} count KRON_AllRes,                                                                                                                                           // 4
+        {alive _x} count KRON_AllEast,                                                                                                                                          // 5
+        ({alive _x} count KRON_AllRes) + ({alive _x} count KRON_AllEast),                                                                                                       // 6
+        {alive _x && (combatMode _x == "RED")} count KRON_AllRes,                                                                                                               // 7
+        ({alive _x && (_x getVariable ["SAR_fightmode","not defined"] =="fight")} count KRON_AllRes),                                                                           // 8
+        ({alive _x && (_x getVariable ["SAR_fightmode","not defined"] =="walk")} count KRON_AllRes),                                                                            // 9
+        ({alive _x && (_x getVariable ["SAR_AI_experience",0] >= SAR_AI_XP_LVL_3)} count KRON_AllRes),                                                                          // 10
+        ({alive _x && ((_x getVariable ["SAR_AI_experience",0] >= SAR_AI_XP_LVL_2) && (_x getVariable ["SAR_AI_experience",0] < SAR_AI_XP_LVL_3))} count KRON_AllRes),          // 11
+        SAR_AI_XP_NAME_3,                                                                                                                                                       // 12
+        SAR_AI_XP_NAME_2,                                                                                                                                                       // 13
+        {alive _x && (combatMode _x == "RED")} count KRON_AllEast,                                                                                                              // 14
+        ({alive _x && (_x getVariable ["SAR_fightmode","not defined"] =="fight")} count KRON_AllEast),                                                                          // 15
+        ({alive _x && (_x getVariable ["SAR_fightmode","not defined"] =="walk")} count KRON_AllEast),                                                                           // 16
+        ({alive _x && (_x getVariable ["SAR_AI_experience",0] >= SAR_AI_XP_LVL_3)} count KRON_AllEast),                                                                         // 17
+        ({alive _x && ((_x getVariable ["SAR_AI_experience",0] >= SAR_AI_XP_LVL_2) && (_x getVariable ["SAR_AI_experience",0] < SAR_AI_XP_LVL_3))} count KRON_AllEast)          // 18
 
-                if (_delete_group && _x != SAR_grp_friendly && _x != SAR_grp_unfriendly) then {
-                    //group has no owner anymore, remove the locking variable and let Rockets cleanup do the rest
-                    _x setVariable ["SAR_protect",nil,true];
-                    diag_log format["SARGE AI: marked an orphaned group for deletion: %1",_x];
-                };
-                
-            };
-
-        };
+        ];
+        
+        [nil,nil,rHINT,_debugstring] call RE;
+        
+        
+    };
     
-        _alldebuggroups set [count _alldebuggroups,[_x, count (units _x),units _x]]; 
-    
-    } foreach _allgroups;
-
-
-   // [_alldebuggroups] call SAR_debug_array;
-
     sleep _sleeptime;
 
 };

@@ -1,10 +1,10 @@
 /*  =====================================================================================================
 	MON_spawn.sqf
 	Author: Monsada (chs.monsada@gmail.com) 
-		Comunidad Hispana de Simulación: 
+		Comunidad Hispana de Simulaciï¿½n: 
 		http://www.simulacion-esp.com
  =====================================================================================================		
-	Parámeters: [_artillery,(_range,_rounds,_area,_cadence,_mincadence)] execvm "scripts\UPSMON\MON_artillery_add.sqf";	
+	Parï¿½meters: [_artillery,(_range,_rounds,_area,_cadence,_mincadence)] execvm "scripts\UPSMON\MON_artillery_add.sqf";	
 		<- _artillery 		object to attach artillery script, must be an object with gunner.
 		<- ( _rounds ) 		rounds to fire each time, default 1
 		<- ( _range ) 		range of artillery, default 800
@@ -28,13 +28,15 @@
 	For more info:
 	http://dev-heaven.net/projects/upsmon/wiki/Artillery_module
  =====================================================================================================*/
-if (hasInterface) exitWith {}; 
+
+private ["_artillery","_area","_maxcadence","_mincadence","_sleep","_rounds","_dummypos","_salvobreak","_range","_bullet","_vector"];
+if (hasInterface || isDedicated) exitWith {}; 
 
 //Waits until UPSMON is init
 waitUntil {!isNil("KRON_UPS_INIT")};
 waitUntil {KRON_UPS_INIT==1};
 	
-private ["_artillery","_smoke1","_i","_area","_position","_maxcadence","_mincadence","_sleep","_rounds","_dummypos","_salvobreak"];
+
 _range = 800;
 _area = 150;
 _maxcadence = 10;

@@ -3,7 +3,7 @@
 //  Version: 1.0 
 //  Author: Monsada (smirall@hotmail.com)
 // ---------------------------------------------------------------------------------------------------------
-private ["_obj","_caller","_id","_objtype","_rnd","_join","_direction"];
+private ["_caller","_id","_rnd","_join","_direction","_npc"];
 _npc = _this select 0;
 _caller = _this select 1;
 _id 	= _this select 2;

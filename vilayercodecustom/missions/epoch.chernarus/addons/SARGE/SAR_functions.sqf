@@ -1,10 +1,10 @@
 // =========================================================================================================
 //  SAR_AI - DayZ AI library
-//  Version: 1.1.0 
+//  Version: 1.5.2 
 //  Author: Sarge (sarge@krumeich.ch) 
 //
 //		Wiki: to come
-//		Forum: http://opendayz.net/index.php?threads/sarge-ai-framework-public-release.8391/
+//		Forum: http://opendayz.net/#sarge-ai.131
 //		
 // ---------------------------------------------------------------------------------------------------------
 //  Required:
@@ -13,106 +13,389 @@
 //  
 // ---------------------------------------------------------------------------------------------------------
 //  Sar_functions - generic functions library
-//   last modified: 1.4.2013
+//   last modified: 28.5.2013
 // ---------------------------------------------------------------------------------------------------------
-SAR_circle = {
+SAR_commentator = {
+   
+    
+private ["_unitpos","_group","_speaker"];
+
+    //_unitpos = [0,0];
+    _unitpos = [2004.83,12880.6,0.002];
+    
+    _group = createGroup west;
+
+    // protect group from being deleted by DayZ
+    _group setVariable ["SAR_protect",true,true];
+
+    // create leader of the group
+    _speaker = _group createunit ["Survivor3_DZ", [(_unitpos select 0) , _unitpos select 1, 0], [], 0.5, "NONE"];
+    
+    _speaker setVehicleVarname "The_Observer";
+    
+    _speaker allowDamage false;
+    //[nil, _speaker, "per", rHideObject, true] call RE; 
+    _speaker disableAI "FSM";
+    _speaker disableAI "MOVE";
+    
+    removeAllWeapons _speaker;
+    
+    // the above doesnt remove the tools, need this as well
+    _speaker removeweapon "ItemMap";
+    _speaker removeweapon "ItemCompass";
+
+    _speaker addWeapon "ItemRadio";
+    
+    SAR_speaker = _speaker;
+    publicVariable "SAR_speaker";
+
+};
+
+
+SAR_get_road_pos = {
 //
+// Parameters:
 //
+//              _areaname = the markername where the position should be choosen
+
+    
+private ["_targetPosTemp","_newpos","_loop2","_tries2","_roads","_area_name","_centerpos","_centerX","_centerY","_areasize","_rangeX","_rangeY","_areadir","_cosdir","_sindir"];
+_area_name = _this select 0;
+
+    // remember center position of area marker
+    _centerpos = getMarkerPos _area_name;
+    _centerX = abs(_centerpos select 0);
+    _centerY = abs(_centerpos select 1);
+
+    // X/Y range of target area
+    _areasize = getMarkerSize _area_name;
+    _rangeX = _areasize select 0;
+    _rangeY = _areasize select 1;
+
+    // marker orientation (needed as negative value!)
+    _areadir = (markerDir _area_name) * -1;
+
+    // store some trig calculations
+    _cosdir=cos(_areadir);
+    _sindir=sin(_areadir);
+
+
+    _tries2=0;
+    _loop2 = false;
+
+    while {(!_loop2) && (_tries2 <100)} do {
+        _tries2=_tries2+1;
+        
+        _targetPosTemp = [_centerX,_centerY,_rangeX,_rangeY,_cosdir,_sindir,_areadir] call KRON_randomPos;
+        _roads = (_targetPosTemp nearRoads 50); 
+        if ((count _roads) > 0) then {
+            _targetPosTemp = getpos (_roads select 0);
+            _newpos = _targetPosTemp;
+            _loop2 = TRUE;
+        };	
+        sleep 0.05;	
+    };	
+
+    _newpos;
+
+};
+
+
+SAR_break_circle = {
+//
+//      Parameters:
+//
+//              _group = the group
+
+    private ["_group"];
+
+    _group = _this select 0;
+    
+    _group setBehaviour "AWARE";
+
+    {
+        _x enableAI "TARGET";
+        _x forceSpeed 1; 
+        
+    
+    } foreach units _group;
+
+
+};
+
+SAR_AI_debug = {
+//
+//      Parameters:
+//
+//              _obj = the object that gets a sphere update
+//              _col = the color that the sphere gets [1,1,1]
+
+    private ["_obj","_sp_fightmode","_sp_combatmode","_fightmode","_combatmode","_obj_text_string","_behaviour","_sp_behaviour"];
+    
+    if (hasInterface || isDedicated) exitWith {}; // only run this on the server
+
+    _obj = _this select 0;
+    
+    _sp_fightmode = createvehicle ["Sign_sphere25cm_EP1",getPos _obj,[],0,"NONE"];
+    _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",0,0,0,1];
+    [nil,nil,rSETOBJECTTEXTURE,_sp_fightmode,0,_obj_text_string] call RE;                
+    
+    sleep 0.5;
+    
+    _sp_fightmode allowDamage false;
+    _sp_fightmode attachTo [_obj,[0,0,3]];
+
+    
+    _sp_combatmode = createvehicle ["Sign_sphere25cm_EP1",getPos _obj,[],0,"NONE"];
+    _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",0,0,0,1];
+    [nil,nil,rSETOBJECTTEXTURE,_sp_combatmode,0,_obj_text_string] call RE;  
+    
+    sleep 0.5;
+    
+    _sp_combatmode allowDamage false;
+    _sp_combatmode attachTo [_obj,[0,0,4]];
+
+
+    _sp_behaviour = createvehicle ["Sign_sphere25cm_EP1",getPos _obj,[],0,"NONE"];
+    _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",0,0,0,1];
+    [nil,nil,rSETOBJECTTEXTURE,_sp_behaviour,0,_obj_text_string] call RE;  
+    
+    sleep 0.5;
+    
+    _sp_behaviour allowDamage false;
+    _sp_behaviour attachTo [_obj,[0,0,5]];
+    
+    
+    
+    
+    while {alive _obj} do {
+
+        _fightmode = _obj getVariable ["SAR_fightmode","not defined"];
+        
+        switch (_fightmode) do 
+        {
+            case "walk":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",0,1,0,1];
+
+            };
+            
+            case "fight":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",1,0,0,1];
+
+            };
+            case "not defined":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",0,0,0,1];
+
+            };
+            
+            
+        };
+        
+        [nil,nil,rSETOBJECTTEXTURE,_sp_fightmode,0,_obj_text_string] call RE;
+        sleep .5;
+        
+        _combatmode = combatMode _obj;
+        
+        switch (_combatmode) do
+        {
+            case "RED":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",1,0,0,1];
+            };
+            case "YELLOW":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",1,1,0,1];
+            };
+            case "WHITE":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",1,1,1,1];
+            };
+            case "GREEN":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",0,1,0,1];
+            };
+            case "BLUE":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",0,0,1,1];
+            };
+            
+        };
+        
+        [nil,nil,rSETOBJECTTEXTURE,_sp_combatmode,0,_obj_text_string] call RE;
+
+        _behaviour = behaviour _obj;
+        
+        switch (_behaviour) do
+        {
+            case "COMBAT":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",1,0,0,1];
+            };
+            case "AWARE":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",1,1,0,1];
+            };
+            case "SAFE":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",1,1,1,1];
+            };
+            case "CARELESS":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",0,1,0,1];
+            };
+            case "STEALTH":
+            {
+                _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",0,0,1,1];
+            };
+            
+        };
+        
+        [nil,nil,rSETOBJECTTEXTURE,_sp_behaviour,0,_obj_text_string] call RE;
+        
+        sleep 2;
+    };
+
+    deleteVehicle _sp_fightmode;
+    deleteVehicle _sp_combatmode;
+    deleteVehicle _sp_behaviour;
+    
+};
+
+
+SAR_move_to_circle_pos = {
+//
+//      Parameters:
+//
+//              _unit = the unit to move
+//              _newpos = the position the unit should move to
 //
 
     
-private ["_center","_defend","_veh","_angle","_dir","_newpos","_forEachIndex","_leader","_action","_grp","_leadername","_pos","_units","_count"];
+    private ["_unit","_centerpos","_newpos","_viewangle","_defend"];
+    
+    _unit = _this select 0;
+    _centerpos = _this select 1;
+    _newpos = _this select 2;
+    _viewangle = _this select 3;
+    _defend = _this select 4;
+    
+    _unit forceSpeed 1;
+
+    _unit moveTo _newpos;
+    _unit doMove _newpos;
+    
+    waituntil {moveToCompleted _unit};
+    _unit forceSpeed 0;            
+    
+    //_unit doWatch (_veh modelToWorld [(sin (_foreachindex * _angle))*SAR_sit_radius, (cos (_foreachindex * _angle))*SAR_sit_radius, 0]);
+    //_unit doWatch _veh;
+
+//    diag_log format["Unit: %1 Angle to look at: %2",_unit,_viewangle];
+    
+    _unit setDir _viewangle; 
+    _unit setpos getPos _unit;
+    
+    if(!_defend) then {
+        _unit playActionNow "SitDown";
+        sleep 1;
+    } else{
+        _unit setUnitPos "Middle";
+        sleep 1;
+    };
+
+    _unit disableAI "TARGET";
+    //_unit disableAI "FSM";
+
+};
+
+SAR_circle_static = {
+//
+//      Parameters:
+//
+//              _leader = the leader of the group
+//              _action = the action to execute while forming a circle
+//              _radius = the radius of the circle
+//
+   
+private ["_center","_defend","_veh","_angle","_dir","_newpos","_forEachIndex","_leader","_action","_grp","_pos","_units","_count","_viewangle","_radius"];
+
+    _count = 0;
+    
+
+  //  diag_log "SAR_AI: Group should form a circle";
 
     _leader = _this select 0;
     _action = _this select 1;
-
+    _radius = _this select 2;
+    
     _grp = group _leader;
     _defend = false;
-    
-    _leadername = _leader getVariable ["SAR_leader_name",false];
-
-    // suspend UPSMON
-    call compile format ["KRON_UPS_%1=2",_leadername];
-
-    _pos = getposASL _leader; 
-    //diag_log _pos;
-
-    _pos = (_leader) modelToWorld[0,0,0];
-    //diag_log _pos;
-    
-    if(_action == "defend") then {
-        _center = _leader;
-        _defend = true;
-    };
-    
-    if(_action == "campfire") then {
-        _veh = createvehicle["Land_Campfire_burning",_pos,[],0,"NONE"];
-        _center = _veh;
-    };
-    
-
     _units = units _grp;
     _count = count _units;
+
     
-    if(_defend) then {
-        _angle = 360/(_count-1);
-    }else{
-        _angle = 360/(_count);
-    };
+    if(_count > 1) then {      // only do this for groups > 1 unit
     
-    SAR_circle_radius = 10;
+        _pos = getposASL _leader; 
 
-    {
-        if(_x != _leader || {_x == _leader && !_defend}) then { 
-            
-            _newpos = (_center modelToWorld [(sin (_forEachIndex * _angle))*SAR_circle_radius, (cos (_forEachIndex *_angle))*SAR_circle_radius, 0]);
-            
-//            diag_log format["Newpos %1: %2",_foreachindex,_newpos];    
-
-            _x moveTo _newpos;
-            _x doMove _newpos;
-            while{(_newpos distance (getpos _x)) > 1} do {}; 
-           
-            //_x doWatch (_veh modelToWorld [(sin (_foreachindex * _angle))*SAR_sit_radius, (cos (_foreachindex * _angle))*SAR_sit_radius, 0]);
-            //_x doWatch _veh;
-
-            if(_defend) then {
-                _dir = 0;
-            }else{
-                _dir = 180;
-            };
+        _pos = (_leader) modelToWorld[0,0,0];
         
-            _x setDir ((_foreachIndex * _angle)+ _dir); 
-
-            if(!_defend) then {
-                _x playActionNow "SitDown";
-                sleep 1;
-            };
-
-            _x disableAI "MOVE";
-            
+        doStop _leader;
+        sleep .5;
+        
+        //play leader stop animation
+        _leader playAction "gestureFreeze";
+        sleep 2;
+        
+        
+        if(_action == "defend") then {
+            _center = _leader;
+            _leader forceSpeed 0;
+            _defend = true;
+        };
+        
+        if(_action == "campfire") then {
+            _veh = createvehicle["Land_Campfire_burning",_pos,[],0,"NONE"];
+            _center = _veh;
         };
 
-    } foreach _units;
+        
+        if(_defend) then {
+            _angle = 360/(_count-1);
+        }else{
+            _angle = 360/(_count);
+        };
+        
+        _grp enableGunLights true;
+        
+        _grp setBehaviour "CARELESS";
+        
+        {
+            if(_x != _leader || {_x == _leader && !_defend}) then { 
+                
+                _newpos = (_center modelToWorld [(sin (_forEachIndex * _angle))*_radius, (cos (_forEachIndex *_angle))*_radius, 0]);
+                
+    //            diag_log format["Newpos %1: %2",_foreachindex,_newpos];    
 
-    // wait for medic animation to end
-    if(_defend) then {
-        sleep 10;
+                if(_defend) then {
+                    _dir = 0;
+                }else{
+                    _dir = 180;
+                };
+
+                _viewangle = (_foreachIndex * _angle) + _dir;
+                
+                [_x,_pos,_newpos,_viewangle,_defend]spawn SAR_move_to_circle_pos;
+
+            };
+
+        } foreach _units;
+
+        //_leader disableAI "MOVE";
     };
-    // wait for random campfire time
-    if(_action =="campfire") then {
-        sleep 60;
-        //cleanup campfire        
-        deletevehicle _veh;
-    };
-
-    {
-        _x enableAI "MOVE";
-    } foreach _units;
-    
-    // resume UPSMON
-    call compile format ["KRON_UPS_%1=1",_leadername];
-
 };
 
 SAR_fnc_selectRandom = {
@@ -158,32 +441,101 @@ SAR_isKindOf_weapon = {
 
 };
 
+SAR_veh_side_debug = {
+//
+// parameters: 
+//              _vehicle = the vehicle we want to debug
+//
+
+    private["_vehicle","_sphere","_side","_sphere_red","_sphere_alpha","_sphere_green","_sphere_blue","_obj_text_string"];
+
+    _vehicle = _this select 0;
+    _sphere = _vehicle getVariable ["SAR_sphere_side_id",objNull];
+    
+    while {true} do {
+    
+        _side = side _vehicle;
+        
+        switch (_side) do 
+        {
+            case sideEnemy:
+            {
+                _sphere_red = 1;
+                _sphere_green= 1;
+                _sphere_blue=0;
+            };
+            case west:
+            {
+                _sphere_red = 0;
+                _sphere_green= 0;
+                _sphere_blue=1;
+            };
+            case east:
+            {
+                _sphere_red = 1;
+                _sphere_green= 0;
+                _sphere_blue=0;
+            };
+            case civilian:
+            {
+                _sphere_red = 1;
+                _sphere_green= 1;
+                _sphere_blue=1;
+            };
+            case resistance:
+            {
+                _sphere_red = 0;
+                _sphere_green= 1;
+                _sphere_blue=0;
+            };
+            default
+            {
+                _sphere_red = 0;
+                _sphere_green= 0;
+                _sphere_blue=0;
+            };
+            
+            
+        };
+
+        _sphere_alpha = 1;
+        
+        _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",_sphere_red,_sphere_green,_sphere_blue,_sphere_alpha];
+        
+        [nil,nil,rSETOBJECTTEXTURE,_sphere,0,_obj_text_string] call RE;
+
+        sleep 5;
+        
+    };
+
+};
 
 SAR_AI_veh_trig_on_static = {
 //
 // 
 //
 
-    private ["_unit_list","_unitlist","_trigger","_triggername","_player_joined","_player_left","_trig_unitlist","_units_leaving","_player_rating","_clientmachine","_trigger_activator","_forEachIndex"];
+    private ["_unit_list","_unitlist","_trigger","_triggername","_player_joined","_player_left","_trig_unitlist","_units_leaving","_player_rating","_clientmachine","_sphere_alpha","_sphere_red","_sphere_green","_sphere_blue","_obj_text_string","_vehicle","_sphere"];
 
-    if(( hasInterface || isDedicated )) exitWith {};
+    if (hasInterface || isDedicated) exitWith {};
     
-    if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ----------------------------------Trigger activated, Script started ...------------------------------------------------------- > ";};    
+    if(SAR_EXTREME_DEBUG) then {
+        diag_log "SAR_EXTREME_DEBUG: Vehicle FIX:";
+        diag_log "SAR_EXTREME_DEBUG: Vehicle FIX: -- Trigger activated, Script started ...";
+        diag_log "SAR_EXTREME_DEBUG: Vehicle FIX:";
+    };    
     
     _unit_list = _this select 0;
     _trigger = _this select 1;
     _triggername = _this select 2;
     _unitlist=[];
-    _trigger_activator = "";
     
+    _vehicle = _trigger getVariable ["SAR_trig_veh",objNull];
+    _sphere = _vehicle getVariable ["SAR_sphere_id",objNull];
+            
     if(SAR_EXTREME_DEBUG) then {
-        {
-            if(isPlayer _x) then {
-                _trigger_activator = _unit_list select _forEachIndex;
-            };
-        } foreach _unit_list;
-        
-        diag_log format["SAR_EXTREME_DEBUG: Trigger -> %1 at %2 was activated by %3!",_triggername,getpos _trigger,_trigger_activator];
+                
+        diag_log format["SAR_EXTREME_DEBUG: Vehicle FIX: Trigger: %1 at vehicle: %3, location %2 was activated or deactivated!",_triggername,getpos _trigger,typeof _vehicle];
     };
     
     
@@ -194,7 +546,7 @@ SAR_AI_veh_trig_on_static = {
         };
     } foreach _unit_list;
     
-    if(SAR_EXTREME_DEBUG) then {[_unitlist] call SAR_debug_array;};
+    //if(SAR_EXTREME_DEBUG) then {[_unitlist] call SAR_debug_array;};
     
     // get the units stored in the trigger variable
     _trig_unitlist = _trigger getVariable["unitlist",[]];
@@ -204,17 +556,29 @@ SAR_AI_veh_trig_on_static = {
     // joined
     if(count _unitlist > count _trig_unitlist) then {
 
-        if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ------------------------------------ Trigger entry start ---------------------------------------------------------------- >";};
+        if(SAR_EXTREME_DEBUG) then {diag_log format["SAR_EXTREME_DEBUG: Vehicle FIX: someone entered the vehicle area of a %1",typeof _vehicle];};
         
         //figure out the player that joined
         _player_joined = _unitlist select ((count _unitlist) -1);
         
-        if(SAR_EXTREME_DEBUG) then {diag_log format["SAR_EXTREME_DEBUG: Trigger DEBUG: Unit joined, name of joining unit is: %1",_player_joined];};
+        if(SAR_EXTREME_DEBUG) then {
+        
+            diag_log format["SAR_EXTREME_DEBUG: Vehicle FIX: Player entered trigger area, name is: %1",_player_joined];
+
+            _sphere_alpha = 1;
+            _sphere_red = 1;
+            _sphere_green= 0;
+            _sphere_blue=0;
+            
+            _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",_sphere_red,_sphere_green,_sphere_blue,_sphere_alpha];
+            
+            [nil,nil,rSETOBJECTTEXTURE,_sphere,0,_obj_text_string] call RE;
+            
+            
+        };
     
         // if player has negative addrating, store it on player and set to 0
-        
         _player_rating = rating _player_joined;
-
         
         if (_player_rating < 0) then {
         
@@ -230,24 +594,45 @@ SAR_AI_veh_trig_on_static = {
             // transmit the global variable to this client machine
             _clientmachine publicVariableClient "adjustrating";
             
+            // _msg = format["SERVER: initial rating: %1, rating on player now: %2",_player_rating,rating _player_joined];
+            
+            // [nil,_player_joined,rTITLETEXT,_msg,"PLAIN DOWN",3] call RE;
+            // [nil,_player_joined,rTITLETEXT,str(rating player),"PLAIN DOWN",3] call RE;            
         };
 
         // add joining player to the trigger list
         _trig_unitlist set [count _trig_unitlist, _player_joined];
         _trigger setVariable ["unitlist",_trig_unitlist,true];
         
-        if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ------------------------------------ Trigger entry stop ---------------------------------------------------------------- >";}; 
+        if(SAR_EXTREME_DEBUG) then {
+            diag_log "SAR_EXTREME_DEBUG: Vehicle FIX:";
+            diag_log "SAR_EXTREME_DEBUG: Vehicle FIX: Logic for trigger activation finished";
+            diag_log "SAR_EXTREME_DEBUG: Vehicle FIX:";
+        }; 
     
     } else { //  a player left the trigger area
 
-        if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ------------------------------------ Trigger exit start ---------------------------------------------------------------- >";}; 
+        if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: Vehicle FIX: someone left the vehicle area";}; 
         
         // figure out which unit left by comparing _unitlist with _trig_unitlist
         _units_leaving =  _trig_unitlist - _unitlist;
         
         _player_left = _units_leaving select 0;
         
-        if(SAR_EXTREME_DEBUG) then {diag_log format["SAR_EXTREME_DEBUG: Trigger DEBUG: Unit left, name of leaving unit is: %1",_player_left];};
+        if(SAR_EXTREME_DEBUG) then {
+
+            diag_log format["SAR_EXTREME_DEBUG: Vehicle FIX: Player left, name is: %1",_player_left];
+            
+            _sphere_alpha = 1;
+            _sphere_red = 0;
+            _sphere_green= 1;
+            _sphere_blue=0;
+            
+            _obj_text_string = format["#(argb,8,8,3)color(%1,%2,%3,%4,ca)",_sphere_red,_sphere_green,_sphere_blue,_sphere_alpha];
+            
+            [nil,nil,rSETOBJECTTEXTURE,_sphere,0,_obj_text_string] call RE;
+            
+        };
 
         // remove the leaving unit from the trigger list by overwriting it with the real triggerlist contents
         if (count _unitlist == 0) then {
@@ -257,265 +642,41 @@ SAR_AI_veh_trig_on_static = {
         };
         
         // restore unit rating
-
-        // get old rating from the player
-        _player_rating = _player_left getVariable ["SAR_rating",0];
         
-        //define global variable
-        adjustrating = [_player_left,(0 + _player_rating)];
+        // only do this if the rating wasnt changed while in the vehicle
+        _player_rating = rating _player_left;
         
-        // get the players machine ID
-        _clientmachine = owner _player_left;
+        if(_player_rating == 0) then {
         
-        // transmit the global variable to this client machine
-        _clientmachine publicVariableClient "adjustrating";
-        
-        if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ------------------------------------ Trigger exit stop ---------------------------------------------------------------- >";};     
-    };
-
-    
-    if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: --------------------------------Trigger activated, Script finished----------------------------------------------------- > ";};    
-    
-};
-SAR_AI_veh_trig_on_static_backup = {
-//
-// 
-//
-
-    private ["_unit_list","_unitlist","_trigger","_triggername","_player_joined","_player_left","_trig_unitlist","_units_leaving","_player_rating","_player_humanity","_bandits_in_trigger","_player_orig_group","_clientmachine","_trigger_activator","_forEachIndex","_dummy"];
-
-    if(( hasInterface || isDedicated )) exitWith {};
-    
-    if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ----------------------------------Trigger activated, Script started ...------------------------------------------------------- > ";};    
-    
-    _unit_list = _this select 0;
-    _trigger = _this select 1;
-    _triggername = _this select 2;
-    _unitlist=[];
-    _trigger_activator = "";
-    
-    if(SAR_EXTREME_DEBUG) then {
-        {
-            if(isPlayer _x) then {
-                _trigger_activator = _unit_list select _forEachIndex;
-            };
-        } foreach _unit_list;
-        
-        diag_log format["SAR_EXTREME_DEBUG: Trigger -> %1 at %2 was activated by %3!",_triggername,getpos _trigger,_trigger_activator];
-        //diag_log format["SAR_EXTREME_DEBUG: count thislist = %1, count getvariable unitlist = %2",{(isPlayer _x) && (vehicle _x == _x) } count _unit_list, count (_trigger getVariable['unitlist',[]])];
-    };
-    
-    
-    // remove non players from the trigger unitlist
-    {
-        if (isPlayer _x) then {
-            _unitlist set[count _unitlist,_x]; 
-        };
-    } foreach _unit_list;
-    
-    if(SAR_EXTREME_DEBUG) then {[_unitlist] call SAR_debug_array;};
-    
-    // get the units stored in the trigger variable
-    _trig_unitlist = _trigger getVariable["unitlist",[]];
-    
-    
-    // check if a unit left or joined the trigger
-    // joined
-    if(count _unitlist > count _trig_unitlist) then {
-
-        if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ------------------------------------ Trigger entry start ---------------------------------------------------------------- >";};
-        
-        //figure out the player that joined
-        _player_joined = _unitlist select ((count _unitlist) -1);
-        
-        if(SAR_EXTREME_DEBUG) then {diag_log format["SAR_EXTREME_DEBUG: Trigger DEBUG: Unit joined, name of joining unit is: %1",_player_joined];};
-    
-        // if player has negative addrating, store it on player and set to 0
-        
-        _player_rating = rating _player_joined;
-
-        
-        if (_player_rating < 0) then {
-        
-            // store old rating on the player
-            _player_joined setVariable ["SAR_rating",_player_rating,true];
+            // get old rating from the player
+            _player_rating = _player_left getVariable ["SAR_rating",0];
             
             //define global variable
-            adjustrating = [_player_joined,(0 - _player_rating)];
+            adjustrating = [_player_left,(0 + _player_rating)];
             
             // get the players machine ID
-            _clientmachine = owner _player_joined;
+            _clientmachine = owner _player_left;
             
             // transmit the global variable to this client machine
             _clientmachine publicVariableClient "adjustrating";
             
         };
-
-        // save and protect the old groupdata
-        // save old group to player
-        _player_joined setVariable ["SAR_player_group",group _player_joined,true];
         
-        // add a dummy unit into the group to keep it alive
-        _dummy = (group _player_joined) createunit ["Rocket_DZ", [2500, 13100, 0], [],0, "FORM"];
-
-        [nil, _dummy, "per", rhideObject, true] call RE;
-        [nil, _dummy, "per", rallowDamage, false] call RE;
-        _dummy disableAI "FSM";
-        _dummy disableAI "ANIM";
-        _dummy disableAI "MOVE";
-        _dummy disableAI "TARGET";
-        _dummy disableAI "AUTOTARGET";
-        _dummy setVehicleInit "this setIdentity 'id_SAR';this hideObject true;this allowDamage false;";
-        [_dummy] joinSilent (group _player_joined);
-        
-        diag_log "Joined a dummy unit to the original player group";
-        
-        
-        // set variable to group so it doesnt get cleaned up
-        (group _player_joined) setVariable ["SAR_protect",true,true];
-        
-        // if bandit (humanity check) then switch the activating player and everyone in/close to the vehicle to resistance
-        _player_humanity = _player_joined getVariable ["humanity",0];
-
-        if (_player_humanity < SAR_HUMANITY_HOSTILE_LIMIT) then { // player is a bandit
-        
-            if(count _trig_unitlist > 0) then{ // there are already units in the trigger
-
-                _bandits_in_trigger = [_trig_unitlist] call SAR_AI_is_unfriendly_group;
-
-                if (!_bandits_in_trigger) then { // there are no bandits in the trigger list yet, create the group and add all units in the trigger list to the global resistance group
-
-                    // join all units in the trigger list to that group
-                    
-                    _trig_unitlist joinSilent SAR_grp_unfriendly;
-                     
-                    if(SAR_EXTREME_DEBUG) then {diag_log "||||||||||||   A bandit joining created an unfriendly group and switched survivors in the trigger to the global unfriendly group!";};
-                
-                };
-
-                // join player to global resistance group
-                [_player_joined] joinSilent SAR_grp_unfriendly;
-                
-            } else { // bandit player is the first at the vehicle
-
-                diag_log format["Tried to join %1 to unfriendly group: %2",_player_joined,SAR_grp_unfriendly];
-                // join player to global resistance group
-                [_player_joined] joinSilent grpNull;
-                sleep .5;
-                [_player_joined] joinSilent SAR_grp_unfriendly;
-                sleep .5;
-                diag_log format["Player is now %1, part of group: %2",_player_joined,group _player_joined];
-
-                
-            };
-        
-        } else { // player is a survivor
-        
-            if(count _trig_unitlist > 1) then{ // there are already units in the trigger
-            
-                _bandits_in_trigger = [_trig_unitlist] call SAR_AI_is_unfriendly_group;
-
-                if (_bandits_in_trigger) then { // there are bandits in the trigger list, add survivor to the global resistance group
-
-                    // join player to global unfriendly group
-                    [_player_joined] joinSilent SAR_grp_unfriendly;
-                    
-                } else { // the existing group is a survivor group
-
-                    // join player to global friendly group
-                    [_player_joined] joinSilent SAR_grp_friendly;
-                
-                };
-            } else { // the survivor is the first at the vehicle
-
-                // join player to global friendly group
-                [_player_joined] joinSilent SAR_grp_friendly;
-            };
-        };
-
-        // add joining player to the trigger list
-        _trig_unitlist set [count _trig_unitlist, _player_joined];
-        _trigger setVariable ["unitlist",_trig_unitlist,true];
-        
-        if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ------------------------------------ Trigger entry stop ---------------------------------------------------------------- >";}; 
-    
-    } else { //  a player left the trigger area
-
-        if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ------------------------------------ Trigger exit start ---------------------------------------------------------------- >";}; 
-        
-        // figure out which unit left by comparing _unitlist with _trig_unitlist
-        _units_leaving =  _trig_unitlist - _unitlist;
-        
-        _player_left = _units_leaving select 0;
-        
-        if(SAR_EXTREME_DEBUG) then {diag_log format["SAR_EXTREME_DEBUG: Trigger DEBUG: Unit left, name of leaving unit is: %1",_player_left];};
-
-        // remove the leaving unit from the trigger list by overwriting it with the real triggerlist contents
-        if (count _unitlist == 0) then {
-            _trigger setVariable ["unitlist",[],true]; 
-        } else {
-          _trigger setVariable ["unitlist",_unitlist,true]; 
-        };
-
-        // if bandit, need to recheck the trigger group if still bandits in there, if not, remove all units from the resistance group
-        
-        _player_humanity = _player_left getVariable ["humanity",0];
-
-        // restore old group of leaving player
-        // load old group from player
-        _player_orig_group = _player_left getVariable "SAR_player_group";
-        
-        // join exiting player to his old group
-        [_player_left] joinSilent _player_orig_group;
-        
-        // remove dummy unit fom group
-        {
-            if !(isPlayer _x) then {
-                deletevehicle _x;
-            }
-        } foreach units _player_orig_group;
-
-        // remove anti cleanup variable from player group
-        _player_orig_group setVariable ["SAR_protect",nil,true];
-
-        
-        if (_player_humanity < SAR_HUMANITY_HOSTILE_LIMIT) then { // player is a bandit
-            
-            if(count _unitlist > 0) then{ // there are still units in the trigger
-
-                // check if there are no bandits anymore in the trigger list
-                _bandits_in_trigger = [_unitlist] call SAR_AI_is_unfriendly_group;
-
-                if (!_bandits_in_trigger) then { // no more bandits in the group, remove all of the remaining units from the resistance group and delete the group
-                    
-                    // move all group members to the global friendly group
-                    _unitlist joinSilent SAR_grp_friendly;
-
-                    diag_log "||||||||||||   A leaving bandit switched a trigger unfriendly group to friendly status";
-                    
-                };
-            };
+        if(SAR_EXTREME_DEBUG) then {
+            diag_log "SAR_EXTREME_DEBUG: Vehicle FIX:";
+            diag_log "SAR_EXTREME_DEBUG: Vehicle FIX: Logic for trigger deactivation finished";
+            diag_log "SAR_EXTREME_DEBUG: Vehicle FIX:";
         };
         
-        // restore unit rating
 
-        // get old rating from the player
-        _player_rating = _player_left getVariable ["SAR_rating",0];
-        
-        //define global variable
-        adjustrating = [_player_left,(0 + _player_rating)];
-        
-        // get the players machine ID
-        _clientmachine = owner _player_left;
-        
-        // transmit the global variable to this client machine
-        _clientmachine publicVariableClient "adjustrating";
-        
-        if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: ------------------------------------ Trigger exit stop ---------------------------------------------------------------- >";};     
     };
-
     
-    if(SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: --------------------------------Trigger activated, Script finished----------------------------------------------------- > ";};    
+    if(SAR_EXTREME_DEBUG) then {
+        diag_log "SAR_EXTREME_DEBUG: Vehicle FIX:";
+        diag_log "SAR_EXTREME_DEBUG: Vehicle FIX: -- end of vehicle fix logic.";
+        diag_log "SAR_EXTREME_DEBUG: Vehicle FIX:";
+        
+        };    
     
 };
 
@@ -545,12 +706,13 @@ SAR_AI_is_unfriendly_group = {
 
 SAR_debug_array = {
 
-    private ["_array","_foreachIndex"];
+    private ["_array","_foreachIndex","_name"];
     
     _array = _this select 0;
+    _name = _this select 1;
 
     diag_log " ";    
-    diag_log "SAR_DEBUG: Array contents ---------- start -----------";
+    diag_log format["SAR_DEBUG: Array contents of %1 --------",_name];
     diag_log " ";
     
     {
@@ -635,30 +797,16 @@ KRON_StrLeft = {
 SAR_unit_loadout_tools = {
 // Parameters:
 // _unittype (leader, soldier, sniper)
-//
+// _side (mili, surv, band
 // return value: tools array 
 //
 
-    private ["_unittype","_unit_tools_list","_unit_tools","_tool","_probability","_chance"];
+    private ["_unittype","_side","_unit_tools_list","_unit_tools","_tool","_probability","_chance"];
 
     _unittype = _this select 0;
-
-    switch (_unittype) do {
-
-        case "leader" :
-        {
-            _unit_tools_list = SAR_leader_tools;
-        };
-        case "soldier" :
-        {
-            _unit_tools_list = SAR_rifleman_tools;
-        };
-        case "sniper" :
-        {
-            _unit_tools_list = SAR_sniper_tools;
-        };
-
-    };
+    _side = _this select 1;
+    
+    _unit_tools_list = call compile format["SAR_%2_%1_tools",_unittype,_side];
 
     _unit_tools = [];
     {
@@ -677,30 +825,16 @@ SAR_unit_loadout_tools = {
 SAR_unit_loadout_items = {
 // Parameters:
 // _unittype (leader, soldier, sniper)
-//
+// _side (mili, surv, band)
 // return value: items array 
 //
 
-    private ["_unittype","_unit_items_list","_unit_items","_item","_probability","_chance"];
+    private ["_unittype","_unit_items_list","_unit_items","_item","_probability","_chance","_side"];
 
     _unittype = _this select 0;
-
-    switch (_unittype) do {
-
-        case "leader" :
-        {
-            _unit_items_list = SAR_leader_items;
-        };
-        case "soldier" :
-        {
-            _unit_items_list = SAR_rifleman_items;
-        };
-        case "sniper" :
-        {
-            _unit_items_list = SAR_sniper_items;
-        };
-
-    };
+    _side = _this select 1;
+    
+    _unit_items_list = call compile format["SAR_%2_%1_items",_unittype,_side];
 
     _unit_items = [];
     {
@@ -717,40 +851,29 @@ SAR_unit_loadout_items = {
 };
 SAR_unit_loadout_weapons = {
 // Parameters:
-// _unittype (leader, soldier, sniper)
-//
+// _unittype (leader, rifleman, sniper)
+// _side (sold,surv,band)
 // return value: weapons array 
 //
 
-    private ["_unittype","_unit_weapon_list","_unit_pistol_list","_unit_pistol_name","_unit_weapon_name","_unit_weapon_names"];
+    private ["_unittype","_side","_unit_weapon_list","_unit_pistol_list","_unit_pistol_name","_unit_weapon_name","_unit_weapon_names"];
 
     _unittype = _this select 0;
+    _side = _this select 1;
 
-    switch (_unittype) do {
-
-        case "leader" :
-        {
-            _unit_weapon_list = SAR_leader_weapon_list;
-            _unit_pistol_list = SAR_leader_pistol_list;
-        };
-        case "soldier" :
-        {
-            _unit_weapon_list = SAR_rifleman_weapon_list;
-            _unit_pistol_list = SAR_rifleman_pistol_list;
-        };
-        case "sniper" :
-        {
-            _unit_weapon_list = SAR_sniper_weapon_list;
-            _unit_pistol_list = SAR_sniper_pistol_list;
-        };
-
-    };
-
-    // TODO: changed, test
+    _unit_weapon_list = call compile format["SAR_%2_%1_weapon_list",_unittype,_side];
+    _unit_pistol_list = call compile format["SAR_%2_%1_pistol_list",_unittype,_side];
     
     _unit_weapon_names = [];
-    _unit_weapon_name = _unit_weapon_list select (floor(random (count _unit_weapon_list)));
-    _unit_pistol_name = _unit_pistol_list select (floor(random (count _unit_pistol_list)));
+    _unit_weapon_name = "";
+    _unit_pistol_name = "";
+    
+    if(count _unit_weapon_list > 0) then {
+        _unit_weapon_name = _unit_weapon_list select (floor(random (count _unit_weapon_list)));
+    };
+    if(count _unit_pistol_list > 0) then {
+        _unit_pistol_name = _unit_pistol_list select (floor(random (count _unit_pistol_list)));
+    };
     _unit_weapon_names set [0, _unit_weapon_name];
     _unit_weapon_names set [1, _unit_pistol_name];
 
