@@ -4,7 +4,7 @@ if (isDedicated) then {
 	while {true} do {
 		// Sync AI Units Back To HC
 		{
-		diag_log format ["ERIC DEBUG: AI Sync Check"];
+		//diag_log format ["ERIC DEBUG: AI Sync Check"];
 
 		if (!isNull HC && !isPlayer _x) then {
 				if (owner _x != owner HC) then {
@@ -16,7 +16,7 @@ if (isDedicated) then {
 			};
 		} forEach allUnits;
 
-		diag_log format ["ERIC DEBUG: AI Sync Check Complete"];
+		//diag_log format ["ERIC DEBUG: AI Sync Check Complete"];
 
 		// Sync every 60 seconds
 		sleep 60;
