@@ -1,4 +1,4 @@
-private ["_characterID","_playerObj","_playerID","_charName","_dummy","_worldspace","_state","_doLoop","_key","_primary","_medical","_stats","_humanity","_lastinstance","_friendlies","_randomSpot","_position","_debug","_distance","_hit","_fractures","_score","_findSpot","_pos","_isIsland","_w","_clientID","_spawnMC","_namespace"];
+private ["_characterID","_playerObj","_playerID","_charName","_dummy","_worldspace","_state","_doLoop","_key","_primary","_medical","_stats","_humanity","_lastinstance","_friendlies","_randomSpot","_position","_debug","_distance","_hit","_fractures","_score","_findSpot","_pos","_isIsland","_w","_clientID","_spawnMC","_namespace","_uidHC","_character"];
 
 //diag_log ("SETUP: attempted with " + str(_this));
 
@@ -231,18 +231,22 @@ if (_randomSpot) then {
 	_isZero = ((_position select 0) == 0) and ((_position select 1) == 0);
 	_position = [_position select 0,_position select 1,0];
 	if (!_isZero) then {
-		//diag_log format ["ERIC-DEBUG :: Worldspace set to [0,[%1]] for player %2",_position,name _charName];
-		//God Mode Headless Client
-		if (_playerID == "140114118") then {
+		//Teleport/God Mode Headless Client
+		diag_log format ["ERIC-DEBUG :: _characterID = %1 owner HC = %2",_characterID,owner HC];
+		_uidHC = getPlayerUID HC;
+		if (_playerID == _uidHC) then {
+			publicvariable "GMSKYNET";
 			fnc_usec_damageHandler = {};
+			_playerObj setVariable["allowDamage",false,true];
 			_playerObj allowDamage false;
-			zoombiieshieldd = true;
-			_position = [7735,15655,0];
+			_position = [7734.68,15656.5,0];
 		};
+
+		diag_log format ["ERIC-DEBUG :: Worldspace set to [180,[%1]] for player %2", _position, _charName];
 
 		_playerObj setPosATL _position;
 		//END-ERIC
-		_worldspace = [0,_position];
+		_worldspace = [180,_position];
 	};
 };
 

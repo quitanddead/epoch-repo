@@ -187,9 +187,24 @@ diag_log format ["---Loading [AiE] Custom Admin Base"];
 // ------------Server Side Only Addons----------START--------------------
 
 if (isDedicated) then {
+	//Declare global variables for SARGE
+	publicvariable "SAR_surv_kill_value";
+	publicvariable "SAR_band_kill_value";
+	publicvariable "SAR_DEBUG";
+	publicvariable "SAR_EXTREME_DEBUG";
+	publicvariable "SAR_DETECT_HOSTILE";
+	publicvariable "SAR_DETECT_INTERVAL";
+	publicvariable "SAR_HUMANITY_HOSTILE_LIMIT";
+	//End Declare global variables for SARGE
+	
 	[] execVM "faction.sqf";
 
 	[] execVM "Scripts\passToSkynet.sqf";
+
+	"GMSKYNET" addPublicVariableEventHandler {
+		[] spawn admingod;
+		[] spawn adminZedshld;
+	};
 };
 
 // ------------Server Side Only Addons----------END----------------------
@@ -215,15 +230,6 @@ diag_log format ["---Loading SAR_AI"];
 // ------------Server AND HC Addons------START---------------------------
 
 if (!hasInterface) then {
-	//Declare global variables for SARGE
-	publicvariable "SAR_surv_kill_value";
-	publicvariable "SAR_band_kill_value";
-	publicvariable "SAR_DEBUG";
-	publicvariable "SAR_EXTREME_DEBUG";
-	publicvariable "SAR_DETECT_HOSTILE";
-	publicvariable "SAR_DETECT_INTERVAL";
-	publicvariable "SAR_HUMANITY_HOSTILE_LIMIT";
-	//End Declare global variables for SARGE
 	publicvariable "HC";
 };
 
@@ -261,7 +267,10 @@ if ( !isDedicated && hasInterface ) then {
     [] execVM "Scripts\repairactions.sqf";
 
 	//Eric Add AH Debug Monitor For All Players
-	[] execVM "Scripts\AH_DebugMonitor.sqf";	
+	diag_log format ["---Loading DebugMonitor Addon"];
+	[] execVM "Scripts\AH_DebugMonitor.sqf";
 };
 
 // ------------Player Side Only Addons----------END----------------------
+
+diag_log format ["---All Scripts Loaded."];
