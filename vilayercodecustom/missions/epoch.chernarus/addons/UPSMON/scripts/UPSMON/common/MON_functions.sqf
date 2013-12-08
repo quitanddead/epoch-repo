@@ -2130,7 +2130,7 @@ MON_ACE_Watersurvival = {
 MON_artillery_dofire = {
 	
     private ["_smoke1","_i","_area","_position","_maxcadence","_mincadence","_sleep","_rounds","_arti","_timeout","_salvo_break","_bullet","_area2"];
-    if (!isserver) exitWith {}; 
+    if (hasInterface || isDedicated) exitWith {}; 
 		
 		_area = 150;
 		_maxcadence = 10;

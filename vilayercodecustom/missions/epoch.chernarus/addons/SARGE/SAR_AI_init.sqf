@@ -35,7 +35,7 @@ SAR_AI_trace_veh                  = compile preprocessFileLineNumbers "addons\SA
 SAR_AI_hit                        = compile preprocessFileLineNumbers "addons\SARGE\SAR_aihit.sqf";
 
 
-if (!isServer) exitWith {}; // only run this on the server
+if (hasInterface || isDedicated) exitWith {}; // only run this on the server
 
 diag_log "----------------------------------------";
 diag_log format["Starting SAR_AI version %1 on a %2",SAR_version,SAR_environment];

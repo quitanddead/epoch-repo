@@ -20,7 +20,7 @@
 
 private ["_ai","_sleeptime","_veh_weapons","_vehicle","_weapons","_reloadmag","_magazintypes","_legit_weapon","_weap_obj"];
 
-if (!isServer) exitWith {}; // only run this on the server
+if (hasInterface || isDedicated) exitWith {}; // only run this on the server
 
 _ai = _this select 0;
 

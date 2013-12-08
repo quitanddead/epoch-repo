@@ -28,7 +28,7 @@
 
 private ["_ai_veh_dmg","_ai_veh","_ai_veh_hitsource","_ai_veh_type","_ai_veh_side","_ai_veh_group_side","_ai_veh_hitsource_group_side","_ai_veh_hitsource_type","_ai_veh_hitsource_name","_ai_veh_hitsource_side","_clientmachine","_player_rating","_shot_veh","_ai_part","_ai_veh_projectile","_message"];
 
-if (!isServer) exitWith {}; // only run this on the server
+if (hasInterface || isDedicated) exitWith {}; // only run this on the server
 
 _ai_veh = _this select 0;
 _ai_part = _this select 1;

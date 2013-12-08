@@ -132,7 +132,7 @@ SAR_AI_debug = {
 
     private ["_obj","_sp_fightmode","_sp_combatmode","_fightmode","_combatmode","_obj_text_string","_behaviour","_sp_behaviour"];
     
-    if (!isServer) exitWith {}; // only run this on the server
+    if (hasInterface || isDedicated) exitWith {}; // only run this on the server
 
     _obj = _this select 0;
     
@@ -517,7 +517,7 @@ SAR_AI_veh_trig_on_static = {
 
     private ["_unit_list","_unitlist","_trigger","_triggername","_player_joined","_player_left","_trig_unitlist","_units_leaving","_player_rating","_clientmachine","_sphere_alpha","_sphere_red","_sphere_green","_sphere_blue","_obj_text_string","_vehicle","_sphere"];
 
-    if(!isServer) exitWith {};
+    if (hasInterface || isDedicated) exitWith {};
     
     if(SAR_EXTREME_DEBUG) then {
         diag_log "SAR_EXTREME_DEBUG: Vehicle FIX:";
