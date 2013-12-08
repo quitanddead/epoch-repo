@@ -32,7 +32,7 @@ while {alive _ai} do {
 
     if (hasInterface) then {
 
-        if (isNull _detectrange) then {_detectrange = 200;};
+        if (isNull SAR_DETECT_HOSTILE) then {_detectrange = 200;};
         
         _entity_array = (position _ai) nearEntities ["CAManBase",_detectrange];
         {
