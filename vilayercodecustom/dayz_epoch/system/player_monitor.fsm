@@ -253,99 +253,99 @@ class FSM
            "_gearSave = false;" \n
            "" \n
            "if (!dialog) then {" \n
-           "	createGearDialog [player, ""RscDisplayGear""];" \n
-           "	_gearSave = true;" \n
+           "  createGearDialog [player, ""RscDisplayGear""];" \n
+           "  _gearSave = true;" \n
            "};" \n
            "" \n
-           "_dialog = 			findDisplay 106;" \n
-           "_magazineArray = 	[];" \n
+           "_dialog =       findDisplay 106;" \n
+           "_magazineArray =  [];" \n
            "" \n
            "//Primary Mags" \n
            "for ""_i"" from 109 to 120 do " \n
            "{" \n
-           "	_control = 	_dialog displayCtrl _i;" \n
-           "	_item = 	gearSlotData _control;" \n
-           "	_val =		gearSlotAmmoCount _control;" \n
-           "	_max = 		getNumber (configFile >> ""CfgMagazines"" >> _item >> ""count"");" \n
-           "	if (_item != """") then {" \n
-           "		if (_val != _max) then {" \n
-           "			_magazineArray set [count _magazineArray,[_item,_val]];" \n
-           "		} else {" \n
-           "			_magazineArray set [count _magazineArray,_item];" \n
-           "		};" \n
-           "	};" \n
+           "  _control =  _dialog displayCtrl _i;" \n
+           "  _item =   gearSlotData _control;" \n
+           "  _val =    gearSlotAmmoCount _control;" \n
+           "  _max =    getNumber (configFile >> ""CfgMagazines"" >> _item >> ""count"");" \n
+           "  if (_item != """") then {" \n
+           "    if (_val != _max) then {" \n
+           "      _magazineArray set [count _magazineArray,[_item,_val]];" \n
+           "    } else {" \n
+           "      _magazineArray set [count _magazineArray,_item];" \n
+           "    };" \n
+           "  };" \n
            "};" \n
            "" \n
            "//Secondary Mags" \n
            "for ""_i"" from 122 to 129 do " \n
            "{" \n
-           "	_control = 	_dialog displayCtrl _i;" \n
-           "	_item = 	gearSlotData _control;" \n
-           "	_val =		gearSlotAmmoCount _control;" \n
-           "	_max = 		getNumber (configFile >> ""CfgMagazines"" >> _item >> ""count"");" \n
-           "	if (_item != """") then {" \n
-           "		if (_val != _max) then {" \n
-           "			_magazineArray set [count _magazineArray,[_item,_val]];" \n
-           "		} else {" \n
-           "			_magazineArray set [count _magazineArray,_item];" \n
-           "		};" \n
-           "	};" \n
+           "  _control =  _dialog displayCtrl _i;" \n
+           "  _item =   gearSlotData _control;" \n
+           "  _val =    gearSlotAmmoCount _control;" \n
+           "  _max =    getNumber (configFile >> ""CfgMagazines"" >> _item >> ""count"");" \n
+           "  if (_item != """") then {" \n
+           "    if (_val != _max) then {" \n
+           "      _magazineArray set [count _magazineArray,[_item,_val]];" \n
+           "    } else {" \n
+           "      _magazineArray set [count _magazineArray,_item];" \n
+           "    };" \n
+           "  };" \n
            "};" \n
            "" \n
            "if (_gearSave) then {" \n
-           "	closeDialog 0;" \n
+           "  closeDialog 0;" \n
            "};" \n
            "" \n
-           "	_medical = player call player_sumMedical;" \n
-           "		" \n
-           "	/*" \n
-           "		Get character state details" \n
-           "	*/" \n
-           "	_currentWpn = 	currentMuzzle player;" \n
-           "	_currentAnim =	animationState player;" \n
-           "	_config = 		configFile >> ""CfgMovesMaleSdr"" >> ""States"" >> _currentAnim;" \n
-           "	_onLadder =		(getNumber (_config >> ""onLadder"")) == 1;" \n
-           "	_isTerminal = 	(getNumber (_config >> ""terminal"")) == 1;" \n
-           "	_isInVehicle = vehicle player != player;" \n
-           "	//_wpnDisabled =	(getNumber (_config >> ""disableWeapons"")) == 1;" \n
-           "	_currentModel = typeOf player;" \n
-           "	_charPos = getPosATL player;" \n
-           "	_playerPos = 	[round(direction player),_charPos];" \n
-           "	" \n
-           "	if (_onLadder or _isInVehicle or _isTerminal) then {" \n
-           "		_currentAnim = """";" \n
-           "		//If position to be updated, make sure it is at ground level!" \n
-           "		if ((count _playerPos > 0) and !_isTerminal) then {" \n
-           "			_charPos set [2,0];" \n
-           "			_playerPos set[1,_charPos];" \n
-           "		};" \n
-           "	};" \n
-           "	if (_isInVehicle) then {" \n
-           "		_currentWpn = """";" \n
-           "	} else {" \n
-           "		if ( typeName(_currentWpn) == ""STRING"" ) then {" \n
-           "			_muzzles = getArray(configFile >> ""cfgWeapons"" >> _currentWpn >> ""muzzles"");" \n
-           "			if (count _muzzles > 1) then {" \n
-           "				_currentWpn = currentMuzzle player;" \n
-           "			};	" \n
-           "		} else {" \n
-           "			//diag_log (""DW_DEBUG: _currentWpn: "" + str(_currentWpn));" \n
-           "			_currentWpn = """";" \n
-           "		};" \n
-           "	};" \n
-           "	_temp = round(player getVariable [""temperature"",100]);" \n
-           "	_currentState = [_currentWpn,_currentAnim,_temp];" \n
-           "	" \n
-           "	dayz_Magazines = _magazineArray;" \n
-           "	PVDZE_plr_Save = [player,dayz_Magazines,false,true];" \n
-           "	publicVariableServer ""PVDZE_plr_Save"";" \n
-           "			" \n
-           "	if (isServer) then {" \n
-           "		PVDZE_plr_Save call server_playerSync;" \n
-           "	};" \n
-           "						" \n
-           "	dayz_lastSave = diag_tickTime;" \n
-           "	dayz_Magazines = [];" \n
+           "  _medical = player call player_sumMedical;" \n
+           "    " \n
+           "  /*" \n
+           "    Get character state details" \n
+           "  */" \n
+           "  _currentWpn =   currentMuzzle player;" \n
+           "  _currentAnim =  animationState player;" \n
+           "  _config =     configFile >> ""CfgMovesMaleSdr"" >> ""States"" >> _currentAnim;" \n
+           "  _onLadder =   (getNumber (_config >> ""onLadder"")) == 1;" \n
+           "  _isTerminal =   (getNumber (_config >> ""terminal"")) == 1;" \n
+           "  _isInVehicle = vehicle player != player;" \n
+           "  //_wpnDisabled =  (getNumber (_config >> ""disableWeapons"")) == 1;" \n
+           "  _currentModel = typeOf player;" \n
+           "  _charPos = getPosATL player;" \n
+           "  _playerPos =  [round(direction player),_charPos];" \n
+           "  " \n
+           "  if (_onLadder or _isInVehicle or _isTerminal) then {" \n
+           "    _currentAnim = """";" \n
+           "    //If position to be updated, make sure it is at ground level!" \n
+           "    if ((count _playerPos > 0) and !_isTerminal) then {" \n
+           "      _charPos set [2,0];" \n
+           "      _playerPos set[1,_charPos];" \n
+           "    };" \n
+           "  };" \n
+           "  if (_isInVehicle) then {" \n
+           "    _currentWpn = """";" \n
+           "  } else {" \n
+           "    if ( typeName(_currentWpn) == ""STRING"" ) then {" \n
+           "      _muzzles = getArray(configFile >> ""cfgWeapons"" >> _currentWpn >> ""muzzles"");" \n
+           "      if (count _muzzles > 1) then {" \n
+           "        _currentWpn = currentMuzzle player;" \n
+           "      };  " \n
+           "    } else {" \n
+           "      //diag_log (""DW_DEBUG: _currentWpn: "" + str(_currentWpn));" \n
+           "      _currentWpn = """";" \n
+           "    };" \n
+           "  };" \n
+           "  _temp = round(player getVariable [""temperature"",100]);" \n
+           "  _currentState = [_currentWpn,_currentAnim,_temp];" \n
+           "  " \n
+           "  dayz_Magazines = _magazineArray;" \n
+           "  PVDZE_plr_Save = [player,dayz_Magazines,false,true];" \n
+           "  publicVariableServer ""PVDZE_plr_Save"";" \n
+           "      " \n
+           "  if (isServer) then {" \n
+           "    PVDZE_plr_Save call server_playerSync;" \n
+           "  };" \n
+           "            " \n
+           "  dayz_lastSave = diag_tickTime;" \n
+           "  dayz_Magazines = [];" \n
            "};"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -425,9 +425,9 @@ class FSM
     {
       name = "Make_PlayerID";
       init = /*%FSM<STATEINIT""">*/"//In Single Player" \n
-       "	isSinglePlayer = true;" \n
-       "	player sidechat ""PLOGIN: Single player Mode detected!"";" \n
-       "	_playerUID = ""42"";"/*%FSM</STATEINIT""">*/;
+       "  isSinglePlayer = true;" \n
+       "  player sidechat ""PLOGIN: Single player Mode detected!"";" \n
+       "  _playerUID = ""42"";"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -485,7 +485,7 @@ class FSM
        "publicVariableServer ""PVDZE_plr_Login"";" \n
        "" \n
        "if (isServer) then {" \n
-       "	PVDZE_plr_Login call server_playerLogin;" \n
+       "  PVDZE_plr_Login call server_playerLogin;" \n
        "};" \n
        "" \n
        "dayzPlayerLogin = [];" \n
@@ -512,7 +512,7 @@ class FSM
           to="Parse_Login";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"count (dayzPlayerLogin) > 1"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/"_msg = 		dayzPlayerLogin;"/*%FSM</ACTION""">*/;
+          action=/*%FSM<ACTION""">*/"_msg =     dayzPlayerLogin;"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -525,24 +525,24 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"dayz_authed = true;" \n
        "" \n
        "progressLoadingScreen 0.6;" \n
-       "_charID		= _msg select 0;" \n
-       "_inventory	= _msg select 1;" \n
-       "_backpack	= _msg select 2;" \n
-       "_survival 	= _msg select 3;" \n
-       "_isNew 		= _msg select 4;" \n
-       "//_state 		= _msg select 5;" \n
-       "_version	= _msg select 5;" \n
-       "_model		= _msg select 6;" \n
+       "_charID   = _msg select 0;" \n
+       "_inventory  = _msg select 1;" \n
+       "_backpack = _msg select 2;" \n
+       "_survival   = _msg select 3;" \n
+       "_isNew    = _msg select 4;" \n
+       "//_state    = _msg select 5;" \n
+       "_version  = _msg select 5;" \n
+       "_model    = _msg select 6;" \n
        "" \n
        "_isHiveOk = false;" \n
        "_newPlayer = false;" \n
        "_isInfected = false;" \n
        "" \n
        "if (count _msg > 7) then {" \n
-       "	_isHiveOk = _msg select 7;" \n
-       "	_newPlayer = _msg select 8;" \n
-       "	_isInfected = _msg select 9;" \n
-       "	diag_log (""PLAYER RESULT: "" + str(_isHiveOk));" \n
+       "  _isHiveOk = _msg select 7;" \n
+       "  _newPlayer = _msg select 8;" \n
+       "  _isInfected = _msg select 9;" \n
+       "  diag_log (""PLAYER RESULT: "" + str(_isHiveOk));" \n
        "};" \n
        "" \n
        "dayz_loadScreenMsg = (localize ""str_player_17""); " \n
@@ -552,22 +552,22 @@ class FSM
        "//Not Equal Failure" \n
        "" \n
        "if (isNil ""_model"") then {" \n
-       "	_model = ""Survivor2_DZ"";" \n
-       "	diag_log (""PLOGIN: Model was nil, loading as survivor"");" \n
+       "  _model = ""Survivor2_DZ"";" \n
+       "  diag_log (""PLOGIN: Model was nil, loading as survivor"");" \n
        "};" \n
        "" \n
        "if (_model == """") then {" \n
-       "	_model = ""Survivor2_DZ"";" \n
-       "	diag_log (""PLOGIN: Model was empty, loading as survivor"");" \n
+       "  _model = ""Survivor2_DZ"";" \n
+       "  diag_log (""PLOGIN: Model was empty, loading as survivor"");" \n
        "};" \n
        "" \n
        "if (_model == ""Survivor1_DZ"") then {" \n
-       "	_model = ""Survivor2_DZ"";" \n
+       "  _model = ""Survivor2_DZ"";" \n
        "};" \n
        "" \n
        "_isHack = false;" \n
        "if (_model == ""hacker"") then {" \n
-       "	_isHack = true;" \n
+       "  _isHack = true;" \n
        "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
@@ -665,67 +665,67 @@ class FSM
        "" \n
        "//Assess in backpack" \n
        "if (count _backpack > 0) then {" \n
-       "	//Populate" \n
-       "	_backpackType = 	_backpack select 0;" \n
-       "	_backpackWpn = 		_backpack select 1;" \n
-       "	_backpackMagTypes = [];" \n
-       "	_backpackMagQty = [];" \n
-       "	if (count _backpackWpn > 0) then {" \n
-       "		_backpackMagTypes = (_backpack select 2) select 0;" \n
-       "		_backpackMagQty = 	(_backpack select 2) select 1;" \n
-       "	};" \n
-       "	_countr = 0;" \n
-       "	_backpackWater = 0;" \n
+       "  //Populate" \n
+       "  _backpackType =   _backpack select 0;" \n
+       "  _backpackWpn =    _backpack select 1;" \n
+       "  _backpackMagTypes = [];" \n
+       "  _backpackMagQty = [];" \n
+       "  if (count _backpackWpn > 0) then {" \n
+       "    _backpackMagTypes = (_backpack select 2) select 0;" \n
+       "    _backpackMagQty =   (_backpack select 2) select 1;" \n
+       "  };" \n
+       "  _countr = 0;" \n
+       "  _backpackWater = 0;" \n
        "" \n
-       "	//Add backpack" \n
-       "	if (_backpackType != """") then {" \n
-       "		_isOK = 	isClass(configFile >> ""CfgVehicles"" >>_backpackType);" \n
-       "		if (_isOK) then {" \n
-       "			player addBackpack _backpackType; " \n
-       "			dayz_myBackpack =	unitBackpack player;" \n
-       "			" \n
-       "			//Fill backpack contents" \n
-       "			//Weapons" \n
-       "			_backpackWpnTypes = [];" \n
-       "			_backpackWpnQtys = [];" \n
-       "			if (count _backpackWpn > 0) then {" \n
-       "				_backpackWpnTypes = _backpackWpn select 0;" \n
-       "				_backpackWpnQtys = 	_backpackWpn select 1;" \n
-       "			};" \n
-       "			_countr = 0;" \n
-       "			{" \n
-       "				if(_x in (DZE_REPLACE_WEAPONS select 0)) then {" \n
-       "					_x = (DZE_REPLACE_WEAPONS select 1) select ((DZE_REPLACE_WEAPONS select 0) find _x);" \n
-       "				};" \n
-       "				dayz_myBackpack addWeaponCargoGlobal [_x,(_backpackWpnQtys select _countr)];" \n
-       "				_countr = _countr + 1;" \n
-       "			} forEach _backpackWpnTypes;" \n
-       "			" \n
-       "			//Magazines" \n
-       "			_countr = 0;" \n
-       "			{" \n
-       "				if (_x == ""BoltSteel"") then { _x = ""WoodenArrow"" }; // Convert BoltSteel to WoodenArrow" \n
-       "				if (_x == ""ItemTent"") then { _x = ""ItemTentOld"" };" \n
-       "				dayz_myBackpack addMagazineCargoGlobal [_x,(_backpackMagQty select _countr)];" \n
-       "				_countr = _countr + 1;" \n
-       "			} forEach _backpackMagTypes;" \n
-       "			" \n
-       "			dayz_myBackpackMags =	getMagazineCargo dayz_myBackpack;" \n
-       "			dayz_myBackpackWpns =	getWeaponCargo dayz_myBackpack;" \n
-       "		} else {" \n
-       "			dayz_myBackpack		=	objNull;" \n
-       "			dayz_myBackpackMags = [];" \n
-       "			dayz_myBackpackWpns = [];" \n
-       "		};" \n
-       "	} else {" \n
-       "		dayz_myBackpack		=	objNull;" \n
-       "		dayz_myBackpackMags =	[];" \n
-       "		dayz_myBackpackWpns =	[];" \n
-       "	};" \n
+       "  //Add backpack" \n
+       "  if (_backpackType != """") then {" \n
+       "    _isOK =   isClass(configFile >> ""CfgVehicles"" >>_backpackType);" \n
+       "    if (_isOK) then {" \n
+       "      player addBackpack _backpackType; " \n
+       "      dayz_myBackpack = unitBackpack player;" \n
+       "      " \n
+       "      //Fill backpack contents" \n
+       "      //Weapons" \n
+       "      _backpackWpnTypes = [];" \n
+       "      _backpackWpnQtys = [];" \n
+       "      if (count _backpackWpn > 0) then {" \n
+       "        _backpackWpnTypes = _backpackWpn select 0;" \n
+       "        _backpackWpnQtys =  _backpackWpn select 1;" \n
+       "      };" \n
+       "      _countr = 0;" \n
+       "      {" \n
+       "        if(_x in (DZE_REPLACE_WEAPONS select 0)) then {" \n
+       "          _x = (DZE_REPLACE_WEAPONS select 1) select ((DZE_REPLACE_WEAPONS select 0) find _x);" \n
+       "        };" \n
+       "        dayz_myBackpack addWeaponCargoGlobal [_x,(_backpackWpnQtys select _countr)];" \n
+       "        _countr = _countr + 1;" \n
+       "      } forEach _backpackWpnTypes;" \n
+       "      " \n
+       "      //Magazines" \n
+       "      _countr = 0;" \n
+       "      {" \n
+       "        if (_x == ""BoltSteel"") then { _x = ""WoodenArrow"" }; // Convert BoltSteel to WoodenArrow" \n
+       "        if (_x == ""ItemTent"") then { _x = ""ItemTentOld"" };" \n
+       "        dayz_myBackpack addMagazineCargoGlobal [_x,(_backpackMagQty select _countr)];" \n
+       "        _countr = _countr + 1;" \n
+       "      } forEach _backpackMagTypes;" \n
+       "      " \n
+       "      dayz_myBackpackMags = getMagazineCargo dayz_myBackpack;" \n
+       "      dayz_myBackpackWpns = getWeaponCargo dayz_myBackpack;" \n
+       "    } else {" \n
+       "      dayz_myBackpack   = objNull;" \n
+       "      dayz_myBackpackMags = [];" \n
+       "      dayz_myBackpackWpns = [];" \n
+       "    };" \n
+       "  } else {" \n
+       "    dayz_myBackpack   = objNull;" \n
+       "    dayz_myBackpackMags = [];" \n
+       "    dayz_myBackpackWpns = [];" \n
+       "  };" \n
        "} else {" \n
-       "	dayz_myBackpack		=	objNull;" \n
-       "	dayz_myBackpackMags =	[];" \n
-       "	dayz_myBackpackWpns =	[];" \n
+       "  dayz_myBackpack   = objNull;" \n
+       "  dayz_myBackpackMags = [];" \n
+       "  dayz_myBackpackWpns = [];" \n
        "};" \n
        "" \n
        "dayzPlayerLogin2 = [];" \n
@@ -747,7 +747,7 @@ class FSM
           to="Phase_Two";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"count (dayzPlayerLogin2) > 0"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/"_msg = 		player getVariable[""worldspace"",[]];"/*%FSM</ACTION""">*/;
+          action=/*%FSM<ACTION""">*/"_msg =     player getVariable[""worldspace"",[]];"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -760,96 +760,96 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"dayz_loadScreenMsg =  ""Character Data received from server""; " \n
        "diag_log ""Finished..."";" \n
        "" \n
-       "_worldspace = 	dayzPlayerLogin2 select 0;" \n
-       "_state =			dayzPlayerLogin2 select 1;" \n
+       "_worldspace =   dayzPlayerLogin2 select 0;" \n
+       "_state =      dayzPlayerLogin2 select 1;" \n
        "" \n
-       "_setDir = 			_worldspace select 0;" \n
-       "_setPos = 			_worldspace select 1;" \n
+       "_setDir =       _worldspace select 0;" \n
+       "_setPos =       _worldspace select 1;" \n
        "" \n
        "if(dayz_paraSpawn and !(player isKindOf ""PZombie_VB"")) then {" \n
-       "	player setPosATL [(_setPos select 0),(_setPos select 1),1000];" \n
-       "	player setDir _setDir;" \n
-       "	[player, 1000] exec ""ca\air2\halo\data\Scripts\HALO_init.sqs"";" \n
+       "  player setPosATL [(_setPos select 0),(_setPos select 1),1000];" \n
+       "  player setDir _setDir;" \n
+       "  [player, 1000] exec ""ca\air2\halo\data\Scripts\HALO_init.sqs"";" \n
        "} else {" \n
        "" \n
-       "	// make protective box" \n
-       "	DZE_PROTOBOX = createVehicle [""DebugBoxPlayer_DZ"", _setPos, [], 0, ""CAN_COLLIDE""];" \n
-       "	DZE_PROTOBOX setDir _setDir;" \n
-       "	DZE_PROTOBOX setPosATL _setPos;" \n
+       "  // make protective box" \n
+       "  DZE_PROTOBOX = createVehicle [""DebugBoxPlayer_DZ"", _setPos, [], 0, ""CAN_COLLIDE""];" \n
+       "  DZE_PROTOBOX setDir _setDir;" \n
+       "  DZE_PROTOBOX setPosATL _setPos;" \n
        "" \n
-       "	player setDir _setDir;" \n
-       "	player setPosATL _setPos;" \n
+       "  player setDir _setDir;" \n
+       "  player setPosATL _setPos;" \n
        "};" \n
        "" \n
        "{" \n
-       "	if (player getVariable[""hit_""+_x,false]) then { " \n
-       "		[player,_x,_x] spawn fnc_usec_damageBleed; " \n
-       "		usecBleed = [player,_x,_x];" \n
-       "		publicVariable ""usecBleed""; // draw blood stream on character, on all gameclients" \n
-       "	};" \n
+       "  if (player getVariable[""hit_""+_x,false]) then { " \n
+       "    [player,_x,_x] spawn fnc_usec_damageBleed; " \n
+       "    usecBleed = [player,_x,_x];" \n
+       "    publicVariable ""usecBleed""; // draw blood stream on character, on all gameclients" \n
+       "  };" \n
        "} forEach USEC_typeOfWounds;" \n
        "//Legs and Arm fractures" \n
        "_legs = player getVariable [""hit_legs"",0];" \n
        "_arms = player getVariable [""hit_hands"",0];" \n
        "" \n
        "if (_legs > 1) then {" \n
-       "	player setHit[""legs"",1];" \n
-       "	r_fracture_legs = true;" \n
+       "  player setHit[""legs"",1];" \n
+       "  r_fracture_legs = true;" \n
        "};" \n
        "if (_arms > 1) then {" \n
-       "	player setHit[""hands"",1];" \n
-       "	r_fracture_arms = true;" \n
+       "  player setHit[""hands"",1];" \n
+       "  r_fracture_arms = true;" \n
        "};" \n
        "" \n
        "//Record current weapon state" \n
-       "dayz_myWeapons = 		weapons player;		//Array of last checked weapons" \n
-       "dayz_myItems = 			items player;		//Array of last checked items" \n
-       "dayz_myMagazines = 	magazines player;" \n
+       "dayz_myWeapons =    weapons player;   //Array of last checked weapons" \n
+       "dayz_myItems =      items player;   //Array of last checked items" \n
+       "dayz_myMagazines =  magazines player;" \n
        "" \n
        "dayz_playerUID = _playerUID;" \n
        "" \n
        "if ((_isNew) OR (count _inventory == 0)) then {" \n
-       "	//player is new, add initial loadout only if player is not pzombie" \n
-       "	if(!(player isKindOf ""PZombie_VB"")) then {" \n
-       "		_config = (configFile >> ""CfgSurvival"" >> ""Inventory"" >> ""Default"");" \n
-       "		_mags = getArray (_config >> ""magazines"");" \n
-       "		_wpns = getArray (_config >> ""weapons"");		" \n
-       "		_bcpk = getText (_config >> ""backpack"");" \n
-       "		_bcpkWpn = getText (_config >> ""backpackWeapon"");" \n
-       "		if(!isNil ""DefaultMagazines"") then {" \n
-       "			_mags = DefaultMagazines;" \n
-       "		};" \n
-       "		if(!isNil ""DefaultWeapons"") then {" \n
-       "			_wpns = DefaultWeapons;" \n
-       "		};" \n
-       "		if(!isNil ""DefaultBackpack"") then {" \n
-       "			_bcpk = DefaultBackpack;" \n
-       "		};" \n
-       "		if(!isNil ""DefaultBackpackWeapon"") then {" \n
-       "			_bcpkWpn = DefaultBackpackWeapon;" \n
-       "		};" \n
-       "		//Add inventory" \n
-       "		{" \n
-       "			_isOK = 	isClass(configFile >> ""CfgMagazines"" >> _x);" \n
-       "			if (_isOK) then {" \n
-       "				player addMagazine _x;" \n
-       "			};" \n
-       "		} forEach _mags;" \n
-       "		{" \n
-       "			_isOK = 	isClass(configFile >> ""CfgWeapons"" >> _x);" \n
-       "			if (_isOK) then {" \n
-       "				player addWeapon _x;" \n
-       "			};" \n
-       "		} forEach _wpns;" \n
-       "		" \n
-       "		if (_bcpk != """") then {" \n
-       "			player addBackpack _bcpk; " \n
-       "			dayz_myBackpack =	unitBackpack player;" \n
-       "		};" \n
-       "		if (_bcpkWpn != """") then {" \n
-       "			dayz_myBackpack addWeaponCargoGlobal [_bcpkWpn,1];" \n
-       "		};" \n
-       "	};" \n
+       "  //player is new, add initial loadout only if player is not pzombie" \n
+       "  if(!(player isKindOf ""PZombie_VB"")) then {" \n
+       "    _config = (configFile >> ""CfgSurvival"" >> ""Inventory"" >> ""Default"");" \n
+       "    _mags = getArray (_config >> ""magazines"");" \n
+       "    _wpns = getArray (_config >> ""weapons"");    " \n
+       "    _bcpk = getText (_config >> ""backpack"");" \n
+       "    _bcpkWpn = getText (_config >> ""backpackWeapon"");" \n
+       "    if(!isNil ""DefaultMagazines"") then {" \n
+       "      _mags = DefaultMagazines;" \n
+       "    };" \n
+       "    if(!isNil ""DefaultWeapons"") then {" \n
+       "      _wpns = DefaultWeapons;" \n
+       "    };" \n
+       "    if(!isNil ""DefaultBackpack"") then {" \n
+       "      _bcpk = DefaultBackpack;" \n
+       "    };" \n
+       "    if(!isNil ""DefaultBackpackWeapon"") then {" \n
+       "      _bcpkWpn = DefaultBackpackWeapon;" \n
+       "    };" \n
+       "    //Add inventory" \n
+       "    {" \n
+       "      _isOK =   isClass(configFile >> ""CfgMagazines"" >> _x);" \n
+       "      if (_isOK) then {" \n
+       "        player addMagazine _x;" \n
+       "      };" \n
+       "    } forEach _mags;" \n
+       "    {" \n
+       "      _isOK =   isClass(configFile >> ""CfgWeapons"" >> _x);" \n
+       "      if (_isOK) then {" \n
+       "        player addWeapon _x;" \n
+       "      };" \n
+       "    } forEach _wpns;" \n
+       "    " \n
+       "    if (_bcpk != """") then {" \n
+       "      player addBackpack _bcpk; " \n
+       "      dayz_myBackpack = unitBackpack player;" \n
+       "    };" \n
+       "    if (_bcpkWpn != """") then {" \n
+       "      dayz_myBackpack addWeaponCargoGlobal [_bcpkWpn,1];" \n
+       "    };" \n
+       "  };" \n
        "};" \n
        "" \n
        "//Work out survival time" \n
@@ -860,29 +860,29 @@ class FSM
        "_mins =  (_totalMins - (_hours * 60));" \n
        "" \n
        "//player variables" \n
-       "dayz_characterID =		_charID;" \n
-       "dayz_hasFire = 			objNull;		//records players Fireplace object" \n
-       "dayz_myCursorTarget = 	objNull;" \n
-       "dayz_myPosition = 		getPosATL player;	//Last recorded position" \n
-       "dayz_lastMeal =			(_lastAte * 60);" \n
-       "dayz_lastDrink =		(_lastDrank * 60);" \n
-       "dayz_zombiesLocal = 	0;			//Used to record how many local zombies being tracked" \n
+       "dayz_characterID =    _charID;" \n
+       "dayz_hasFire =      objNull;    //records players Fireplace object" \n
+       "dayz_myCursorTarget =   objNull;" \n
+       "dayz_myPosition =     getPosATL player; //Last recorded position" \n
+       "dayz_lastMeal =     (_lastAte * 60);" \n
+       "dayz_lastDrink =    (_lastDrank * 60);" \n
+       "dayz_zombiesLocal =   0;      //Used to record how many local zombies being tracked" \n
        "dayz_Survived = _days;  //total alive dayz" \n
        "" \n
        "//load in medical details" \n
-       "r_player_dead = 		player getVariable[""USEC_isDead"",false];" \n
-       "r_player_unconscious = 	player getVariable[""NORRN_unconscious"", false];" \n
-       "r_player_infected =	player getVariable[""USEC_infected"",false];" \n
-       "r_player_injured = 	player getVariable[""USEC_injured"",false];" \n
-       "r_player_inpain = 		player getVariable[""USEC_inPain"",false];" \n
-       "r_player_cardiac = 	player getVariable[""USEC_isCardiac"",false];" \n
-       "r_player_lowblood =	player getVariable[""USEC_lowBlood"",false];" \n
-       "r_player_blood = 		player getVariable[""USEC_BloodQty"",r_player_bloodTotal];" \n
+       "r_player_dead =     player getVariable[""USEC_isDead"",false];" \n
+       "r_player_unconscious =  player getVariable[""NORRN_unconscious"", false];" \n
+       "r_player_infected = player getVariable[""USEC_infected"",false];" \n
+       "r_player_injured =  player getVariable[""USEC_injured"",false];" \n
+       "r_player_inpain =     player getVariable[""USEC_inPain"",false];" \n
+       "r_player_cardiac =  player getVariable[""USEC_isCardiac"",false];" \n
+       "r_player_lowblood = player getVariable[""USEC_lowBlood"",false];" \n
+       "r_player_blood =    player getVariable[""USEC_BloodQty"",r_player_bloodTotal];" \n
        "" \n
        "//Hunger/Thirst" \n
-       "_messing =			player getVariable[""messing"",[0,0]];" \n
-       "dayz_hunger = 	_messing select 0;" \n
-       "dayz_thirst = 		_messing select 1;" \n
+       "_messing =      player getVariable[""messing"",[0,0]];" \n
+       "dayz_hunger =   _messing select 0;" \n
+       "dayz_thirst =     _messing select 1;" \n
        "" \n
        "//player setVariable [""humanity"",-3000, true];"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -954,18 +954,18 @@ class FSM
        "//Update GUI" \n
        "call player_updateGui;" \n
        "_id = [] spawn {" \n
-       "	disableSerialization;" \n
-       "	_display = uiNamespace getVariable 'DAYZ_GUI_display';" \n
-       "	_control = 	_display displayCtrl 1204;" \n
-       "	_control ctrlShow false;" \n
-       "	if (!r_player_injured) then {" \n
-       "		_ctrlBleed = 	_display displayCtrl 1303;" \n
-       "		_ctrlBleed ctrlShow false;" \n
-       "	};" \n
-       "	if (!r_fracture_legs and !r_fracture_arms) then {" \n
-       "		_ctrlFracture = 	_display displayCtrl 1203;" \n
-       "		_ctrlFracture ctrlShow false;" \n
-       "	};" \n
+       "  disableSerialization;" \n
+       "  _display = uiNamespace getVariable 'DAYZ_GUI_display';" \n
+       "  _control =  _display displayCtrl 1204;" \n
+       "  _control ctrlShow false;" \n
+       "  if (!r_player_injured) then {" \n
+       "    _ctrlBleed =  _display displayCtrl 1303;" \n
+       "    _ctrlBleed ctrlShow false;" \n
+       "  };" \n
+       "  if (!r_fracture_legs and !r_fracture_arms) then {" \n
+       "    _ctrlFracture =   _display displayCtrl 1203;" \n
+       "    _ctrlFracture ctrlShow false;" \n
+       "  };" \n
        "};" \n
        "" \n
        "call ui_changeDisplay;"/*%FSM</STATEINIT""">*/;
@@ -1079,71 +1079,71 @@ class FSM
        "_currentWpn = """";" \n
        "_currentAnim = """";" \n
        "if (count _state > 0) then {" \n
-       "	//Reload players state" \n
-       "	_currentWpn		=	_state select 0;" \n
-       "	_currentAnim	=	_state select 1;" \n
-       "	//Reload players state" \n
-       "	if (count _state > 2) then {" \n
-       "		dayz_temperatur = _state select 2;" \n
-       "	};" \n
+       "  //Reload players state" \n
+       "  _currentWpn   = _state select 0;" \n
+       "  _currentAnim  = _state select 1;" \n
+       "  //Reload players state" \n
+       "  if (count _state > 2) then {" \n
+       "    dayz_temperatur = _state select 2;" \n
+       "  };" \n
        "} else {" \n
-       "	_currentWpn	=	""Makarov"";" \n
-       "	_currentAnim	=	""aidlpercmstpsraswpstdnon_player_idlesteady02"";" \n
+       "  _currentWpn = ""Makarov"";" \n
+       "  _currentAnim  = ""aidlpercmstpsraswpstdnon_player_idlesteady02"";" \n
        "};" \n
        "" \n
        "if (player hasWeapon ""MeleeCrowbar"") then {" \n
-       "	player removeMagazine 'crowbar_swing';	" \n
-       "	player addMagazine 'crowbar_swing';" \n
+       "  player removeMagazine 'crowbar_swing';  " \n
+       "  player addMagazine 'crowbar_swing';" \n
        "};" \n
        "if (player hasWeapon ""MeleeSledge"") then {" \n
-       "	player removeMagazine 'sledge_swing';	" \n
-       "	player addMagazine 'sledge_swing';" \n
+       "  player removeMagazine 'sledge_swing'; " \n
+       "  player addMagazine 'sledge_swing';" \n
        "};" \n
        "if (player hasWeapon ""MeleeHatchet"") then {" \n
-       "	player removeMagazine 'hatchet_swing';		" \n
-       "	player addMagazine 'hatchet_swing';" \n
+       "  player removeMagazine 'hatchet_swing';    " \n
+       "  player addMagazine 'hatchet_swing';" \n
        "};" \n
        "if (player hasWeapon ""MeleeMachete"") then {" \n
-       "	player removeMagazine 'machete_swing';		" \n
-       "	player addMagazine 'machete_swing';" \n
+       "  player removeMagazine 'machete_swing';    " \n
+       "  player addMagazine 'machete_swing';" \n
        "};" \n
        "if (player hasWeapon ""MeleeFishingPole"") then {" \n
-       "	player removeMagazine 'Fishing_Swing';		" \n
-       "	player addMagazine 'Fishing_Swing';" \n
+       "  player removeMagazine 'Fishing_Swing';    " \n
+       "  player addMagazine 'Fishing_Swing';" \n
        "};" \n
        "" \n
        "reload player;" \n
        "" \n
        "if (_currentAnim != """" and !dayz_paraSpawn) then {" \n
-       "	[objNull, player, rSwitchMove,_currentAnim] call RE;" \n
+       "  [objNull, player, rSwitchMove,_currentAnim] call RE;" \n
        "};" \n
        "" \n
        "if (_currentWpn != """") then {" \n
-       "	player selectWeapon _currentWpn;" \n
+       "  player selectWeapon _currentWpn;" \n
        "} else {" \n
-       "	//Establish default weapon" \n
-       "	if (count weapons player > 0) then" \n
-       "	{" \n
-       "		private['_type', '_muzzles'];" \n
+       "  //Establish default weapon" \n
+       "  if (count weapons player > 0) then" \n
+       "  {" \n
+       "    private['_type', '_muzzles'];" \n
        "" \n
-       "		_type = ((weapons player) select 0);" \n
-       "		// check for multiple muzzles (eg: GL)" \n
-       "		_muzzles = getArray(configFile >> ""cfgWeapons"" >> _type >> ""muzzles"");" \n
+       "    _type = ((weapons player) select 0);" \n
+       "    // check for multiple muzzles (eg: GL)" \n
+       "    _muzzles = getArray(configFile >> ""cfgWeapons"" >> _type >> ""muzzles"");" \n
        "" \n
-       "		if (count _muzzles > 1) then {" \n
-       "			player selectWeapon (_muzzles select 0);" \n
-       "		} else {" \n
-       "			player selectWeapon _type;" \n
-       "		};" \n
-       "	};" \n
+       "    if (count _muzzles > 1) then {" \n
+       "      player selectWeapon (_muzzles select 0);" \n
+       "    } else {" \n
+       "      player selectWeapon _type;" \n
+       "    };" \n
+       "  };" \n
        "};" \n
        "" \n
        "//Player control loop" \n
        "dayz_monitor1 = [] spawn {" \n
-       "	while {true} do {" \n
-       "		call player_zombieCheck;" \n
-       "		sleep 1;" \n
-       "	};" \n
+       "  while {true} do {" \n
+       "    call player_zombieCheck;" \n
+       "    sleep 1;" \n
+       "  };" \n
        "};" \n
        "" \n
        ""/*%FSM</STATEINIT""">*/;
@@ -1170,22 +1170,22 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"#define ods(arg1) ""armaperflib"" callextension arg1" \n
        "" \n
        "if (!isNil ""PVDZE_plr_SetDate"") then {" \n
-       "	setDate PVDZE_plr_SetDate;" \n
+       "  setDate PVDZE_plr_SetDate;" \n
        "};" \n
        "" \n
        "if (!isNil ""dayzInfectedCamps"") then {" \n
-       "	//diag_log (""Infected Camps: "" +str(dayzInfectedCamps));" \n
-       "	dayzInfectedCamps spawn infectedcamps;" \n
+       "  //diag_log (""Infected Camps: "" +str(dayzInfectedCamps));" \n
+       "  dayzInfectedCamps spawn infectedcamps;" \n
        "};" \n
        "" \n
        "diag_log (""Local Time: "" +str(PVDZE_plr_SetDate));" \n
        "" \n
        "//Medical" \n
-       "dayz_medicalH = 	[] execVM ""\z\addons\dayz_code\medical\init_medical.sqf"";	//Medical Monitor Script (client only)" \n
+       "dayz_medicalH =   [] execVM ""\z\addons\dayz_code\medical\init_medical.sqf""; //Medical Monitor Script (client only)" \n
        "[player] call fnc_usec_damageHandle;" \n
        "if (r_player_unconscious) then {" \n
-       "	r_player_timeout = player getVariable[""unconsciousTime"",0];" \n
-       "	player playActionNow ""Die"";" \n
+       "  r_player_timeout = player getVariable[""unconsciousTime"",0];" \n
+       "  player playActionNow ""Die"";" \n
        "};" \n
        "player allowDamage true;" \n
        "player enableSimulation true;" \n
@@ -1196,41 +1196,41 @@ class FSM
        "player addWeapon ""Flare"";" \n
        "if ((currentWeapon player == """")) then { player action [""SWITCHWEAPON"", player,player,1]; };" \n
        "//load in medical details" \n
-       "r_player_dead = 		player getVariable[""USEC_isDead"",false];" \n
-       "r_player_unconscious = 	player getVariable[""NORRN_unconscious"", false];" \n
-       "r_player_infected =		player getVariable[""USEC_infected"",false];" \n
-       "r_player_injured = 		player getVariable[""USEC_injured"",false];" \n
-       "r_player_inpain = 		player getVariable[""USEC_inPain"",false];" \n
-       "r_player_cardiac = 		player getVariable[""USEC_isCardiac"",false];" \n
-       "r_player_lowblood =		player getVariable[""USEC_lowBlood"",false];" \n
-       "r_player_blood = 		player getVariable[""USEC_BloodQty"",r_player_bloodTotal];" \n
+       "r_player_dead =     player getVariable[""USEC_isDead"",false];" \n
+       "r_player_unconscious =  player getVariable[""NORRN_unconscious"", false];" \n
+       "r_player_infected =   player getVariable[""USEC_infected"",false];" \n
+       "r_player_injured =    player getVariable[""USEC_injured"",false];" \n
+       "r_player_inpain =     player getVariable[""USEC_inPain"",false];" \n
+       "r_player_cardiac =    player getVariable[""USEC_isCardiac"",false];" \n
+       "r_player_lowblood =   player getVariable[""USEC_lowBlood"",false];" \n
+       "r_player_blood =    player getVariable[""USEC_BloodQty"",r_player_bloodTotal];" \n
        "" \n
        """colorCorrections"" ppEffectEnable true;" \n
        """colorCorrections"" ppEffectAdjust [1, 1, 0, [1, 1, 1, 0.0], [1, 1, 1, 1 min (4*r_player_blood/3/r_player_bloodTotal)],  [1, 1, 1, 0.0]];" \n
        """colorCorrections"" ppEffectCommit 0;" \n
        "" \n
        "dayz_gui = [] spawn {" \n
-       "	private[""_distance""];" \n
-       "	dayz_musicH = [] spawn player_music;" \n
-       "	while {true} do {" \n
-       "		_array = player call world_surfaceNoise;" \n
-       "		dayz_surfaceNoise = _array select 1;" \n
-       "		dayz_surfaceType = 	_array select 0;" \n
+       "  private[""_distance""];" \n
+       "  dayz_musicH = [] spawn player_music;" \n
+       "  while {true} do {" \n
+       "    _array = player call world_surfaceNoise;" \n
+       "    dayz_surfaceNoise = _array select 1;" \n
+       "    dayz_surfaceType =  _array select 0;" \n
        "" \n
-       "		call player_checkStealth;" \n
-       "		dayz_statusArray = [] call player_updateGui;" \n
-       "		if (!isNull cursorTarget and !dayz_heartBeat) then {" \n
-       "			if (alive cursorTarget) then {" \n
-       "				_id = cursorTarget spawn dayz_lowHumanity;" \n
-       "			};" \n
-       "		};" \n
-       "		sleep 0.2;" \n
-       "	};" \n
+       "    call player_checkStealth;" \n
+       "    dayz_statusArray = [] call player_updateGui;" \n
+       "    if (!isNull cursorTarget and !dayz_heartBeat) then {" \n
+       "      if (alive cursorTarget) then {" \n
+       "        _id = cursorTarget spawn dayz_lowHumanity;" \n
+       "      };" \n
+       "    };" \n
+       "    sleep 0.2;" \n
+       "  };" \n
        "};" \n
        "" \n
        "dayzGearSave = true;" \n
        "" \n
-       "dayz_slowCheck = 	[] spawn player_spawn_2;" \n
+       "dayz_slowCheck =  [] spawn player_spawn_2;" \n
        "" \n
        "_world = toUpper(worldName); //toUpper(getText (configFile >> ""CfgWorlds"" >> (worldName) >> ""description""));" \n
        "_nearestCity = nearestLocations [getPos player, [""NameCityCapital"",""NameCity"",""NameVillage"",""NameLocal""],1000];" \n
@@ -1243,27 +1243,27 @@ class FSM
        "Dayz_logonTime = daytime;" \n
        "Dayz_logonDate = dayz_Survived;" \n
        "" \n
-       "dayz_animalCheck = 	[] spawn player_spawn_1;" \n
+       "dayz_animalCheck =  [] spawn player_spawn_1;" \n
        "" \n
        "dayz_spawnCheck = [] spawn {" \n
-       "	while {true} do {" \n
-       "		[""both""] call player_spawnCheck;" \n
-       "		sleep 8;" \n
-       "	};" \n
+       "  while {true} do {" \n
+       "    [""both""] call player_spawnCheck;" \n
+       "    sleep 8;" \n
+       "  };" \n
        "};" \n
        "" \n
        "dayz_Totalzedscheck = [] spawn {" \n
-       "	while {true} do {" \n
-       "		dayz_maxCurrentZeds = {alive _x} count entities ""zZombie_Base"";" \n
-       "		sleep 60;" \n
-       "	};" \n
+       "  while {true} do {" \n
+       "    dayz_maxCurrentZeds = {alive _x} count entities ""zZombie_Base"";" \n
+       "    sleep 60;" \n
+       "  };" \n
        "};" \n
        "" \n
        "dayz_backpackcheck = [] spawn {" \n
-       "	while {true} do {" \n
-       "		call player_dumpBackpack;" \n
-       "		sleep 1;" \n
-       "	};" \n
+       "  while {true} do {" \n
+       "    call player_dumpBackpack;" \n
+       "    sleep 1;" \n
+       "  };" \n
        "};" \n
        "" \n
        "// TODO: questionably" \n
@@ -1271,23 +1271,23 @@ class FSM
        "" \n
        "private[""_fadeFire""];" \n
        "{" \n
-       "	_fadeFire = _x getVariable['fadeFire', true];" \n
-       "	if (!_fadeFire) then {" \n
-       "		nul = [_x,2,0,false,false] spawn BIS_Effects_Burn;" \n
-       "	};" \n
+       "  _fadeFire = _x getVariable['fadeFire', true];" \n
+       "  if (!_fadeFire) then {" \n
+       "    nul = [_x,2,0,false,false] spawn BIS_Effects_Burn;" \n
+       "  };" \n
        "} forEach allMissionObjects ""SpawnableWreck"";" \n
        "" \n
        "// remove box " \n
        "[] spawn {" \n
-       "	private [""_counter""];" \n
-       "	_counter = 0;" \n
-       "	while {true} do {" \n
-       "		if ((player getVariable[""combattimeout"", 0] >= time) or (_counter >= 60) or (player distance DZE_PROTOBOX > 2)) exitWith {" \n
-       "			deleteVehicle DZE_PROTOBOX;" \n
-       "		};" \n
-       "		sleep 1;" \n
-       "		_counter = _counter + 1;" \n
-       "	};" \n
+       "  private [""_counter""];" \n
+       "  _counter = 0;" \n
+       "  while {true} do {" \n
+       "    if ((player getVariable[""combattimeout"", 0] >= time) or (_counter >= 60) or (player distance DZE_PROTOBOX > 2)) exitWith {" \n
+       "      deleteVehicle DZE_PROTOBOX;" \n
+       "    };" \n
+       "    sleep 1;" \n
+       "    _counter = _counter + 1;" \n
+       "  };" \n
        "};" \n
        "" \n
        "// light sandstorm effect" \n
@@ -1548,8 +1548,8 @@ class FSM
        "diag_log (""End Mission"");" \n
        "" \n
        "//if (!isServer) then {" \n
-       "	failMission ""LOSER"";" \n
-       "	endMission ""END1""" \n
+       "  failMission ""LOSER"";" \n
+       "  endMission ""END1""" \n
        "//};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
