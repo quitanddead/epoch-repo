@@ -1,10 +1,10 @@
 // =========================================================================================================
 //  SAR_AI - DayZ AI library
-//  Version: 1.1.0 
+//  Version: 1.5.0 
 //  Author: Sarge (sarge@krumeich.ch) 
 //
 //		Wiki: to come
-//		Forum: http://opendayz.net/index.php?threads/sarge-ai-framework-public-release.8391/
+//		Forum: http://opendayz.net/#sarge-ai.131
 //		
 // ---------------------------------------------------------------------------------------------------------
 //  Required:
@@ -13,116 +13,55 @@
 //  
 // ---------------------------------------------------------------------------------------------------------
 //   SAR_trace_from_vehicle.sqf
-//   last modified: 1.4.2013
+//   last modified: 28.5.2013
 // ---------------------------------------------------------------------------------------------------------
 
-// Traces only from vehicles, so no ZED tracing, should not be used for infantry. Includes refuel and reammo functions for the vehicle
+// Traces only from vehicles and traces only players which are not in a vehicle, so NO ZED tracing, should not be used for infantry. 
 
-private ["_ai","_entity_array","_humanity","_humanitylimit","_sleeptime","_detectrange","_veh_weapons","_vehicle","_weapons","_tracewhat","_reloadmag","_magazintypes"];
+private ["_ai","_entity_array","_humanity","_humanitylimit","_sleeptime","_detectrange","_tracewhat","_player_rating","_clientmachine"];
+
+if (!isServer) exitWith {}; // only run this on the server
 
 _ai = _this select 0;
 _tracewhat = "CAManBase";
 
-_weapons = weapons _ai;
-
-_detectrange = SAR_DETECT_HOSTILE * 2;
+_detectrange = SAR_DETECT_HOSTILE_FROM_VEHICLE;
 _humanitylimit = SAR_HUMANITY_HOSTILE_LIMIT;
-_humanity=0;
-_sleeptime = SAR_DETECT_INTERVAL/2;
+_humanity = 0;
+_sleeptime = SAR_DETECT_FROM_VEHICLE_INTERVAL;
     
 while {alive _ai} do {
-
-    if (hasInterface) then {
     
-        _entity_array = (position _ai) nearEntities [_tracewhat, _detectrange];
-        
-        {
-            if(isPlayer _x) then {
-
-                _humanity= _x getVariable ["humanity",0];
-                
-                If (_humanity < _humanitylimit && rating _x > -10000) then {
-                    if(SAR_EXTREME_DEBUG) then {
-                        diag_log format["SAR EXTREME DEBUG: reducing rating (trace_from_vehicle) for player: %1", _x];
-                    };
-
-                    _x addrating -10000;
-                    // _target = _x;                    
-                    // {
-                        // _x doTarget _target;
-                        // _x doFire _target;
-                    // } foreach units group _ai; 
-
-                };
-            };
-            
-        } forEach _entity_array;
-    };
-    // refresh ammo & fuel
+    _entity_array = (position _ai) nearEntities [_tracewhat, _detectrange];
     
-    if (!( hasInterface || isDedicated )) then {
-    
-        _vehicle = vehicle _ai;
-    
-        if(_vehicle != _ai) then { // NPC in vehicle, we are only reloading vehicle ammo
-        
-            // check if low on ammo & fuel
-            _veh_weapons = weapons _vehicle;
+    {
+        if(isPlayer _x && {vehicle _x == _x}) then { // only do that for players that are not in a vehicle
+
+            _humanity= _x getVariable ["humanity",0];
+            _player_rating = rating _x;
             
-            if(_vehicle ammo (_veh_weapons select 0) < 11) then {
-                _vehicle setVehicleAmmo 1;
-                if (SAR_EXTREME_DEBUG) then {diag_log "SAR EXTREME DEBUG: Vehicle new ammo";};
-            };
-            
-            if(fuel _vehicle < 0.2) then {
-                _vehicle setFuel 1;
-                if (SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: Vehicle refueled";};
-            };
+            If (_humanity < _humanitylimit && {_player_rating > -10000}) then {
 
-        } else { // NPC on foot
-            
-            // loop through weapons array
-            {
-                // check if weapon rifle exists on AI
-                if([_x,"Rifle"] call SAR_isKindOf_weapon) then {
-
-                    _reloadmag = true;
-                    _magazintypes = getArray (configFile >> "CfgWeapons" >> _x >> "magazines");
-                    
-                    // loop through valid magazines of weapon and check if there is a magazine for that weapon on the AI
-                    {
-                        if (_x in magazines _ai) then {
-                            _reloadmag = false;
-                        };
-                    } foreach _magazintypes;
-                    
-                    if ((_ai ammo _x == 0) || (_reloadmag))  then {
-                        _ai removeMagazines (_magazintypes select 0);
-                        _ai addMagazine (_magazintypes select 0);
-                        if (SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: Infantry reloaded a magazine for a rifle.";};
-                    };
-                };
-
-                if([_x,"Pistol"] call SAR_isKindOf_weapon) then {
-
-                    _reloadmag = true;
-                    _magazintypes = getArray (configFile >> "CfgWeapons" >> _x >> "magazines");
-                    // loop through valid magazines of weapon and check if there is a magazine for that weapon on the AI
-                    {
-                        if (_x in magazines _ai) then {
-                            _reloadmag = false;
-                        };
-                    } foreach _magazintypes;
-                    
-                    if ((_ai ammo _x == 0) || (_reloadmag))  then {
-                        _ai removeMagazines (_magazintypes select 0);
-                        _ai addMagazine (_magazintypes select 0);
-                        if (SAR_EXTREME_DEBUG) then {diag_log "SAR_EXTREME_DEBUG: Infantry reloaded a magazine for a pistol.";};
-                    };
+                if(SAR_EXTREME_DEBUG) then {
+                    diag_log format["SAR EXTREME DEBUG: reducing rating (trace_from_vehicle) for player: %1", _x];
                 };
                 
-            } foreach _weapons;
+                //define global variable
+                adjustrating = [_x,(0 - (10000+_player_rating))];
+            
+                // get the players machine ID
+                _clientmachine = owner _x;
+            
+                // transmit the global variable to this client machine
+                _clientmachine publicVariableClient "adjustrating";
+                
+                // reveal player to vehicle group
+                _ai reveal [_x,4];
+                
+            };
         };
-    };
+        
+    } forEach _entity_array;
+
     sleep _sleeptime;
 };

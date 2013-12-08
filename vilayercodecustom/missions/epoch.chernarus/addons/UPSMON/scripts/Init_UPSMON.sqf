@@ -15,7 +15,10 @@
 // ---------------------------------------------------------------------------------------------------------
 
 //Adding eventhandlers
-	"KRON_UPS_EAST_SURRENDED" addPublicVariableEventHandler { if (_this select 1) then { nul=[east] execvm "addons\UPSMON\scripts\UPSMON\MON_surrended.sqf";};};
+	
+    private ["_s","_l"];
+
+    "KRON_UPS_EAST_SURRENDED" addPublicVariableEventHandler { if (_this select 1) then { nul=[east] execvm "addons\UPSMON\scripts\UPSMON\MON_surrended.sqf";};};
 	"KRON_UPS_WEST_SURRENDED" addPublicVariableEventHandler { if (_this select 1) then { nul=[west] execvm "addons\UPSMON\scripts\UPSMON\MON_surrended.sqf";};};
 	"KRON_UPS_GUER_SURRENDED" addPublicVariableEventHandler { if (_this select 1) then { nul=[resistance] execvm "addons\UPSMON\scripts\UPSMON\MON_surrended.sqf";};};
 	"MON_LOCAL_EXEC" addPublicVariableEventHandler { if (local ((_this select 1)select 0)) then {
@@ -24,7 +27,7 @@
 	};
 
 
-if (hasInterface) exitWith {};
+if (!isServer) exitWith {};
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
 //        These Variables should be checked and set as required, to make the mission runs properly.
@@ -131,7 +134,7 @@ KRON_UPS_ARTILLERY_GUER_FIRE = false; //set to true for doing resistance to fire
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------			
 	R_GOTHIT_ARRAY =[0];
 	AcePresent = isClass(configFile/"CfgPatches"/"ace_main");
-	UPSMON_Version = "UPSMON 5.1.0 beta1";
+	UPSMON_Version = "UPSMON 5.1.0 SARGE AI version";
 	KILLED_CIV_COUNTER = [0,0,0,0,0];
 	KRON_UPS_flankAngle = 45; //Angulo de flanqueo
 	KRON_UPS_INIT = 0;        //Variable que indica que ha sido inicializado
@@ -183,7 +186,7 @@ KRON_UPS_ARTILLERY_GUER_FIRE = false; //set to true for doing resistance to fire
 		UPSMON = compile preprocessFile "addons\UPSMON\scripts\UPSMON.sqf";	
 		UPSMON_surrended = compile preprocessFile "addons\UPSMON\scripts\UPSMON\MON_surrended.sqf";	
 
-		// declaración de variables privadas
+		// declaraciï¿½n de variables privadas
 		private["_obj","_trg","_l","_pos"];
 
 		// global functions
@@ -192,7 +195,7 @@ KRON_UPS_ARTILLERY_GUER_FIRE = false; //set to true for doing resistance to fire
 		KRON_PosInfo3 = {private["_pos","_lst","_bld","_bldpos"];_pos=_this select 0; _lst= nearestObjects [_pos, [], 3];
 			if (count _lst==0) then {_bld=objnull;_bldpos=0} else {_bld = nearestbuilding (_lst select 0); 
 			_bldpos=[_bld] call KRON_BldPos2}; [_bld,_bldpos]};
-		KRON_BldPos = {private ["_bld","_bldpos","_posZ","_maxZ"];_bld=_this select 0;_maxZ=0;_bi=0;_bldpos=0;while {_bi>=0} do {if (((_bld BuildingPos _bi) select 0)==0) then {_bi=-99} else {_bz=((_bld BuildingPos _bi) select 2); if (((_bz)>4) && ((_bz>_maxZ) || ((_bz==_maxZ) && (random 1>.8)))) then {_maxZ=_bz; _bldpos=_bi}};_bi=_bi+1};_bldpos};
+		KRON_BldPos = {private ["_bld","_bldpos","_maxZ","_bi","_bz"];_bld=_this select 0;_maxZ=0;_bi=0;_bldpos=0;while {_bi>=0} do {if (((_bld BuildingPos _bi) select 0)==0) then {_bi=-99} else {_bz=((_bld BuildingPos _bi) select 2); if (((_bz)>4) && ((_bz>_maxZ) || ((_bz==_maxZ) && (random 1>.8)))) then {_maxZ=_bz; _bldpos=_bi}};_bi=_bi+1};_bldpos};
 		KRON_BldPos2 = {private ["_bld","_bldpos"];
 							_bld=_this select 0; _bldpos = 1;
 							while {format ["%1", _bld buildingPos _bldpos] != "[0,0,0]"}  do {_bldpos = _bldpos + 1;};
@@ -234,7 +237,23 @@ KRON_UPS_ARTILLERY_GUER_FIRE = false; //set to true for doing resistance to fire
 					};
 				} foreach _list; 
 			_list};
-		KRON_deleteDead = {private["_u","_s"];_u=_this select 0; _s= _this select 1; _u removeAllEventHandlers "killed"; sleep _s; deletevehicle _u};
+		KRON_deleteDead = {
+            private["_u","_s"];
+            _u=_this select 0;
+            _s= _this select 1;
+            _u removeAllEventHandlers "killed";
+        
+            if(SAR_SHOW_XP_LVL) then {
+            
+                deleteVehicle (_u getVariable ["SAR_sphere_id",objNull]);
+            
+            };
+
+            sleep _s;
+        
+            deletevehicle _u;
+            
+        };
 
 		
 		
@@ -245,8 +264,7 @@ KRON_UPS_ARTILLERY_GUER_FIRE = false; //set to true for doing resistance to fire
 	// ***********************************************************************************************************	
 		MON_MAIN_server = {
 		
-			private["_obj","_trg","_l","_pos","_countWestSur","_countEastSur","_countResSur","_WestSur","_EastSur","_ResSur","_target","_targets","_targets0","_targets1","_targets2","_npc","_cycle"
-				,"_arti","_side","_range","_rounds","_area","_maxcadence","_mincadence","_bullet","_fire","_knownpos","_sharedenemy","_enemyside","_timeout"];
+			private ["_countWestSur","_countEastSur","_countResSur","_WestSur","_EastSur","_ResSur","_target","_targets","_targets0","_targets1","_targets2","_npc","_cycle","_arti","_side","_range","_rounds","_area","_maxcadence","_mincadence","_bullet","_fire","_knownpos","_sharedenemy","_enemyside","_timeout","_auxtarget","_targetPos","_salvobreak"];
 			_cycle = 10; //Time to do a call to commander
 			_arti = objnull;
 			_side = "";
@@ -332,7 +350,7 @@ KRON_UPS_ARTILLERY_GUER_FIRE = false; //set to true for doing resistance to fire
 				_targets1 = [];
 				_targets2 = [];
 				{
-					if (!isnull _x && alive _x && !captive _x ) then {	
+					if (_foreachindex > 0 && {!isnull _x} && {alive _x} && {!captive _x} ) then {	
 						_npc = _x;								
 						_targets = [];
 
@@ -574,5 +592,5 @@ processInitCommands;
 [] SPAWN MON_MAIN_server;
 
 diag_log "--------------------------------";
-diag_log (format["UPSMON started"]);
+diag_log (format["SAR_AI - special UPSMON version started"]);
 if(true) exitWith {}; 

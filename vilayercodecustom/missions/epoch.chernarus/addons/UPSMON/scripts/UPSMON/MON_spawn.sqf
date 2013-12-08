@@ -1,13 +1,13 @@
 /* =====================================================================================================
 	MON_spawn.sqf
 	Author: Monsada (chs.monsada@gmail.com) 
-		Comunidad Hispana de Simulación: 
+		Comunidad Hispana de Simulaciï¿½n: 
 		http://www.simulacion-esp.com
  =====================================================================================================
-	Parámeters: [Param1,Param2,Param3,[Param4]]  EXECVM "SCRIPTS\UPSMON\MON_SPAWN.SQF";	
+	Parï¿½meters: [Param1,Param2,Param3,[Param4]]  EXECVM "SCRIPTS\UPSMON\MON_SPAWN.SQF";	
 		<-	Param1 	Id of the template to copy.
 		<-	Param2 	Position to create new squad.
-		<-	Param3 	Nº of squads to create
+		<-	Param3 	Nï¿½ of squads to create
 		<-	Param4	Array of parameters of UPSMON, first must be name of marc to patrol
   =====================================================================================================
   	Function that allows to spawn UPSMON squads.	
@@ -18,12 +18,14 @@
 		and the position.
 		nul = [1,[0,0,0],3,[mark, upsmon optional params]] EXECVM "SCRIPTS\UPSMON\MON_SPAWN.SQF";		
  =====================================================================================================*/
-if (hasInterface) exitWith {}; 
+
+private ["_template","_position","_params","_copies","_membertypes","_unittype","_side","_UCthis","_initstr","_grp","_lead","_newunit","_i","_newpos","_initlstr","_e","_rnd","_c","_members","_vehicletypes","_spawned"];
+if (!isserver) exitWith {}; 
 
 //Waits until UPSMON is init
 waitUntil {!isNil("KRON_UPS_INIT")};
 waitUntil {KRON_UPS_INIT==1};	
-private ["_template","_position","_params","_copies","_membertypes","_unittype","_side","_UCthis","_initstr","_grp","_lead","_newunit","_i","_newpos","_vehicle","_initlstr"];
+
 
 //Parameter reading
 _template  = _this select 0;
@@ -41,7 +43,6 @@ _grp = grpnull;
 _lead = objnull;
 _newunit = objnull;
 _newpos=[];
-_vehicle=[];
 
 //Gets parameters of UPSMON
 for [{_i=0},{_i<count _params},{_i=_i+1}] do {_e=_params select _i; if (typeName _e=="STRING") then {_e=toUpper(_e)};_UCthis set [_i,_e]};
