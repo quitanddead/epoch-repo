@@ -19,7 +19,7 @@
 
 private ["_snipers","_soldiers","_group","_check","_probability","_chance","_playerlist","_triggername","_tmparr","_markername","_player","_valuearray","_max_grps","_rnd_grps","_max_p_grp","_grps_band","_grps_sold","_grps_surv","_grps_upd","_respawn"];
 
-if (hasInterface) exitWith {}; // only run this on the server
+if (!isServer) exitWith {}; // only run this on the server
 
 _playerlist = _this select 0;
 _triggername = _this select 1;

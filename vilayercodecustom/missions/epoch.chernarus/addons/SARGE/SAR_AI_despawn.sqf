@@ -19,7 +19,7 @@
 
 private ["_timeout","_triggername","_tmparr","_markername","_valuearray","_grps_band","_grps_sold","_grps_surv","_trigger"];
 
-if (hasInterface) exitWith {}; // only run this on the server
+if (!isServer) exitWith {}; // only run this on the server
 
 _timeout = SAR_DESPAWN_TIMEOUT;
 

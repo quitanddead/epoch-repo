@@ -81,7 +81,7 @@ private ["_loadouttype","_vehiclecrews","_crew_units","_is_veh_group","_circlede
 
 //_ups_init_start_time = diag_tickTime;
 
-if (hasInterface) exitWith {};
+if (!isServer) exitWith {};
 
 
 if (isNil("KRON_UPS_INIT")) then {

@@ -24,7 +24,7 @@
 
 private ["_message","_ai","_aikiller","_aikilled_type","_aikilled_side","_aikilled_group_side","_aikiller_group_side","_aikiller_type","_aikiller_name","_aikiller_side","_humanity","_humankills","_banditkills","_ai_xp_type","_xp_gain","_tmp","_sphere_alpha","_sphere_red","_sphere_green","_sphere_blue","_obj_text_string","_ai_killer_xp","_ai_killer_xp_new","_ai_type","_ai_xp","_ai_killer_xp_type","_ai_killer_type"];
 
-if (hasInterface) exitWith {}; // only run this on the server
+if (!isServer) exitWith {}; // only run this on the server
 
 _ai = _this select 0;
 _aikiller = _this select 1;
