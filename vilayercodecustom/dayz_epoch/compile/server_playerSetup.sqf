@@ -1,4 +1,4 @@
-private ["_characterID","_playerObj","_playerID","_charName","_dummy","_worldspace","_state","_doLoop","_key","_primary","_medical","_stats","_humanity","_lastinstance","_friendlies","_randomSpot","_position","_debug","_distance","_hit","_fractures","_score","_findSpot","_pos","_isIsland","_w","_clientID","_spawnMC","_namespace"];
+private ["_characterID","_playerObj","_playerID","_charName","_dummy","_worldspace","_state","_doLoop","_key","_primary","_medical","_stats","_humanity","_lastinstance","_friendlies","_randomSpot","_position","_debug","_distance","_hit","_fractures","_score","_findSpot","_pos","_isIsland","_w","_clientID","_spawnMC","_namespace","_uidHC","_character"];
 
 //diag_log ("SETUP: attempted with " + str(_this));
 
@@ -242,7 +242,7 @@ if (_randomSpot) then {
 			_position = [7734.68,15656.5,0];
 		};
 
-		diag_log format ["ERIC-DEBUG :: Worldspace set to [180,[%1]] for player %2",_position, _charName];
+		diag_log format ["ERIC-DEBUG :: Worldspace set to [180,[%1]] for player %2",_position,name _charName];
 
 		_playerObj setPosATL _position;
 		//END-ERIC
