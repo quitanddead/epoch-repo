@@ -30,7 +30,7 @@
  =====================================================================================================*/
 
 private ["_artillery","_area","_maxcadence","_mincadence","_sleep","_rounds","_dummypos","_salvobreak","_range","_bullet","_vector"];
-if (!isserver) exitWith {}; 
+if (hasInterface) exitWith {}; 
 
 //Waits until UPSMON is init
 waitUntil {!isNil("KRON_UPS_INIT")};

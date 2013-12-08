@@ -18,7 +18,7 @@
 
     private ["_loop","_chk_count","_i","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_pos","_tmp","_sphere_alpha","_sphere_red","_sphere_green","_sphere_blue","_obj_text_string"];
 
-    if (!isServer) exitWith {}; // only run this on the server
+    if (hasInterface) exitWith {}; // only run this on the server
     
     // wait until the server has spawned all the vehicles ... might take a while
     

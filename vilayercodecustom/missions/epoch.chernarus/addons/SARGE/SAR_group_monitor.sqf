@@ -19,7 +19,7 @@
 
 private ["_allgroups","_running","_sleeptime","_count_friendly_groups","_count_unfriendly_groups","_debugstring"];
 
-if (!isServer) exitWith {}; // only run this on the server
+if (hasInterface) exitWith {}; // only run this on the server
 
 _running = true;
 _sleeptime = 5;

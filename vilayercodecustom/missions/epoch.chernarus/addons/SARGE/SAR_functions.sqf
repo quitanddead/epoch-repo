@@ -132,7 +132,7 @@ SAR_AI_debug = {
 
     private ["_obj","_sp_fightmode","_sp_combatmode","_fightmode","_combatmode","_obj_text_string","_behaviour","_sp_behaviour"];
     
-    if (!isServer) exitWith {}; // only run this on the server
+    if (hasInterface) exitWith {}; // only run this on the server
 
     _obj = _this select 0;
     

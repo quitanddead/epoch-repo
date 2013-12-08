@@ -20,7 +20,7 @@
  =====================================================================================================*/
 
 private ["_template","_position","_params","_copies","_membertypes","_unittype","_side","_UCthis","_initstr","_grp","_lead","_newunit","_i","_newpos","_initlstr","_e","_rnd","_c","_members","_vehicletypes","_spawned"];
-if (!isserver) exitWith {}; 
+if (hasInterface) exitWith {}; 
 
 //Waits until UPSMON is init
 waitUntil {!isNil("KRON_UPS_INIT")};
